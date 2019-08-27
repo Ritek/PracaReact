@@ -3,8 +3,10 @@ import '../App.css';
 //import {Link} from 'react-router-dom';
 import Axios from 'axios';
 
+import useForm from '../hooks/useForm';
+import validate from './validateRegister';
+
 import { UserContext, UserLoginContext } from '../App';
-import useInput from '../hooks/useInput';
 
 function Register() {
   const user = useContext(UserContext);
@@ -17,28 +19,10 @@ function Register() {
         minWidth: '300px',
     }
 
-    const [input, setInput] = useState({
-        login: "",
-        email: "",
-        password: "",
-        password2: "",
-    });
+    const { values, handleChange, handleSubmit, errors } = useForm(submit, validate);
 
-    const handleChange = (event) => {
-        const {name, value} = event.target;
-        setInput({...input, [name]: value});
-    }
-
-    const handleSubmit = (event) => {
-        
-        event.preventDefault();
-
-        Axios.post('http://localhost:5000/api/user/register', input).then(res => {
-            //console.log(res.data);
-            setUser(res.data);
-        }).catch(err => {
-            console.log(err);
-        });
+    function submit() {
+        console.log("Submitted Succesfully");
     }
 
     return (
@@ -48,17 +32,16 @@ function Register() {
                 <h1>Login</h1>
             </div>
             <form className="card-body"> {/* ${error.login && 'is-invalid'} */}
-                <input type="text" className={`form-control`} placeholder="Enter your login" name="login" value={input.login} onChange={e => handleChange(e)}></input><br />
-                <br />
+                <input type="text" className={`form-control`} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
 
-                <input type="text" className="form-control" placeholder="Enter your email" name="email" value={input.email} onChange={e => handleChange(e)}></input><br />
-                <br />
+                <input type="text" className="form-control" placeholder="Enter your email" name="email" value={values.email} onChange={e => handleChange(e)}></input><br />
+                {errors.email && <p className='text-danger'>{errors.email}</p>}
 
-                <input type="text" className="form-control" placeholder="Enter your password" name="password" value={input.password} onChange={e => handleChange(e)}></input><br />
-                <br />
+                <input type="text" className="form-control" placeholder="Enter your password" name="password" value={values.password} onChange={e => handleChange(e)}></input><br />
+                {errors.password && <p>{errors.password}</p>}
 
-                <input type="text" className="form-control" placeholder="Repeat the password" name="password2" value={input.password2} onChange={e => handleChange(e)}></input><br />
-                <br />
+                <input type="text" className="form-control" placeholder="Repeat the password" name="password2" value={values.password2} onChange={e => handleChange(e)}></input><br />
+                {errors.password2 && <p>{errors.email}</p>}
 
                 <button type="submit" className="btn btn-primary" onClick={e => handleSubmit(e)}>Register</button>
                 <br />
