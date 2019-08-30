@@ -25,11 +25,14 @@ function App() {
             <UserContext.Provider value={user}>
               <Route path="/" exact component={Home}/>
               <Route path="/about" component={About} />
+
               <UserLoginContext.Provider value={setUser}>
                 <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
               </UserLoginContext.Provider>
+              
+              <Route path="/register" component={Register}/>
             </UserContext.Provider>
+
           </Switch>
         </div>
       </div>

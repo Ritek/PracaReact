@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import '../App.css';
 
 import { UserContext } from '../App';
+import MyInput from './MyInput';
 
 function About() {
   const user = useContext(UserContext);
@@ -10,6 +11,8 @@ function About() {
     <div>
       <h1>About</h1>
       <p>Hello {user}</p>
+
+      <MyInput />
     </div>
   );
 }

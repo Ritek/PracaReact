@@ -27,3 +27,7 @@ nav {
   align-items: center;
   list-style: none;
 }
+
+.form-control {
+  margin-bottom: -20px;
+} 
