@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
+import RegConf from './components/RegConf';
 
 // context hook
 export const UserContext = React.createContext();
@@ -29,8 +30,9 @@ function App() {
               <UserLoginContext.Provider value={setUser}>
                 <Route path="/login" component={Login}/>
               </UserLoginContext.Provider>
-              
+
               <Route path="/register" component={Register}/>
+              <Route path="/confirmation" component={RegConf}/>
             </UserContext.Provider>
 
           </Switch>

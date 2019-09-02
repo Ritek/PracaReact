@@ -1,6 +1,6 @@
-import React, {useContext, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import '../App.css';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import Axios from 'axios';
 
 import useForm from '../hooks/useForm';
@@ -8,7 +8,7 @@ import validate from './validateRegister';
 
 function Register() {
 
-  const focusInput = useRef(null);
+    const focusInput = useRef(null);
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -21,7 +21,7 @@ function Register() {
         focusInput.current.focus();
     }, [])
 
-    const { values, handleChange, handleSubmit, errors } = useForm(submit, validate);
+    const { values, handleChange, handleSubmit, errors, handleServerError, serverError, clearForm, blockSubmit } = useForm(submit, validate);
 
     function submit() {
         console.log(values);
@@ -33,18 +33,22 @@ function Register() {
 
         Axios.post('http://localhost:5000/api/user/register', newUser).then(res => {
             console.log(res.data);
-            alert(<p>'Thank you for registration. En email was sent to the provided address. Please activate your account thrue the link in the message.'</p>);
+            handleServerError('Success');
+            clearForm();
+            blockSubmit();
         }).catch(error => {
-            //console.log(error);
-            if (error.response.status === 400) {//doesn't work
-                alert('Accaunt with provided email address already exists!');
-            }
+            console.log("Error: " + error.response.status);
+            handleServerError('Duplicate');
         });
     }
 
     return (
     <div>
+        { serverError.status === 'success' && <div className="alert alert-success" style={cardStyle}>{serverError.msg}</div> }
+        { serverError.status !== 'success' && serverError.status !== '' && <div className="alert alert-danger" style={cardStyle}>{serverError.msg}</div> }
+
         <div className="card" style={cardStyle}>
+
             <div className="card-header">
                 <h1>Registration</h1>
             </div>

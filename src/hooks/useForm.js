@@ -18,13 +18,28 @@ const useForm = (callback, validate) => {
 
     const [isSubmiting, setIsSubmiting] = useState(false);
 
+    const [serverError, setServerError] = useState({msg : '', status: ''});
+
+    const handleServerError = (reason) => {
+        if (reason === 'Success') setServerError({msg : "Registration succesfull!", status: "success"});
+        else if (reason === 'Duplicate') setServerError({msg : 'Accaunt with provided email already exists!', status: "error"});
+    }
+
+    const blockSubmit = () => {
+        setIsSubmiting(false);
+    }
+
+    const clearForm = () => {
+        setValues({...values, login: "", email: "", emailTouched: false, password: "", passwordTouched: false, password2: ""});
+    }
+
     const handleChange = (event) => {
         const {name, value} = event.target;
         setValues({...values, [name]: value, [name+'Touched']: true});
+        setIsSubmiting(false);
     }
 
     const handleSubmit = (event) => {
-        console.log("colled1");
         event.preventDefault();
         if (values.emailTouched === false || values.passwordTouched === false) {
             setValues({...values, emailTouched: true, passwordTouched: true, password2Touched: true});
@@ -42,17 +57,21 @@ const useForm = (callback, validate) => {
     }, [values]);
 
     useEffect(() => {
-        console.log("colled2");
         if (Object.keys(errors).length === 0 && isSubmiting) {
             callback();
         }
-    }, [errors])
+    }, [errors]);
 
     return {
         values,
         handleChange,
         handleSubmit,
         errors,
+
+        handleServerError,
+        serverError,
+        clearForm,
+        blockSubmit,
     }
 }
 
