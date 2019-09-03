@@ -1,21 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import '../App.css';
 
-import { UserContext } from '../App';
 import {Link} from 'react-router-dom';
 
-function Nav() {
-    const user = useContext(UserContext);    
+function Nav(props) { 
+    const [login, setLogin] = props.value;
+    let loginButton;
 
     const navStyle = {
         color: 'white',
     }
 
-    let loginButton;
-    if (user != '') {
+    const handleLogOut = () => {
+        setLogin(false);
+        localStorage.removeItem('token');
+    }
+
+    if (login === false) {
         loginButton = <Link style={navStyle} to='/login'> <li>Login</li> </Link>;
     } else {
-        loginButton = 'logout';
+        loginButton = <Link style={navStyle} to='/'> <li onClick={handleLogOut}>Log out</li> </Link>;
     }
 
     return (

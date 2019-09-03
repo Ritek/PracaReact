@@ -17,7 +17,7 @@ export default function validateLogin(values) {
         }
     }
 
-    if (values.password2 != values.password) {
+    if (values.password2 !== values.password) {
         errors.password2 = "Repeated password has to be the same as above!";
     } 
 

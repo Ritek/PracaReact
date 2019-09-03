@@ -1,17 +1,13 @@
 import React, {useContext, useState} from 'react';
 import '../App.css';
 
-import { UserContext } from '../App';
 import MyInput from './MyInput';
 
-function About() {
-  const user = useContext(UserContext);
-
+function About(props) {
   return (
     <div>
       <h1>About</h1>
-      <p>Hello {user}</p>
-
+      {props.value ? <p>True</p> : <p>False</p>}
       <MyInput />
     </div>
   );
