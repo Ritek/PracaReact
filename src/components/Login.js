@@ -2,10 +2,8 @@ import React, {useContext, useState, useEffect} from 'react';
 import '../App.css';
 import {Link, Redirect} from 'react-router-dom';
 import Axios from 'axios';
-import { LoginContext } from '../App';
 
 function Login(props) {
-    //const setLogin = useContext(LoginContext);
     const setLogin = props.value;
 
     const cardStyle = {
@@ -45,7 +43,8 @@ function Login(props) {
             console.log(res.data);
             setServerError({msg: "ok"});
 
-            localStorage.setItem('token', res.data);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('refreshToken', res.data.refreshToken);
             setLogin(true);
         }).catch(error => {
             setServerError({msg: "Could not log in. Wrong email or password"});

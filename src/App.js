@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     if (checkToken()) setIsLoggedIn(true);
     else setIsLoggedIn(false);
-    console.log("in app:", checkToken());
+    //console.log("in app:", checkToken());
   }, []);
 
   return (
@@ -35,7 +35,7 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/confirmation" component={RegConf}/>
 
-            <ProtectedRoute path="/user" component={(props) => <UserDashboard {...props} value={isLoggedIn} /> } /> 
+            <ProtectedRoute path="/user" exact component={(props) => <UserDashboard {...props} value={isLoggedIn} /> } /> 
 
             <Route path="/login" component={(props) => <Login {...props} value={setIsLoggedIn} /> }/>
           </Switch>
