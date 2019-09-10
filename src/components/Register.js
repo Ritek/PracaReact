@@ -8,7 +8,7 @@ import validate from './validateRegister';
 
 function Register() {
 
-    //const focusInput = useRef(null);
+    const focusInput = useRef(null);
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -17,9 +17,9 @@ function Register() {
         minWidth: '300px',
     }
 
-    /* useEffect(() => {
+    useEffect(() => {
         focusInput.current.focus();
-    }, []) */
+    }, []);
 
     const { values, handleChange, handleSubmit, errors, handleServerError, serverError, clearForm, blockSubmit } = useForm(submit, validate);
 
@@ -54,7 +54,7 @@ function Register() {
             </div>
             <form className="card-body">
                 <p className="font-italic">Login will only be used for greetings. You do not have to give one now.</p>
-                <input /* ref={focusInput} */ type="text" className={"form-control"} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
+                <input ref={focusInput} type="text" className={"form-control"} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
                 <br />
 
                 <input type="text" className={errors.email ? "form-control is-invalid": "form-control"} placeholder="Enter your email" name="email" value={values.email} onChange={e => handleChange(e)}></input><br />

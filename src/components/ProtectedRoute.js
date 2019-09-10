@@ -7,6 +7,7 @@ const ProtectedRoute = ({ component: Component, ...rest}) => (
         checkToken() ? (
             <Component {...props} />
         ) : (
+            console.log("can't let you in"),
             <Redirect to={{
                 pathname: '/login',
                 state: {from: props.location}

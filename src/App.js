@@ -14,6 +14,12 @@ import UserDashboard from './components/UserDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import checkToken from './components/checkLoginStatus';
 
+// teacher
+import CreateGroup from './components/teacher/CreateGroup';
+
+// student
+import JoinGroup from './components/student/JoinGroup';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -35,9 +41,19 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/confirmation" component={RegConf}/>
 
-            <ProtectedRoute path="/user" exact component={(props) => <UserDashboard {...props} value={isLoggedIn} /> } /> 
 
             <Route path="/login" component={(props) => <Login {...props} value={setIsLoggedIn} /> }/>
+
+            {/* protected routes */}
+            <ProtectedRoute path="/user" exact component={(props) => <UserDashboard {...props}  value={isLoggedIn} /> } /> 
+
+            {/* teacher routes */}
+            <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } />
+            
+            {/* student routes */}
+            <ProtectedRoute path="/user/joingroup" exact component={(props) => <JoinGroup {...props}  value={isLoggedIn} /> } />
+
+            
           </Switch>
         </div>
       </div>

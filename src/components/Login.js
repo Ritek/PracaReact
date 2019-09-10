@@ -18,10 +18,6 @@ function Login(props) {
         password: "",
     });
 
-    useEffect(() => {
-        //console.log('State changed');
-    }, [setLogin]) 
-
     const [serverError, setServerError] = useState({msg: ""});
 
     const clearInputs = () => {
@@ -41,10 +37,12 @@ function Login(props) {
 
         Axios.post('http://localhost:5000/api/user/login', input).then(res => {
             console.log(res.data);
+
+            sessionStorage.setItem('token', res.data.token);
+            sessionStorage.setItem('refreshToken', res.data.refreshToken);
+
             setServerError({msg: "ok"});
 
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('refreshToken', res.data.refreshToken);
             setLogin(true);
         }).catch(error => {
             setServerError({msg: "Could not log in. Wrong email or password"});
@@ -55,7 +53,7 @@ function Login(props) {
     return (
     <div>
         {serverError.msg === "ok" &&
-            <Redirect to='/' />
+            <Redirect to='/user' />
         }
 
         {serverError.msg !== "" && serverError.msg !== "ok" &&

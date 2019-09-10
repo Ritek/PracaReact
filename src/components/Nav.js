@@ -15,8 +15,8 @@ function Nav(props) {
 
     const handleLogOut = () => {
         setLogin(false);
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('refreshToken');
     }
 
     if (login === false) {
