@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Axios from 'axios';
 import decode from 'jwt-decode';
 
@@ -14,16 +14,10 @@ function JoinGroup() {
     const [values, setValues] = useState({userId: "", name: "", password: ""});
     const [message, setMessage] = useState({status: "", msg: ""});
 
-    useEffect(() => {
-        //focusInput.current.focus();
+    const focusInput = useRef(null);
 
-        try {
-            const {id} = decode(sessionStorage.getItem('token'));
-            console.log("effect id:", id);
-            setValues({...values, userId: id});
-        } catch(error) {
-            console.log(error);
-        }
+    useEffect(() => {
+        focusInput.current.focus();
     }, []);
 
     const handleChange = (event) => {
@@ -32,6 +26,14 @@ function JoinGroup() {
     
     const onSubmit = (event) => {
         event.preventDefault();
+
+        try {
+            const {id} = decode(sessionStorage.getItem('token'));
+            console.log("effect id:", id);
+            setValues({...values, userId: id});
+        } catch(error) {
+            console.log(error);
+        }
 
         if (values.name !== "" && values.password !== "") {
             Axios.post('http://localhost:5000/api/groups/joingroup', values).then(res => {
@@ -60,7 +62,7 @@ function JoinGroup() {
                     <h1>Join group</h1>
                 </div>
                 <div className="card-body">
-                    <input type="text" className="form-control" name="name" value={values.name} onChange={e => handleChange(e)} placeholder="Group name" required/>
+                    <input ref={focusInput} type="text" className="form-control" name="name" value={values.name} onChange={e => handleChange(e)} placeholder="Group name" required/>
                     <br />
                     <input type="text" className="form-control" name="password" value={values.password} onChange={e => handleChange(e)} placeholder="Group password" required/>
                     <br />
