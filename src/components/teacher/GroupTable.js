@@ -16,10 +16,10 @@ function GroupTable(props) {
                 </thead>
 
                 <tbody>
-                        {props.members.map((value, index) => {
-                            if (index === 0) return <th scope="row" key={index}>{value}</th>
-                            else return <th key={index}>{value}</th>
-                        })}
+                    {props.members.map((value, index) => {
+                        if (index === 0) return <th scope="row" key={index}>{value}</th>
+                        else return <th key={index}>{value}</th>
+                    })}
                 </tbody>
             </table>
         </div>

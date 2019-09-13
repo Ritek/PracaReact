@@ -1,31 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios';
-import GroupTable from './GroupTable';
+import decode from 'jwt-decode';
 
 function MenageGroup() {
+    const {id} = decode(sessionStorage.getItem('token'));
+    const [groups, setGroups] = useState([]);
 
-    useEffect(() => {
-        Axios.post().then(res => {
-            console.log(res.data);
+    const fetchData = () => {
+        Axios.post('http://localhost:5000/api/groups/getgroups', {teacherId: id}).then(res => {
+            setGroups(res);
+            console.log(res);
         }).catch(error => {
             console.log(error);
-        })
-    })
+        });
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div>
-            {}
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                </tbody>
-            </table>
+            {
+                
+            }
         </div>
     )
 }

@@ -4,6 +4,7 @@ import decode from 'jwt-decode';
 
 function CreateGroup() {
     const focusInput = useRef(null);
+    const {id} = decode(sessionStorage.getItem('token'));
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -12,17 +13,10 @@ function CreateGroup() {
         minWidth: '300px',
     }
 
-    const [inputs, setInputs] = useState({userId: "", name: "", password: ""});
+    const [inputs, setInputs] = useState({userId: id, name: "", password: ""});
 
     useEffect(() => {
         focusInput.current.focus();
-
-        try {
-            const {id} = decode(sessionStorage.getItem('token'));
-            setInputs({...inputs, userId: id});
-        } catch(error) {
-            console.log(error);
-        }
     }, []);
 
     const onSubmit = (event) => {

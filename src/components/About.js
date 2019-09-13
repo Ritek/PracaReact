@@ -1,9 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useEffect} from 'react';
 import '../App.css';
 
 import MyInput from './MyInput';
 
 function About(props) {
+  useEffect(() => {
+    console.log("call");
+  }, [])
+
   return (
     <div>
       <h1>About</h1>

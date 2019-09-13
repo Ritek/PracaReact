@@ -35,11 +35,9 @@ export default function checkLoginStatus() {
         if (!checkExpired(token)) return true;
         else {
             if (!checkExpired(refreshToken)) {
-                console.log('refresh token still works');
                 getNewToken(refreshToken);
                 return true;
             } else {
-                console.log('refreshToken ran out');
                 sessionStorage.clear();
                 return false;
             }
