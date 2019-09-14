@@ -4,7 +4,6 @@ import {Link, Redirect} from 'react-router-dom';
 import Axios from 'axios';
 
 function Login(props) {
-    const setLogin = props.value;
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -43,7 +42,7 @@ function Login(props) {
 
             setServerError({msg: "ok"});
 
-            setLogin(true);
+            props.onChange(true);
         }).catch(error => {
             setServerError({msg: "Could not log in. Wrong email or password"});
             clearInputs();

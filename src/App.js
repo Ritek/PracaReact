@@ -24,9 +24,14 @@ import JoinGroup from './components/student/JoinGroup';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const changeLoginState = (newState) => {
+    console.log('New state!!!');
+    setIsLoggedIn(newState);
+  }
+
   useEffect(() => {
-    if (checkToken()) setIsLoggedIn(true);
-    else setIsLoggedIn(false);
+    if (checkToken()) changeLoginState(true);
+    else changeLoginState(false);
     //console.log("in app:", checkToken());
   }, []);
 
@@ -37,24 +42,24 @@ function App() {
         <div className="container text-break">
           <Switch>
             <Route path="/" exact component={Home}/>
-            <Route path="/about" component={(props) => <About {...props} value={isLoggedIn} />} />
+            <Route path="/about" render={props => <About {...props} value={isLoggedIn} />} />
 
             <Route path="/register" component={Register}/>
             <Route path="/confirmation" component={RegConf}/>
 
 
-            <Route path="/login" component={Login} value={setIsLoggedIn} />
+            <Route path="/login" render={props => <Login {...props} onChange={setIsLoggedIn} />} />
 
             {/* protected routes */}
             <ProtectedRoute path="/user" exact component={UserDashboard} value={isLoggedIn} /> 
 
             {/* teacher routes */}
             {/* <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } /> */}
-            <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} value={isLoggedIn} />
-            <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} value={isLoggedIn} />
+            <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
+            <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
             
             {/* student routes */}
-            <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} value={isLoggedIn} />
+            <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
 
             
           </Switch>
