@@ -1,20 +1,34 @@
 import React, {useState} from 'react'
+import '../../../src/App.css'
 
 function GroupTable(props) {
-    useState(() => {
-        console.log("props", props.value);
-    }, []) 
+
+    const addStudentButton = {
+        backgroundColor: "Transparent",
+        backgroundRepeat: "no-repeat",
+        border: "none",
+        overflow: "hidden",
+
+        height: "100%",
+        width: "100%",
+    }
 
     return (
-        <div>
-            <button onClick={() => props.buttonFunction("cos")}>usun</button>
-            <h3>Group name: {props.value.name}           Group password: {props.value.password}</h3>
-            <table className="table table-bordered">
+        <div className="card">
+            <div className="card-header">
+                <div className="row">
+                    <div className="col sm">Name: {props.value.name} <br />Password: {props.value.password}</div>
+                    <div className="col sm text-right">
+                        <button className="btn btn-danger mr-1">Delete</button>
+                        <button className="btn btn-primary">Edit</button>
+                    </div>
+                </div>
+            </div>
+            <table className="card-body table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Student email</th>
                         <th scope="col">Student login</th>
-                        <th scope="col">Remove</th>
                     </tr>
                 </thead>
 
@@ -23,11 +37,13 @@ function GroupTable(props) {
                         return <tr key={index}>
                             <td>{value[2]}</td>
                             <td>{value[1]}</td>
-                            <td> <button onClick={() => props.buttonFunction(value[0])}>Delete</button> </td>
                         </tr>
                     })}
                 </tbody>
             </table>
+            <div className="card-footer">
+                <button style={addStudentButton}>Add student</button>
+            </div>
         </div>
     )
 }
