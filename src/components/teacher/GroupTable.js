@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import '../../../src/App.css'
+import {Link} from 'react-router-dom';
 
 function GroupTable(props) {
 
@@ -20,7 +21,7 @@ function GroupTable(props) {
                     <div className="col sm">Name: {props.value.name} <br />Password: {props.value.password}</div>
                     <div className="col sm text-right">
                         <button className="btn btn-danger mr-1">Delete</button>
-                        <button className="btn btn-primary">Edit</button>
+                        <Link to={`menagegroups/${props.value._id}`} className="btn btn-primary" >Edit</Link>
                     </div>
                 </div>
             </div>

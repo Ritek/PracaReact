@@ -14,7 +14,8 @@ function MenageGroup() {
     }
 
     const fetchData = () => {
-        Axios.post('http://localhost:5000/api/groups/getgroups', {teacherId: id}).then(res => {
+        let token = sessionStorage.getItem('token');
+        Axios.post('/api/groups/getgroups', {teacherId: id}, {headers: {authToken: token}}).then(res => {
             setGroups(res.data);
             console.log(res.data);
         }).catch(error => {

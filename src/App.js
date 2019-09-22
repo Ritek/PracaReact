@@ -8,7 +8,6 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
-import RegConf from './components/RegConf';
 
 import UserDashboard from './components/UserDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -17,6 +16,7 @@ import checkToken from './components/checkLoginStatus';
 // teacher
 import CreateGroup from './components/teacher/CreateGroup';
 import MenageGroup from './components/teacher/MenageGroup';
+import EditGroup from './components/teacher/EditGroup';
 
 // student
 import JoinGroup from './components/student/JoinGroup';
@@ -45,7 +45,6 @@ function App() {
             <Route path="/about" render={props => <About {...props} value={isLoggedIn} />} />
 
             <Route path="/register" component={Register}/>
-            <Route path="/confirmation" component={RegConf}/>
 
 
             <Route path="/login" render={props => <Login {...props} onChange={setIsLoggedIn} />} />
@@ -57,6 +56,8 @@ function App() {
             {/* <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } /> */}
             <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
             <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
+            <ProtectedRoute path="/user/menagegroups/:id" component={EditGroup} />
+
             
             {/* student routes */}
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />

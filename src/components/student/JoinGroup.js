@@ -18,7 +18,18 @@ function JoinGroup() {
 
     useEffect(() => {
         focusInput.current.focus();
+        setUserId();
     }, []);
+
+    const setUserId = () => {
+        try {
+            const {id} = decode(sessionStorage.getItem('token'));
+            console.log("effect id:", id);
+            setValues({...values, userId: id});
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value})
@@ -27,16 +38,9 @@ function JoinGroup() {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        try {
-            const {id} = decode(sessionStorage.getItem('token'));
-            console.log("effect id:", id);
-            setValues({...values, userId: id});
-        } catch(error) {
-            console.log(error);
-        }
-
         if (values.name !== "" && values.password !== "") {
-            Axios.post('http://localhost:5000/api/groups/joingroup', values).then(res => {
+            let token = sessionStorage.getItem('token');
+            Axios.post('/api/groups/joingroup', values, {headers: {authToken: token}}).then(res => {
                 console.log(res.data);
                 if (res.data === "Joined the group") {
                     setMessage({status: "ok", msg: "You have succesfuly joined the group"});

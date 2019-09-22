@@ -30,12 +30,4 @@ nav {
 
 .form-control {
   margin-bottom: -20px;
-} 
-
-.card-footer {
-  padding: 0px;
-}
-
-.card-footer:hover {
-  opacity: 0.6;
 }

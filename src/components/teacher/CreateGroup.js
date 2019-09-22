@@ -32,7 +32,7 @@ function CreateGroup() {
 
         console.log(newGroup);
  
-        Axios.post('http://localhost:5000/api/groups/creategroup', newGroup).then(res => {
+        Axios.post('/api/groups/creategroup', newGroup, {headers: {authToken: sessionStorage.getItem('token')} }).then(res => {
             console.log(res.data);
         }).catch(error => {
             console.log(error);

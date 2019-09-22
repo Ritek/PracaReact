@@ -34,11 +34,13 @@ function Login(props) {
         event.preventDefault();
         //console.log(input);
 
-        Axios.post('http://localhost:5000/api/user/login', input).then(res => {
+        Axios.post('api/user/login', input, {withCredentials: true}).then(res => {
             console.log(res.data);
+            console.log(res.headers);
 
             sessionStorage.setItem('token', res.data.token);
             sessionStorage.setItem('refreshToken', res.data.refreshToken);
+            console.log("seted");
 
             setServerError({msg: "ok"});
 

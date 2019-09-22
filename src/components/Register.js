@@ -31,7 +31,7 @@ function Register() {
             password: values.password,
         };
 
-        Axios.post('http://localhost:5000/api/user/register', newUser).then(res => {
+        Axios.post('api/user/register', newUser).then(res => {
             console.log(res.data);
             handleServerError('Success');
             clearForm();
