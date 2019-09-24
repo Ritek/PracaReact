@@ -10,8 +10,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 import UserDashboard from './components/UserDashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import EditProfie from './components/protected/EditProfile';
+
+// authorization
 import checkToken from './components/checkLoginStatus';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // teacher
 import CreateGroup from './components/teacher/CreateGroup';
@@ -45,12 +48,11 @@ function App() {
             <Route path="/about" render={props => <About {...props} value={isLoggedIn} />} />
 
             <Route path="/register" component={Register}/>
-
-
             <Route path="/login" render={props => <Login {...props} onChange={setIsLoggedIn} />} />
 
             {/* protected routes */}
             <ProtectedRoute path="/user" exact component={UserDashboard} value={isLoggedIn} /> 
+            <ProtectedRoute path="/edituser" exact component={EditProfie} />
 
             {/* teacher routes */}
             {/* <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } /> */}

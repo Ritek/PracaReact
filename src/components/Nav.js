@@ -34,7 +34,7 @@ function Nav(props) {
     if (login === false) {
         about = <Link style={navStyle} to='/about'> <li>About</li> </Link>;
     } else {
-        about = <Link style={navStyle} to='/menageuser'> <li>Profile</li> </Link>;
+        about = <Link style={navStyle} to='/edituser'> <li>Profile</li> </Link>;
     }
 
     return (
