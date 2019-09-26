@@ -9,9 +9,10 @@ function ChangeGroupDetails(props) {
 
     const [details, setDetails] = useState({name: props.name, password: props.password});
 
+    /* //Not needed here, in profile needed because state updates, here the state is new after post
     useEffect(() => {
         setDetails({name: props.name, password: props.password});
-    }, [props]);
+    }, [props]); */
 
     const handleChange = (event) => {
         setDetails({...details, [event.target.name]: event.target.value});

@@ -34,6 +34,7 @@ function UserDetails(props) {
 
                 <button className="btn btn-danger">Change Details</button>
             </div>
+            <div className="card-footer">Worning! Changing detials will couse a logout!</div>
         </form>
     )
 }

@@ -31,9 +31,7 @@ function EditGroup({match}) {
 
             {group.name !== undefined &&
                 <ChangeGroupDetails name={group.name} password={group.password} />
-            }
-
-            
+            }  
             
         </div>
     )

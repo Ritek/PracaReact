@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function ChangePassword(props) {
+function ChangePassword() {
     const [password, setPassword] = useState({oldPassword: "", newPassword: ""})
 
     const handleChange = (event) => {
@@ -11,6 +11,7 @@ function ChangePassword(props) {
         <form className="card cardMargin">
             <h2 className="card-header">Change Password</h2>
             <div className="card-body labelStyle">
+
                 <div className="form-group formGroup">
                     <label htmlFor="oldPassword">Old password:</label>
                     <input type="text" className="form-control" id="oldPassword" name="oldPassword" 
@@ -29,6 +30,7 @@ function ChangePassword(props) {
 
                 <button className="btn btn-danger submitButton">Change passowrd</button>
             </div>
+            <div className="card-footer">Worning! Changing password will couse a logout!</div>
         </form>
     )
 }
