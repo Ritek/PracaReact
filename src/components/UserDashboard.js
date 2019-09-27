@@ -14,6 +14,7 @@ function UserDashboard() {
             <Link to='/user/creategroup'>Create group</Link><br />
             <Link to='/user/joingroup'>Join group</Link><br />
             <Link to='/user/menagegroups'>Menage groups</Link><br />
+            <Link to='/user/createtest'>Create test</Link><br />
 
             <div className="row">
                 <div className="col-sm-6">

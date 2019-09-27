@@ -20,6 +20,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CreateGroup from './components/teacher/CreateGroup';
 import MenageGroup from './components/teacher/MenageGroup';
 import EditGroup from './components/teacher/EditGroup';
+import CreateTest from './components/teacher/CreateTest';
 
 // student
 import JoinGroup from './components/student/JoinGroup';
@@ -59,6 +60,7 @@ function App() {
             <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
             <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
             <ProtectedRoute path="/user/menagegroups/:id" component={EditGroup} />
+            <ProtectedRoute path="/user/createtest" component={CreateTest} />
 
             
             {/* student routes */}
