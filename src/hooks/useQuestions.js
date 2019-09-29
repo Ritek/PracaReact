@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
-const useQuestions = (object) => {
+const useQuestions = (object, exNum, handleChange) => {
 
     //console.log(">obj:", object);
     //console.log(">exNumm:", exNum);
@@ -14,9 +14,9 @@ const useQuestions = (object) => {
         setState({...state, [event.target.name]: event.target.value});
     } 
 
-    /* useEffect(() => {
-        console.log(state);
-    }, [state]); */
+    useEffect(() => {
+        handleChange(exNum, state, object.type);
+    }, [state]);
 
 
     return {

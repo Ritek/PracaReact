@@ -6,7 +6,7 @@ import useQuestions from '../../hooks/useQuestions';
 
 function Open(props) {
 
-    const {handleQuestionChange, state} = useQuestions(props.object, props.exNum);
+    const {handleQuestionChange, state} = useQuestions(props.object, props.exNum, props.handleChange);
 
 /*     const [text, setText] = useState({
         type: "open",
@@ -19,10 +19,10 @@ function Open(props) {
         setText({...text, [event.target.name]: event.target.value});
     }  */
 
-    useEffect(() => {
+    /* useEffect(() => {
         //console.log(state);
         props.handleChange(props.exNum, state, "open");
-    }, [state])
+    }, [state]) */
 
     return (
         <div className="card card-bot">
