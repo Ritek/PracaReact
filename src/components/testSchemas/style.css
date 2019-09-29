@@ -1,4 +1,6 @@
 .close-btn {
+    width: 10px;
+    right: 10px;
     font-size: 30px;
     color: #ccc;
 }
@@ -7,4 +9,16 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.centerObj {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 2vh;
+}
+
+.card-bot {
+    margin-bottom: 4vh;
 }

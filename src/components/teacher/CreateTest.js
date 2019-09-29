@@ -41,21 +41,21 @@ function CreateTest() {
     const handleModalClose = (selected) => {
         console.log("got to handle");
         if (selected !== undefined) {
-            console.log("option:", selected);
+            //console.log("option:", selected);
             dispatch({type: "addQuestion", questionType: selected});
         }
         setShowModal(false);
     } 
 
     const handleChange = (index, object, exType) => {
-        console.log(index);
-        console.log(object);
+        //console.log(index);
+        //console.log(object);
 
         dispatch({type: "changeState", object: object, index: index});
     }
 
     const handleDelete = (index) => {
-        console.log(`Delete question ${index}`);
+        //console.log(`Delete question ${index}`);
         dispatch({type: 'deleteQuestion', index: index});
     }
 
@@ -88,7 +88,7 @@ function CreateTest() {
             {
                 exercises.map((ex, idx) => {
                     if (ex.type === "open") return (
-                        <Open key={idx} exNum={idx} handleChange={handleChange} handleDelete={handleDelete}/>
+                        <Open key={idx} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
                     )
                 })
             }
