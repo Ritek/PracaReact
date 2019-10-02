@@ -4,7 +4,7 @@ import Open from '../testSchemas/Open'
 import update from 'immutability-helper';
 
 import Modal from 'react-bootstrap/Modal'
-//import {Droppable, DragDropContext} from 'react-beautiful-dnd';
+import {Droppable, DragDropContext} from 'react-beautiful-dnd';
 import Dragula from 'react-dragula';
 import './dragula.css'
 
