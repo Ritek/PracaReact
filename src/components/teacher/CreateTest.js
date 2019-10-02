@@ -22,7 +22,8 @@ const reducer = (exercises, action) => {
         case 'deleteQuestion':
             {
                 let arr = [...exercises];
-                arr.splice(action.index, 1);
+                if (arr.length === 1) arr = [];
+                else arr.splice(action.index, 1);
                 return arr;
             }
         case 'changeState':
@@ -76,13 +77,19 @@ function CreateTest() {
             let drake = Dragula([document.querySelector('#questionList')], options);
             drake.on('drop', function(el, target, source, sybling) {
                 let newPos, oldPos = el.id;
-                if (sybling === null) {
-                newPos = target.childNodes.length - 1;
-                } else newPos = sybling.id-1;
 
-                if (newPos === -1) newPos = 0;
+                console.log(sybling);
+                if (sybling === null) newPos = target.childNodes.length-1;
+                else {
+                    if (newPos === undefined) newPos = 0;
+                }
 
-                dispatch({type: 'handleReorder', oldPos: oldPos, newPos: newPos});
+                //if (newPos === undefined) newPos = 0;
+
+                console.log('oldPos:', oldPos);
+                console.log('newPos:', newPos);
+
+                //dispatch({type: 'handleReorder', oldPos: oldPos, newPos: newPos});
             });
         }
     }
@@ -109,11 +116,11 @@ function CreateTest() {
                 </Modal.Footer>
             </Modal>
 
-            <div id="questionList" ref={dragulaDecorator}>
+            <div id="questionList" ref={dragulaDecorator} style={{marginBottom: "40px"}}>
                 {
                     exercises.map((ex, idx) => {
                         if (ex.type === "open") return (
-                            <Open key={idx} /* id={ex.id} */ exNum={ex.id} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
+                            <Open key={idx} id={idx} exNum={ex.id} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
                         )
                     })
                 }
