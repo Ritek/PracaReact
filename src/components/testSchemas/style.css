@@ -11,8 +11,17 @@
     cursor: pointer;
 }
 
-.centerObj {
+textarea {
+    resize: none;
+    overflow: hidden;
+}
+
+.instruction, .answer {
     width: 100%;
+}
+
+.answer {
+    /* background: repeating-linear-gradient(0, #000, #fff 1px, #fff 1px, #fff 21px); */
 }
 
 .input-group {
@@ -21,4 +30,24 @@
 
 .card-bot {
     margin-bottom: 4vh;
+}
+
+.points-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #CCC;
+    color: #555;
+    box-sizing: border-box;
+    font-size: 20px;
+    width: 40px;
+    padding: 2px 0px;
+    position: relative; 
+}
+
+.points-input:focus {
+    outline: none;
+}
+
+.points-input:hover {
+    color: #000;
 }

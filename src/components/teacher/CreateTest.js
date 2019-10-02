@@ -4,13 +4,17 @@ import Open from '../testSchemas/Open'
 import update from 'immutability-helper';
 
 import Modal from 'react-bootstrap/Modal'
-export const ExerciseContext = React.createContext();
+//import {Droppable, DragDropContext} from 'react-beautiful-dnd';
+import Dragula from 'react-dragula';
+import './dragula.css'
+
+//import useDND from '../../hooks/useDND'
 
 const reducer = (exercises, action) => {
     switch (action.type) {
         case 'addQuestion': 
             {
-                let obj = {type: action.questionType}
+                let obj = {id: action.id, type: action.questionType}
                 let arr = [...exercises];
                 arr.push(obj);
                 return arr;
@@ -22,16 +26,25 @@ const reducer = (exercises, action) => {
                 return arr;
             }
         case 'changeState':
-                {
-                    let arr = [...exercises];
-                    arr[action.index] = action.object;
-                    return arr;
-                }
+            {
+                let arr = [...exercises];
+                arr[action.index] = action.object;
+                return arr;
+            }
+        case 'handleReorder':
+            {
+                let arrCopy = [...exercises];
+                [arrCopy[action.oldPos], arrCopy[action.newPos]] = [arrCopy[action.newPos], arrCopy[action.oldPos]]; //ES6 swap
+                //[arrCopy[action.oldPos].id, arrCopy[action.newPos].id] = [arrCopy[action.newPos].id, arrCopy[action.oldPos].id];
+                //console.log("new", arrCopy);
+                return arrCopy;
+            }
     }
 }
 
 function CreateTest() {
 
+    // State
     const [exercises, dispatch] = useReducer(reducer, []);
 
     // Modal
@@ -40,17 +53,11 @@ function CreateTest() {
 
     const handleModalClose = (selected) => {
         console.log("got to handle");
-        if (selected !== undefined) {
-            //console.log("option:", selected);
-            dispatch({type: "addQuestion", questionType: selected});
-        }
+        if (selected !== undefined) dispatch({type: "addQuestion", questionType: selected, id: exercises.length});
         setShowModal(false);
     } 
 
     const handleChange = (index, object, exType) => {
-        //console.log(index);
-        //console.log(object);
-
         dispatch({type: "changeState", object: object, index: index});
     }
 
@@ -59,9 +66,26 @@ function CreateTest() {
         dispatch({type: 'deleteQuestion', index: index});
     }
 
-    useEffect(() => {
-        console.log(exercises);
-    }, [exercises])
+/*     useEffect(() => {
+        console.log("exercises effect", exercises);
+    }, [exercises]) */
+
+    const dragulaDecorator = (componentBackingInstance) => {
+        if (componentBackingInstance) {
+            let options = { };
+            let drake = Dragula([document.querySelector('#questionList')], options);
+            drake.on('drop', function(el, target, source, sybling) {
+                let newPos, oldPos = el.id;
+                if (sybling === null) {
+                newPos = target.childNodes.length - 1;
+                } else newPos = sybling.id-1;
+
+                if (newPos === -1) newPos = 0;
+
+                dispatch({type: 'handleReorder', oldPos: oldPos, newPos: newPos});
+            });
+        }
+    }
 
     return (
         <div>
@@ -85,13 +109,16 @@ function CreateTest() {
                 </Modal.Footer>
             </Modal>
 
-            {
-                exercises.map((ex, idx) => {
-                    if (ex.type === "open") return (
-                        <Open key={idx} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
-                    )
-                })
-            }
+            <div id="questionList" ref={dragulaDecorator}>
+                {
+                    exercises.map((ex, idx) => {
+                        if (ex.type === "open") return (
+                            <Open key={idx} /* id={ex.id} */ exNum={ex.id} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
+                        )
+                    })
+                }
+            </div>
+
             <button className="btn btn-primary" onClick={handleModalShow}>Add question</button>
         </div>
     )
