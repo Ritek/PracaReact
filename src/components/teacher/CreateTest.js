@@ -1,46 +1,9 @@
 import React, {useState, useEffect, useReducer} from 'react'
-import Open from '../testSchemas/Open'
+import Open from '../testSchemas/open'
 
 import update from 'immutability-helper';
 
 import Modal from 'react-bootstrap/Modal'
-
-//import {Droppable, DragDropContext} from 'react-beautiful-dnd';
-//import useDND from '../../hooks/useDND'
-
-const reducer = (exercises, action) => {
-    switch (action.type) {
-        case 'addQuestion': 
-            {
-                let obj = {id: exercises.questions.length, type: action.questionType}
-                let arr = [...exercises.questions];
-                arr.push(obj);
-                console.log('arr:',arr);
-                return arr;
-            }
-        case 'deleteQuestion':
-            {
-                let arr = [...exercises.questions];
-                if (arr.length === 1) arr = [];
-                else arr.splice(action.index, 1);
-                return arr;
-            }
-        case 'changeState':
-            {
-                let arr = [...exercises.questions];
-                arr[action.index] = action.object;
-                return arr;
-            }
-        case 'handleReorder':
-            {
-                const updatedArr = Object.assign([...exercises.questions], {
-                    [action.oldPos]: exercises.questions[action.newPos],
-                    [action.newPos]: exercises.questions[action.oldPos]
-                })
-                return Object.assign({}, exercises, {updatedArr})
-            }
-    }
-}
 
 function CreateTest() {
     // State
