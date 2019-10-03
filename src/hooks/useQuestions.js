@@ -6,7 +6,7 @@ const useQuestions = (object, exNum, handleChange) => {
     //console.log(">exNumm:", exNum);
 
     const [state, setState] = useState({
-        id: object.id,
+        id : object.id,
         type: object.type,
         points: object.points || "",
     });
