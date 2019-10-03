@@ -3,6 +3,7 @@ import {ExerciseContext} from '../teacher/CreateTest'
 import './style.css';
 
 import QuestionTop from './QuestionTop'
+import QuestionBot from './QuestionBot'
 
 import {Draggable} from 'react-beautiful-dnd'
 import useQuestions from '../../hooks/useQuestions';
@@ -29,7 +30,7 @@ function Open(props) {
 
 
     return (
-        <div id={props.object.id} className="card card-bot">
+        <div className="card card-bot">
             <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints}/>
             
             <div className="input-group">
@@ -42,6 +43,8 @@ function Open(props) {
                 placeholder="This is a place for a student's answer" value={state.answer}
                 />
             </div>
+
+            <QuestionBot moveQuestion={props.handleReorder} index={props.exNum}></QuestionBot>
         </div>
     )
 }

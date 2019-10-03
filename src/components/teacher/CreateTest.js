@@ -1,52 +1,16 @@
 import React, {useState, useEffect, useReducer} from 'react'
-import Open from '../testSchemas/Open'
+import Open from '../testSchemas/open'
 
 import update from 'immutability-helper';
 
 import Modal from 'react-bootstrap/Modal'
-import {Droppable, DragDropContext} from 'react-beautiful-dnd';
-import Dragula from 'react-dragula';
-import './dragula.css'
 
 //import useDND from '../../hooks/useDND'
 
-const reducer = (exercises, action) => {
-    switch (action.type) {
-        case 'addQuestion': 
-            {
-                let obj = {id: action.id, type: action.questionType}
-                let arr = [...exercises];
-                arr.push(obj);
-                return arr;
-            }
-        case 'deleteQuestion':
-            {
-                let arr = [...exercises];
-                if (arr.length === 1) arr = [];
-                else arr.splice(action.index, 1);
-                return arr;
-            }
-        case 'changeState':
-            {
-                let arr = [...exercises];
-                arr[action.index] = action.object;
-                return arr;
-            }
-        case 'handleReorder':
-            {
-                let arrCopy = [...exercises];
-                [arrCopy[action.oldPos], arrCopy[action.newPos]] = [arrCopy[action.newPos], arrCopy[action.oldPos]]; //ES6 swap
-                //[arrCopy[action.oldPos].id, arrCopy[action.newPos].id] = [arrCopy[action.newPos].id, arrCopy[action.oldPos].id];
-                //console.log("new", arrCopy);
-                return arrCopy;
-            }
-    }
-}
-
 function CreateTest() {
-
     // State
-    const [exercises, dispatch] = useReducer(reducer, []);
+    const [test, setTest] = useState({name: "", questions: []});
+    //const forceUpdate = React.useCallback(() => dispatch({}), []);
 
     // Modal
     const [showModal, setShowModal] = useState(false);
@@ -54,45 +18,51 @@ function CreateTest() {
 
     const handleModalClose = (selected) => {
         console.log("got to handle");
-        if (selected !== undefined) dispatch({type: "addQuestion", questionType: selected, id: exercises.length});
+        if (selected !== undefined) {
+            let obj = {id: test.questions.length, type: selected}
+            let arr = [...test.questions];
+            arr.push(obj);
+            setTest({questions: arr});
+        }
         setShowModal(false);
     } 
 
     const handleChange = (index, object, exType) => {
-        dispatch({type: "changeState", object: object, index: index});
+        let arr = [...test.questions];
+        arr[index] = object;
+        setTest({questions: arr});
     }
 
     const handleDelete = (index) => {
-        //console.log(`Delete question ${index}`);
-        dispatch({type: 'deleteQuestion', index: index});
+        let arr = [...test.questions];
+        if (arr.length === 1) arr = [];
+        else arr.splice(index, 1);
+        setTest({questions: arr});
     }
 
-/*     useEffect(() => {
-        console.log("exercises effect", exercises);
-    }, [exercises]) */
+    const handleReorder = (direction, oldPos) => {
+        let newPos;
+        if (direction === "up") newPos = oldPos-1;
+        else newPos = oldPos+1; 
 
-    const dragulaDecorator = (componentBackingInstance) => {
-        if (componentBackingInstance) {
-            let options = { };
-            let drake = Dragula([document.querySelector('#questionList')], options);
-            drake.on('drop', function(el, target, source, sybling) {
-                let newPos, oldPos = el.id;
+        if (newPos === -1) newPos = 0;
+        if (newPos === test.questions.length) newPos = test.questions.length-1;
 
-                console.log(sybling);
-                if (sybling === null) newPos = target.childNodes.length-1;
-                else {
-                    if (newPos === undefined) newPos = 0;
-                }
+        //console.log("oldPos: ", oldPos);
+        //console.log("newPos: ", newPos);
 
-                //if (newPos === undefined) newPos = 0;
-
-                console.log('oldPos:', oldPos);
-                console.log('newPos:', newPos);
-
-                //dispatch({type: 'handleReorder', oldPos: oldPos, newPos: newPos});
-            });
-        }
+        let copyArr = [...test.questions];
+        [copyArr[oldPos].id, copyArr[newPos].id] = [copyArr[newPos].id, copyArr[oldPos].id];
+        setTest({questions: copyArr});
     }
+
+    useEffect(() => {
+        console.log('effect - render');
+    }, [test.questions]);
+
+    useEffect(() => {
+        console.log('initial state:', test.questions);
+    }, []);
 
     return (
         <div>
@@ -115,17 +85,15 @@ function CreateTest() {
                     <p>A footer</p>
                 </Modal.Footer>
             </Modal>
-
-            <div id="questionList" ref={dragulaDecorator} style={{marginBottom: "40px"}}>
-                {
-                    exercises.map((ex, idx) => {
-                        if (ex.type === "open") return (
-                            <Open key={idx} id={idx} exNum={ex.id} handleChange={handleChange} handleDelete={handleDelete} object={exercises[idx]}/>
-                        )
-                    })
-                }
+            <div id="questionList">
+            {test.questions !== undefined &&
+                test.questions.map((ex, idx) => {
+                    if (ex.type === "open") return (
+                        <Open key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
+                    )
+                })
+            }
             </div>
-
             <button className="btn btn-primary" onClick={handleModalShow}>Add question</button>
         </div>
     )
