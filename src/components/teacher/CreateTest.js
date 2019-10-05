@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useReducer} from 'react'
 import Open from '../testSchemas/open'
+import TrueFalse from '../testSchemas/TrueFalse'
+import Choices from '../testSchemas/Choices'
 
 import update from 'immutability-helper';
 
@@ -44,7 +46,11 @@ function CreateTest() {
         let newPos;
         if (direction === "up") newPos = oldPos-1;
         else newPos = oldPos+1; 
-
+        // to do dodaj zegarek
+        // zabezpiecz przed printscreen
+        // informacja zwriotna
+        // automatyczny przyznawanie punktów
+        // 
         if (newPos === -1) newPos = 0;
         if (newPos === test.questions.length) newPos = test.questions.length-1;
 
@@ -52,12 +58,19 @@ function CreateTest() {
         //console.log("newPos: ", newPos);
 
         let copyArr = [...test.questions];
-        [copyArr[oldPos].id, copyArr[newPos].id] = [copyArr[newPos].id, copyArr[oldPos].id];
+        //[copyArr[oldPos].id, copyArr[newPos].id] = [copyArr[newPos].id, copyArr[oldPos].id];
+        //[copyArr[oldPos].type, copyArr[newPos].type] = [copyArr[newPos].type, copyArr[oldPos].type];
+
+        [copyArr[oldPos], copyArr[newPos]] = [copyArr[newPos], copyArr[oldPos]];
+        /* let temp = copyArr[oldPos];
+        copyArr[oldPos] = copyArr[newPos];
+        copyArr[newPos] = temp; */
         setTest({questions: copyArr});
     }
 
     useEffect(() => {
         console.log('effect - render');
+        console.log(test.questions);
     }, [test.questions]);
 
     useEffect(() => {
@@ -77,7 +90,7 @@ function CreateTest() {
                         <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("open")}>Open</button>
                         <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("truefalse")}>True or false</button>
                         <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("blancs")}>Blancs</button>
-                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("options")}>Options</button>
+                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("choices")}>Choices</button>
                     </div>
                 </Modal.Body>
 
@@ -90,6 +103,12 @@ function CreateTest() {
                 test.questions.map((ex, idx) => {
                     if (ex.type === "open") return (
                         <Open key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
+                    )
+                    else if (ex.type === "truefalse") return (
+                        <TrueFalse key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
+                    )
+                    else if (ex.type === "choices") return (
+                        <Choices key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
                 })
             }

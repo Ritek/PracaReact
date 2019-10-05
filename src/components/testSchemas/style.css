@@ -1,10 +1,7 @@
 .close-btn {
     width: 10px;
-    right: 20px;
     font-size: 30px;
     color: #ccc;
-
-    position: absolute;
 }
 
 .close-btn:hover {
@@ -16,9 +13,10 @@
 textarea {
     resize: none;
     overflow: hidden;
+    width: 90%;
 }
 
-.instruction, .answer {
+.instruction, .answer, .subquestion {
     width: 100%;
 }
 
@@ -52,4 +50,19 @@ textarea {
 
 .points-input:hover {
     color: #000;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    padding-right: 10px;
+    text-decoration: none;
 }
