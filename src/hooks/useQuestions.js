@@ -84,6 +84,23 @@ const useQuestions = (object, exNum, handleChange) => {
         setState({...state, choices: temp});
     }
 
+    const makeBlanks = (event) => {
+        event.target.style.height = 'inherit';
+        event.target.style.height = `${event.target.scrollHeight}px`
+        
+        let tempText = event.target.value;
+        const sentences = tempText.split("\n");
+
+        //let tempArray = tempText.match(/\[(.*?)\]/g);
+        let tempArray = tempText.match(/(?<=\[)(.*?)(?=\])/g);
+
+        setState({...state, sentences: sentences, blanks: tempArray});
+    }
+
+    const blanksList = () => {
+        return state.blancs;
+    }
+
     const setPoints = (newValue) => {
         setState({...state, points: newValue});
     }
@@ -95,7 +112,7 @@ const useQuestions = (object, exNum, handleChange) => {
 
     return {
         handleTextChange,
-        
+
         changeTrueFalseText,
         changeTrueFalseLogic,
         delSubquestion,
@@ -105,6 +122,9 @@ const useQuestions = (object, exNum, handleChange) => {
         setChoiceText,
         setChoicesAnswer,
         delChoice,
+
+        makeBlanks,
+        blanksList,
 
         setPoints,
         state,

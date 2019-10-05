@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useReducer} from 'react'
+
 import Open from '../testSchemas/open'
 import TrueFalse from '../testSchemas/TrueFalse'
 import Choices from '../testSchemas/Choices'
+import Blanks from '../testSchemas/Blanks'
 
 import update from 'immutability-helper';
 
@@ -109,6 +111,9 @@ function CreateTest() {
                     )
                     else if (ex.type === "choices") return (
                         <Choices key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
+                    )
+                    else if (ex.type === "blancs") return (
+                        <Blanks key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
                 })
             }

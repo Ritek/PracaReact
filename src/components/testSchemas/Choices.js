@@ -24,12 +24,14 @@ function Choices(props) {
             <div className="card-body">
                 <table style={{width: '100%'}}>
                     <thead>
-                        <tr>
-                            <th scope="col" style={{width: "10%"}}>#</th>
-                            <th scope="col" style={{width: "10%"}}>Ans</th>
-                            <th scope="col" style={{width: "70%"}}>Subquestion</th>
-                            <th scope="col" style={{width: "10%"}}>Del</th>
-                        </tr>
+                        {state.choices !== undefined &&
+                            <tr>
+                                <th scope="col" style={{width: "10%"}}>#</th>
+                                <th scope="col" style={{width: "10%"}}>Ans</th>
+                                <th scope="col" style={{width: "70%"}}>Subquestion</th>
+                                <th scope="col" style={{width: "10%"}}>Del</th>
+                            </tr>
+                        }
                     </thead>
                     <tbody>
                         {state.choices !== undefined &&
