@@ -5,11 +5,7 @@ const useQuestions = (object, exNum, handleChange) => {
     //console.log(">obj:", object);
     //console.log(">exNumm:", exNum);
 
-    const [state, setState] = useState({
-        id : object.id,
-        type: object.type,
-        points: object.points || "",
-    });
+    const [state, setState] = useState(object);
 
     const handleTextChange = (event) => {
         event.target.style.height = 'inherit';
@@ -63,7 +59,7 @@ const useQuestions = (object, exNum, handleChange) => {
         let temp;
         if (state.choices === undefined) temp = [];
         else temp = state.choices;
-        temp.push([""]);
+        temp.push("");
         setState({...state, choices: temp});
     }
 
@@ -73,8 +69,9 @@ const useQuestions = (object, exNum, handleChange) => {
         setState({...state, choices: temp});
     }
 
-    const setChoicesAnswer = (index) => {
-        setState({...state, answer: state.choices[index]});
+    const setChoicesAnswer = (index, letter) => {
+        console.log(state.choices[index]);
+        setState({...state, answer: [letter, state.choices[index]]});
     }
 
     const delChoice = (index) => {
@@ -87,7 +84,7 @@ const useQuestions = (object, exNum, handleChange) => {
     const makeBlanks = (event) => {
         event.target.style.height = 'inherit';
         event.target.style.height = `${event.target.scrollHeight}px`
-        
+
         let tempText = event.target.value;
         const sentences = tempText.split("\n");
 

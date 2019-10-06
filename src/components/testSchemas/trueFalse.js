@@ -13,7 +13,7 @@ function TrueFalse(props) {
 
     return (
         <div className="card card-bot">
-            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints}/>
+            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>
             
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 
@@ -34,7 +34,7 @@ function TrueFalse(props) {
                             state.subquestions.map((ex, idx) => (
                                 <SubquestionTrueFalse key={idx} index={idx} logic={state.subquestions[idx][1]} 
                                     changeTrueFalseLogic={changeTrueFalseLogic} changeTrueFalseText={changeTrueFalseText}
-                                    delSubquestion={delSubquestion}
+                                    delSubquestion={delSubquestion} ex={ex}
                                 />
                             ))
                         }

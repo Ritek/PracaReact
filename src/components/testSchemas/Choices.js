@@ -14,7 +14,7 @@ function Choices(props) {
 
     return (
         <div className="card card-bot">
-            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints}/>
+            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} setPoints={setPoints} points={state.points}/>
 
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 
@@ -37,7 +37,7 @@ function Choices(props) {
                         {state.choices !== undefined &&
                             state.choices.map((option, index) => (
                                 <SingleChoice key={index} index={index} setChoiceText={setChoiceText} 
-                                setChoicesAnswer={setChoicesAnswer} delChoice={delChoice}/>
+                                setChoicesAnswer={setChoicesAnswer} delChoice={delChoice} value={state.choices[index]} checked={state.answer}/> 
                             ))
                         }
                     </tbody>

@@ -8,13 +8,13 @@ function Choice(props) {
             </th>
 
             <td>
-                <input name="choice" type="radio"
-                    onChange={() => props.setChoicesAnswer(props.index)} 
+                <input name="choice" type="radio" value={String.fromCharCode(props.index + 65)} checked={String.fromCharCode(props.index + 65) === props.checked ? "True" : "False"}
+                    onChange={(e) => props.setChoicesAnswer(props.index, e.target.value)} 
                 />
             </td>
 
             <td>
-                <textarea onChange={(e) => props.setChoiceText(e, props.index)}></textarea>
+                <textarea onChange={(e) => props.setChoiceText(e, props.index)} value={props.value}></textarea>
             </td>
 
             <td>

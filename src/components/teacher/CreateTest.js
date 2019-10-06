@@ -5,37 +5,35 @@ import TrueFalse from '../testSchemas/TrueFalse'
 import Choices from '../testSchemas/Choices'
 import Blanks from '../testSchemas/Blanks'
 
-import update from 'immutability-helper';
+import ModalTest from './ModalTest'
 
-import Modal from 'react-bootstrap/Modal'
+import Axios from 'axios'
+
+import update from 'immutability-helper';
 
 //import useDND from '../../hooks/useDND'
 
-function CreateTest() {
+function CreateTest(props) {
     // State
-    const [test, setTest] = useState({name: "", questions: []});
+    const [test, setTest] = useState({
+        name: "", 
+        questions: []
+    });
     //const forceUpdate = React.useCallback(() => dispatch({}), []);
 
     // Modal
     const [showModal, setShowModal] = useState(false);
     const handleModalShow = () => setShowModal(true);
 
-    const handleModalClose = (selected) => {
-        console.log("got to handle");
-        if (selected !== undefined) {
-            let obj = {id: test.questions.length, type: selected}
-            let arr = [...test.questions];
-            arr.push(obj);
-            setTest({questions: arr});
-        }
-        setShowModal(false);
-    } 
-
     const handleChange = (index, object, exType) => {
         let arr = [...test.questions];
         arr[index] = object;
         setTest({questions: arr});
     }
+
+    const setTestName = (event) => {
+        setTest({...test, name: event.target.value})
+    } 
 
     const handleDelete = (index) => {
         let arr = [...test.questions];
@@ -70,36 +68,33 @@ function CreateTest() {
         setTest({questions: copyArr});
     }
 
+    const getInitial = () => {
+        setTest({name: "init name", questions: [
+            {id: "0", points: "1", type: "open", instruction: "init instruction", answer: "answer init"},
+            {answer: "BBB", choices: ["AAA", "BBB"], id: "1", instruction: "Choices init", points: "3", type: "choices"},
+            {id: "2", type: "truefalse",  instruction: "Ex1", points: "1", subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
+            {blanks: ["are", "becouse", "dnd"], id: 3, instruction: "blancs instr", points: "1", sentences: ["blancs [are] dope [becouse] of [dnd]"], type: "blancs"}
+        ]})
+    }
+
     useEffect(() => {
-        console.log('effect - render');
         console.log(test.questions);
     }, [test.questions]);
 
     useEffect(() => {
-        console.log('initial state:', test.questions);
+        if (props.test !== undefined) setTest(props.test);
     }, []);
 
     return (
         <div>
-            <Modal show={showModal} onHide={handleModalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Header</Modal.Title>
-                </Modal.Header>
+            <ModalTest test={test} setTest={setTest} showModal={showModal} handleModalShow={handleModalShow} setShowModal={setShowModal}/>
 
-                <Modal.Body>
-                    <h3>Choose a type of question to add</h3>
-                    <div className="row">
-                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("open")}>Open</button>
-                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("truefalse")}>True or false</button>
-                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("blancs")}>Blancs</button>
-                        <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("choices")}>Choices</button>
-                    </div>
-                </Modal.Body>
+            <div className="card">
+                <div className="card-body">
+                    <input type="text" onChange={(e) => setTestName(e)} placeholder="Test name" />
+                </div>
+            </div>
 
-                <Modal.Footer>
-                    <p>A footer</p>
-                </Modal.Footer>
-            </Modal>
             <div id="questionList">
             {test.questions !== undefined &&
                 test.questions.map((ex, idx) => {
@@ -119,6 +114,8 @@ function CreateTest() {
             }
             </div>
             <button className="btn btn-primary" onClick={handleModalShow}>Add question</button>
+            <br />
+            <button onClick={() => getInitial()}>Get initial</button>
         </div>
     )
 }

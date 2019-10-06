@@ -10,7 +10,7 @@ function Blanks(props) {
 
     return (
         <div className="card card-bot">
-            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints}/>
+            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} setPoints={setPoints} points={state.points}/>
 
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 
@@ -18,7 +18,7 @@ function Blanks(props) {
             </div>
             
             <textarea placeholder="Enter sentences line by line. If you want to create blanc use brackets eg. [example]" 
-                style={{width: "100%"}} onChange={(e) => makeBlanks(e)}>
+                style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences}>
             </textarea>
 
             <div className="card-body mt-2 mb-2">
