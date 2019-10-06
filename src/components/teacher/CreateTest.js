@@ -5,7 +5,8 @@ import TrueFalse from '../testSchemas/TrueFalse'
 import Choices from '../testSchemas/Choices'
 import Blanks from '../testSchemas/Blanks'
 
-import ModalTest from './ModalTest'
+import TestDetails from '../testSchemas/TestDetails'
+import ModalTest from '../testSchemas/ModalTest'
 
 import Axios from 'axios'
 
@@ -17,11 +18,15 @@ function CreateTest(props) {
     // State
     const [test, setTest] = useState({
         name: "", 
+        tags: "",
         questions: []
     });
     //const forceUpdate = React.useCallback(() => dispatch({}), []);
 
     // Modal
+    const [showSave, setShowSave] = useState(false);
+    const handleShowSave = () => setShowSave(true);
+
     const [showModal, setShowModal] = useState(false);
     const handleModalShow = () => setShowModal(true);
 
@@ -30,10 +35,6 @@ function CreateTest(props) {
         arr[index] = object;
         setTest({questions: arr});
     }
-
-    const setTestName = (event) => {
-        setTest({...test, name: event.target.value})
-    } 
 
     const handleDelete = (index) => {
         let arr = [...test.questions];
@@ -54,17 +55,9 @@ function CreateTest(props) {
         if (newPos === -1) newPos = 0;
         if (newPos === test.questions.length) newPos = test.questions.length-1;
 
-        //console.log("oldPos: ", oldPos);
-        //console.log("newPos: ", newPos);
-
         let copyArr = [...test.questions];
-        //[copyArr[oldPos].id, copyArr[newPos].id] = [copyArr[newPos].id, copyArr[oldPos].id];
-        //[copyArr[oldPos].type, copyArr[newPos].type] = [copyArr[newPos].type, copyArr[oldPos].type];
 
         [copyArr[oldPos], copyArr[newPos]] = [copyArr[newPos], copyArr[oldPos]];
-        /* let temp = copyArr[oldPos];
-        copyArr[oldPos] = copyArr[newPos];
-        copyArr[newPos] = temp; */
         setTest({questions: copyArr});
     }
 
@@ -88,11 +81,10 @@ function CreateTest(props) {
     return (
         <div>
             <ModalTest test={test} setTest={setTest} showModal={showModal} handleModalShow={handleModalShow} setShowModal={setShowModal}/>
+            <TestDetails showSave={showSave} setShowSave={setShowSave} handleShowSave={handleShowSave} />
 
-            <div className="card">
-                <div className="card-body">
-                    <input type="text" onChange={(e) => setTestName(e)} placeholder="Test name" />
-                </div>
+            <div className="card mb-5">
+                <button className="btn btn-primary" onClick={() => setShowSave(true)}>Save</button>
             </div>
 
             <div id="questionList">
