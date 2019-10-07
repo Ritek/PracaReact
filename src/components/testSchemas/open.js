@@ -11,23 +11,6 @@ function Open(props) {
 
     const {handleTextChange, setPoints, state} = useQuestions(props.object, props.exNum, props.handleChange);
 
-/*     const [text, setText] = useState({
-        type: "open",
-        points: props.object.points || "",
-        instruction: props.object.instruction || "", 
-        answer: props.object.answer || ""
-    });
-
-    const handleTextChange = (event) => {
-        setText({...text, [event.target.name]: event.target.value});
-    }  */
-
-    /* useEffect(() => {
-        //console.log(state);
-        props.handleChange(props.exNum, state, "open");
-    }, [state]) */
-
-
     return (
         <div className="card card-bot">
             <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>

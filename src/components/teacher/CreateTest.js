@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import Open from '../testSchemas/open'
 import TrueFalse from '../testSchemas/TrueFalse'
@@ -18,10 +18,9 @@ function CreateTest(props) {
     // State
     const [test, setTest] = useState({
         name: "", 
-        tags: "",
+        tags: [],
         questions: []
     });
-    //const forceUpdate = React.useCallback(() => dispatch({}), []);
 
     // Modal
     const [showSave, setShowSave] = useState(false);
@@ -30,17 +29,21 @@ function CreateTest(props) {
     const [showModal, setShowModal] = useState(false);
     const handleModalShow = () => setShowModal(true);
 
-    const handleChange = (index, object, exType) => {
+    const handleChange = (index, object) => {
         let arr = [...test.questions];
         arr[index] = object;
-        setTest({questions: arr});
+        setTest({...test, questions: arr});
+
+        console.log('handle chanage');
     }
 
     const handleDelete = (index) => {
         let arr = [...test.questions];
         if (arr.length === 1) arr = [];
         else arr.splice(index, 1);
-        setTest({questions: arr});
+        setTest({...test, questions: arr});
+
+        console.log('handle delete');
     }
 
     const handleReorder = (direction, oldPos) => {
@@ -58,7 +61,9 @@ function CreateTest(props) {
         let copyArr = [...test.questions];
 
         [copyArr[oldPos], copyArr[newPos]] = [copyArr[newPos], copyArr[oldPos]];
-        setTest({questions: copyArr});
+        setTest({...test, questions: copyArr});
+
+        console.log('handle reorder');
     }
 
     const getInitial = () => {
@@ -68,20 +73,34 @@ function CreateTest(props) {
             {id: "2", type: "truefalse",  instruction: "Ex1", points: "1", subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
             {blanks: ["are", "becouse", "dnd"], id: 3, instruction: "blancs instr", points: "1", sentences: ["blancs [are] dope [becouse] of [dnd]"], type: "blancs"}
         ]})
+        console.log('full');
+    }
+
+    const changeName = (event) => {
+        setTest({...test, name: event.target.value});
+    }
+
+    const changeTags = (event) => {
+        let temp = event.target.value;
+        let tempArr = temp.split(',');
+        
+        for (let i=0;i<tempArr.length;i++) {
+            tempArr[i] = tempArr[i].trim();
+        }
+        
+        setTest({...test, tags: tempArr});
     }
 
     useEffect(() => {
-        console.log(test.questions);
-    }, [test.questions]);
-
-    useEffect(() => {
-        if (props.test !== undefined) setTest(props.test);
-    }, []);
+        console.log("new state", test);
+    }, [test])
 
     return (
         <div>
             <ModalTest test={test} setTest={setTest} showModal={showModal} handleModalShow={handleModalShow} setShowModal={setShowModal}/>
-            <TestDetails showSave={showSave} setShowSave={setShowSave} handleShowSave={handleShowSave} />
+            <TestDetails showSave={showSave} setShowSave={setShowSave} 
+                handleShowSave={handleShowSave} name={test.name} changeName={changeName} tags={test.tags} changeTags={changeTags}
+            />
 
             <div className="card mb-5">
                 <button className="btn btn-primary" onClick={() => setShowSave(true)}>Save</button>

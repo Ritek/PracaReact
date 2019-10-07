@@ -4,12 +4,11 @@ import Modal from 'react-bootstrap/Modal'
 function ModalTest(props) {
 
     const handleModalClose = (selected) => {
-        console.log("got to handle");
         if (selected !== undefined) {
             let obj = {id: props.test.questions.length, type: selected, points: ""}
             let arr = [...props.test.questions];
             arr.push(obj);
-            props.setTest({questions: arr});
+            props.setTest({...props.test, questions: arr});
         }
         props.setShowModal(false);
     }

@@ -1,10 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
 function QuestionTop(props) {
-
-    useEffect(() => {
-        console.log('Number changed, now:', props.exNum);
-    }, [props.exNum]);
 
     return (
         <div className="card-header">

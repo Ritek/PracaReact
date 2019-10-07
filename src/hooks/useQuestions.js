@@ -2,27 +2,21 @@ import {useState, useEffect} from 'react'
 
 const useQuestions = (object, exNum, handleChange) => {
 
-    //console.log(">obj:", object);
-    //console.log(">exNumm:", exNum);
-
     const [state, setState] = useState(object);
 
     const handleTextChange = (event) => {
         event.target.style.height = 'inherit';
         event.target.style.height = `${event.target.scrollHeight}px`
-        console.log(event.target.style.height);
         setState({...state, [event.target.name]: event.target.value});
     } 
 
     const addTrueFalse = () => {
         if (state.subquestions === undefined) {
-            console.log("undef");
             let temp = [];
             temp.push(["", "True"]);
             setState({...state, subquestions: temp});
         } else {
             let temp = state.subquestions;
-            console.log(temp);
             temp.push(["", "True"]);
             setState({...state, subquestions: temp});
         }
@@ -44,7 +38,6 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const delSubquestion = (index) => {
-        console.log("index:",index);
         if (index === 0) setState({...state, subquestions: []});
         else 
         {
@@ -55,7 +48,6 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const addChoice = () => {
-        console.log();
         let temp;
         if (state.choices === undefined) temp = [];
         else temp = state.choices;
@@ -70,7 +62,6 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const setChoicesAnswer = (index, letter) => {
-        console.log(state.choices[index]);
         setState({...state, answer: [letter, state.choices[index]]});
     }
 
@@ -94,10 +85,6 @@ const useQuestions = (object, exNum, handleChange) => {
         setState({...state, sentences: sentences, blanks: tempArray});
     }
 
-    const blanksList = () => {
-        return state.blancs;
-    }
-
     const setPoints = (newValue) => {
         setState({...state, points: newValue});
     }
@@ -105,7 +92,6 @@ const useQuestions = (object, exNum, handleChange) => {
     useEffect(() => {
         handleChange(exNum, state, object.type);
     }, [state]);
-
 
     return {
         handleTextChange,
@@ -121,7 +107,6 @@ const useQuestions = (object, exNum, handleChange) => {
         delChoice,
 
         makeBlanks,
-        blanksList,
 
         setPoints,
         state,
