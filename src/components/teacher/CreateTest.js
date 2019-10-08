@@ -9,16 +9,17 @@ import TestDetails from '../testSchemas/TestDetails'
 import ModalTest from '../testSchemas/ModalTest'
 
 import Axios from 'axios'
+import decode from 'jwt-decode'
 
 import update from 'immutability-helper';
 
 //import useDND from '../../hooks/useDND'
 
-function CreateTest(props) {
+function CreateTest({match}) {
     // State
     const [test, setTest] = useState({
         name: "", 
-        tags: [],
+        tags: "",
         questions: []
     });
 
@@ -67,39 +68,56 @@ function CreateTest(props) {
     }
 
     const getInitial = () => {
-        setTest({name: "init name", questions: [
+        setTest({name: "init name", tags: ["tag1", "tag2"], questions: [
             {id: "0", points: "1", type: "open", instruction: "init instruction", answer: "answer init"},
             {answer: "BBB", choices: ["AAA", "BBB"], id: "1", instruction: "Choices init", points: "3", type: "choices"},
             {id: "2", type: "truefalse",  instruction: "Ex1", points: "1", subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
-            {blanks: ["are", "becouse", "dnd"], id: 3, instruction: "blancs instr", points: "1", sentences: ["blancs [are] dope [becouse] of [dnd]"], type: "blancs"}
+            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blancs instr", points: "1", sentences: ["blancs [are] dope [becouse] of [dnd]"], type: "blancs"}
         ]})
         console.log('full');
     }
 
-    const changeName = (event) => {
-        setTest({...test, name: event.target.value});
+    const changeDetails = (name, tags) => {
+        setTest({...test, name: name, tags: tags});
     }
 
-    const changeTags = (event) => {
-        let temp = event.target.value;
-        let tempArr = temp.split(',');
+    const saveTest = () => {
+        console.log('Saving test');
+        const {id} = decode(sessionStorage.getItem('token'));
+        let url = "";
         
-        for (let i=0;i<tempArr.length;i++) {
-            tempArr[i] = tempArr[i].trim();
-        }
+        if (test._id !== undefined) url = '/api/tests/createtest';
+        else url = '/api/tests/createtest';
         
-        setTest({...test, tags: tempArr});
+        Axios.post('/api/tests/edittest', {id: id, test: test}).then(res => {
+            console.log('server response:', res);
+        }).catch(error => {
+            console.log(error);
+        })
     }
+
+/*     useEffect(() => {
+        console.log("new state", test);
+    }, [test]) */
 
     useEffect(() => {
-        console.log("new state", test);
-    }, [test])
+        console.log(match.params.id);
+        const {id} = decode(sessionStorage.getItem('token'));
+        if ( match.params.id !== undefined ) {
+            Axios.post('/api/tests/gettest', {testId: match.params.id, userId: id}).then(res => {
+                console.log("data", res.data);
+                setTest({_id: res.data._id, name: res.data.name, tags: res.data.tags, questions: res.data.questions});
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+    }, [])
 
     return (
         <div>
             <ModalTest test={test} setTest={setTest} showModal={showModal} handleModalShow={handleModalShow} setShowModal={setShowModal}/>
             <TestDetails showSave={showSave} setShowSave={setShowSave} 
-                handleShowSave={handleShowSave} name={test.name} changeName={changeName} tags={test.tags} changeTags={changeTags}
+                handleShowSave={handleShowSave} name={test.name} tags={test.tags} saveTest={saveTest} changeDetails={changeDetails}
             />
 
             <div className="card mb-5">

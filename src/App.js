@@ -21,6 +21,7 @@ import CreateGroup from './components/teacher/CreateGroup';
 import MenageGroup from './components/teacher/MenageGroup';
 import EditGroup from './components/teacher/EditGroup';
 import CreateTest from './components/teacher/CreateTest';
+import TestList from './components/teacher/TestList';
 
 // student
 import JoinGroup from './components/student/JoinGroup';
@@ -60,7 +61,9 @@ function App() {
             <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
             <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
             <ProtectedRoute path="/user/menagegroups/:id" component={EditGroup} />
-            <ProtectedRoute path="/user/createtest" component={CreateTest} />
+            <ProtectedRoute path="/user/createtest" exact component={CreateTest} />
+            <ProtectedRoute path="/user/edittest/:id" component={CreateTest} />
+            <ProtectedRoute path="/user/testlist" component={TestList} />
 
             
             {/* student routes */}
