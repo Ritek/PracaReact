@@ -86,17 +86,23 @@ function CreateTest({match}) {
         const {id} = decode(sessionStorage.getItem('token'));
         let url = "";
         
-        if (test._id !== undefined) url = '/api/tests/createtest';
-        else url = '/api/tests/createtest';
+        if (match.params.id === undefined) {
+            console.log('New Test');
+            url = '/api/tests/createtest';
+        }
+        else {
+            console.log('Update Test');
+            url = '/api/tests/edittest';
+        }
         
-        Axios.post('/api/tests/edittest', {id: id, test: test}).then(res => {
+        Axios.post(url, {id: id, test: test}).then(res => {
             console.log('server response:', res);
         }).catch(error => {
             console.log(error);
         })
     }
 
-/*     useEffect(() => {
+    /* useEffect(() => {
         console.log("new state", test);
     }, [test]) */
 

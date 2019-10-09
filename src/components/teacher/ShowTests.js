@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 function ShowTests(props) {
     const initial = props.initial;
 
-    const [filtered, setFiltered] = useState(initial);
+    const [filtered, setFiltered] = useState(initial);;
 
     useEffect(() => {
         console.log("search", props.search);
@@ -40,7 +40,7 @@ function ShowTests(props) {
                             <div>
                                 {
                                     test.tags.map((tag, index2) => (
-                                        <div key={index2} className="badge badge-primary ml-1" style={{cursor: 'pointer'}} value={tag} 
+                                        <div key={index2} className="badge badge-primary m-1" style={{cursor: 'pointer'}} value={tag} 
                                             onClick={() => searchTag({tag})}><h4>{tag}</h4>
                                         </div>
                                     ))
@@ -49,9 +49,9 @@ function ShowTests(props) {
                         </div>
                         <div className="card-footer text-right">
                             <p>{test.id}</p>
-                            <Link to={`/user/edittest/${test.id}`} className="btn btn-primary">Edit</Link>
-                            <button className="btn btn-primary mr-1">Edit</button>
-                            <button className="btn btn-danger">Delete</button>
+                            <Link to={`/user/edittest/${test.id}`} className="btn btn-primary mr-2">Edit</Link>
+                            {/* <button className="btn btn-primary mr-1">Edit</button> */}
+                            <button className="btn btn-danger" onClick={() => props.deleteTest(test.id, index)}>Delete</button>
                         </div>
                     </div>
                 )) 
