@@ -3,6 +3,10 @@ import Axios from 'axios'
 
 import AddStudents from './AddStudents'
 import DeleteStudents from './DeleteStudents'
+
+import AddTest from './AddTest'
+//import DeleteTest from './DeleteTest'
+
 import ChangeGroupDetails from './ChangeGroupDetails'
 
 function EditGroup({match}) {
@@ -12,7 +16,7 @@ function EditGroup({match}) {
     const fetchData = (groupId) => {
         Axios.post('/api/groups/getgroup', {groupId: groupId}).then(res => {
             setGroup(res.data);
-            console.log(res.data);
+            //console.log("fetch data", res.data);
         }).catch(error => {
             console.log(error);
         });
@@ -26,8 +30,11 @@ function EditGroup({match}) {
     return (
         <div>
             <AddStudents groupId={match.params.id} />
-
             <DeleteStudents group={group} setGroup={setGroup} />
+
+            {group.name !== undefined &&
+                <AddTest group={group} setGroup={setGroup}/>
+            }
 
             {group.name !== undefined &&
                 <ChangeGroupDetails name={group.name} password={group.password} />

@@ -3,14 +3,6 @@ import Axios from 'axios'
 
 function AddStudents(props) {
 
-    const newStudents = {
-        width: '100%',
-    }
-
-    const newStudentBox = {
-        marginBottom: '100px',
-    }
-
     const [textArea, setTextArea] = useState("");
 
     const clearTextArea = () => {
@@ -40,10 +32,10 @@ function AddStudents(props) {
     }
 
     return (
-        <div className="card" style={newStudentBox}>
+        <div className="card mb-5 mt-5">
             <div className="card-header">Add new students by email</div>
             <div className="card-body">
-                <textarea style={newStudents} value={textArea} onChange={(e) => handleTextArea(e)}>
+                <textarea style={{width: '100%'}} value={textArea} onChange={(e) => handleTextArea(e)}>
 
                 </textarea> 
                 <button className="btn btn-primary" onClick={() => addStudent()}>Add students</button>

@@ -60,7 +60,7 @@ function DeleteStudents(props) {
     }
 
     return (
-        <div className="card">
+        <div className="card mb-5">
             <table className="table">
                 <thead>
                     <tr>

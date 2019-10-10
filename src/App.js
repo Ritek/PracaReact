@@ -17,14 +17,15 @@ import checkToken from './components/checkLoginStatus';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // teacher
-import CreateGroup from './components/teacher/CreateGroup';
-import MenageGroup from './components/teacher/MenageGroup';
-import EditGroup from './components/teacher/EditGroup';
+import CreateGroup from './components/teacher/groups/CreateGroup';
+import MenageGroup from './components/teacher/groups/MenageGroup';
+import EditGroup from './components/teacher/groups/EditGroup';
 import CreateTest from './components/teacher/CreateTest';
 import TestList from './components/teacher/TestList';
 
 // student
 import JoinGroup from './components/student/JoinGroup';
+import SolveTest from './components/student/SolveTest';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,6 +69,7 @@ function App() {
             
             {/* student routes */}
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
+            <ProtectedRoute path="/user/solvetest" exact component={SolveTest} />
 
             
           </Switch>

@@ -16,6 +16,7 @@ function UserDashboard() {
             <Link to='/user/menagegroups'>Menage groups</Link><br />
             <Link to='/user/createtest'>Create test</Link><br />
             <Link to='/user/testlist'>Your tests</Link><br />
+            <Link to='/user/solvetest'>Solve test</Link><br />
 
             <br />
             <div className="row">
