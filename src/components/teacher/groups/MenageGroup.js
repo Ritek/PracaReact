@@ -10,10 +10,9 @@ function MenageGroup() {
 
     const deleteStudent = (studentId) => {
         console.log(studentId);
-        fetchData();
     }
 
-    const fetchData = () => {
+    useEffect(() => {
         let token = sessionStorage.getItem('token');
         Axios.post('/api/groups/getgroups', {teacherId: id}, {headers: {authToken: token}}).then(res => {
             setGroups(res.data);
@@ -21,10 +20,6 @@ function MenageGroup() {
         }).catch(error => {
             console.log(error);
         });
-    }
-
-    useEffect(() => {
-        fetchData();
     }, []);
 
     return (
@@ -32,7 +27,7 @@ function MenageGroup() {
             <ul>
                 {
                     groups.map(group => (
-                        <GroupTable key={group._id} value={group} buttonFunction={deleteStudent}/>
+                        <GroupTable key={group._id} value={group} />
                     ))
                 }
             </ul>

@@ -11,12 +11,13 @@ function EditProfile() {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
+
         Axios.post('/api/userinfo/getdetails', {msg: 'hi'}, {headers: {authToken: token}}).then(res => {
-            //console.log(res.data);
-            setUser({...user, login: res.data.login, email: res.data.email});
+            setUser({login: res.data.login, email: res.data.email});
         }).catch(error => {
             console.log(error);
         }); 
+
     }, []);
 
     return (

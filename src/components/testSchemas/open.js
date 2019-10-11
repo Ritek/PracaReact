@@ -1,10 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React from 'react'
 import './style.css';
 
 import QuestionTop from './questionParts/QuestionTop'
 import QuestionBot from './questionParts/QuestionBot'
-
-import {Draggable} from 'react-beautiful-dnd'
 import useQuestions from '../../hooks/useQuestions';
 
 function Open(props) {

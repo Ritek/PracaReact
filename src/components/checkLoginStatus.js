@@ -13,7 +13,7 @@ const getNewToken = async (refToken) => {
     //console.log('after request');
 }
 
-const checkExpired = (token) => {
+/* const checkExpired = (token) => {
     try {
         const {exp} = decode(token);
 
@@ -24,7 +24,7 @@ const checkExpired = (token) => {
     }   catch(error) {
         return true;
     }
-}
+} */
 
 const isActive = (token) => {
     try {

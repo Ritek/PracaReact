@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom';
 
 function GroupTable(props) {
@@ -39,7 +39,7 @@ function GroupTable(props) {
                         }
                     </tbody>
                 </table>
-
+                
                 <table className="table table-bordered">
                     <thead>
                         <tr>
@@ -48,11 +48,11 @@ function GroupTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.value.tests !== undefined ? 
+                        {props.value.tests.length !== 0 ? 
                             props.value.tests.map((value, index) => (
                             <tr key={index}>
-                                <td>name</td>
-                                <td>password</td>
+                                <td>{value.name}</td>
+                                <td>{value.password}</td>
                             </tr>
                             )) : 
                             <tr>

@@ -11,7 +11,7 @@ import ModalTest from '../testSchemas/ModalTest'
 import Axios from 'axios'
 import decode from 'jwt-decode'
 
-import update from 'immutability-helper';
+//import update from 'immutability-helper';
 
 //import useDND from '../../hooks/useDND'
 
@@ -107,11 +107,11 @@ function CreateTest({match}) {
     }, [test]) */
 
     useEffect(() => {
-        console.log(match.params.id);
+        //console.log(match.params.id);
         const {id} = decode(sessionStorage.getItem('token'));
         if ( match.params.id !== undefined ) {
             Axios.post('/api/tests/gettest', {testId: match.params.id, userId: id}).then(res => {
-                console.log("data", res.data);
+                //console.log("data", res.data);
                 setTest({_id: res.data._id, name: res.data.name, tags: res.data.tags, questions: res.data.questions});
             }).catch(error => {
                 console.log(error);
@@ -145,6 +145,8 @@ function CreateTest({match}) {
                     else if (ex.type === "blancs") return (
                         <Blanks key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
+
+
                 })
             }
             </div>

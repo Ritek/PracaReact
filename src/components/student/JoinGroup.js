@@ -18,10 +18,7 @@ function JoinGroup() {
 
     useEffect(() => {
         focusInput.current.focus();
-        setUserId();
-    }, []);
-
-    const setUserId = () => {
+        
         try {
             const {id} = decode(sessionStorage.getItem('token'));
             console.log("effect id:", id);
@@ -29,7 +26,8 @@ function JoinGroup() {
         } catch(error) {
             console.log(error);
         }
-    }
+
+    }, []);
 
     const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value})

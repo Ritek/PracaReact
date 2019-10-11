@@ -61,7 +61,7 @@ function AddTest(props) {
     }, []);
 
     return (
-        <div className="card">
+        <div className="card mb-5">
             <div className="card-header"><h3>Select test that you would like to add</h3></div>
 
             <div className="card-body">

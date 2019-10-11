@@ -4,7 +4,7 @@ import Axios from 'axios'
 
 import decode from 'jwt-decode'
 
-import ShowTests from './ShowTests'
+import ShowTests from './ShowUserTests'
 
 import Modal from 'react-bootstrap/Modal'
 

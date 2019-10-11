@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
-function ShowTests(props) {
+function ShowUserTests(props) {
     const initial = props.initial;
 
     const [filtered, setFiltered] = useState(initial);;
@@ -60,4 +60,4 @@ function ShowTests(props) {
     )
 }
 
-export default ShowTests
+export default ShowUserTests

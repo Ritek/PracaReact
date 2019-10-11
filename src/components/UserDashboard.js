@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 function UserDashboard() {
     const colStyle = {
@@ -17,24 +17,6 @@ function UserDashboard() {
             <Link to='/user/createtest'>Create test</Link><br />
             <Link to='/user/testlist'>Your tests</Link><br />
             <Link to='/user/solvetest'>Solve test</Link><br />
-
-            <br />
-            <div className="row">
-                <div className="col-sm-6">
-                    <div className='rounded' style={colStyle}>Create a group</div>
-                </div>
-                <div className="col-sm-6">
-                    <div className='rounded' style={colStyle}>Menage groups</div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-sm-6 card">
-                    1 of 2
-                </div>
-                <div className="col-sm-6 card">
-                    2 of 2
-                </div>
-            </div>
         </div>
     )
 }

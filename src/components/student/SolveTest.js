@@ -8,7 +8,7 @@ function SolveTest() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        console.log(id);
+        //console.log(id);
         Axios.post('/api/tests/studenttests', {id: id}).then(res => {
             console.log(res);
         }).catch(error => {

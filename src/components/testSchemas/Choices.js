@@ -14,7 +14,7 @@ function Choices(props) {
 
     return (
         <div className="card card-bot">
-            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} setPoints={setPoints} points={state.points}/>
+            <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>
 
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 

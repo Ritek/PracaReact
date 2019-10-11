@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../App.css';
 import {Link, Redirect} from 'react-router-dom';
 import Axios from 'axios';
