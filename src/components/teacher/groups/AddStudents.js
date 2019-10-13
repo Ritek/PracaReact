@@ -15,17 +15,14 @@ function AddStudents(props) {
     }
 
     const addStudent = () => {
-        console.log("state:", textArea);
         const arr = textArea.split("\n");
 
         console.log(arr);
 
-        window.location.reload(false);
-
         let token = sessionStorage.getItem('token');
         Axios.post('/api/groups/addmembers', {groupId: props.groupId, members: arr}, {headers: {authToken: token}}).then(res => {
-            console.log(res);
             clearTextArea();
+            window.location.reload(false);
         }).catch(err => {
             console.log(err);
         });

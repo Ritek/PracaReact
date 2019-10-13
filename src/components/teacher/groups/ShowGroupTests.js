@@ -23,9 +23,6 @@ function ShowGroupTests(props) {
         const testsInGroup = props.group.tests;
         let filtered = [];
 
-        //console.log("all:", allUserTests);
-        //console.log("in group:", testsInGroup);
-
         for (let i=0;i<allUserTests.length;i++) {
             if (testsInGroup.indexOf(allUserTests[i].id) === -1) filtered.push(allUserTests[i]);
         }
@@ -36,10 +33,8 @@ function ShowGroupTests(props) {
     const filterTestsDelete = () => {
         const allUserTests = tests;
         const testsInGroup = props.group.tests;
-        let filtered = [];
 
-        //console.log("all:", allUserTests);
-        //console.log("in group:", testsInGroup);
+        let filtered = [];
 
         for (let i=0;i<allUserTests.length;i++) {
             if (testsInGroup.indexOf(allUserTests[i].id) !== -1) filtered.push(allUserTests[i]);
@@ -48,7 +43,7 @@ function ShowGroupTests(props) {
         setTests(filtered);
     }
 
-    useEffect(() => {   
+    useEffect(() => {  
         if (props.do === "add") filterTestsAdd();
         else filterTestsDelete();
     }, []);
@@ -65,7 +60,7 @@ function ShowGroupTests(props) {
 
             <div className="card-body">
                 <div className="mb-4">
-                    {tests.length !== 0 ? 
+                    {tests.length !== 0 && tests !== undefined ? 
                         <>
                             <table className="table">
                             <thead>
@@ -81,12 +76,7 @@ function ShowGroupTests(props) {
                                         <tr key={index}>
                                             <td>{test.name}</td>
                                             <td>{test.tags.join()}</td>
-                                            {props.fun === "add" ? 
-                                                <td><input type="checkbox" onChange={() => addSelected(test.id)}/></td>
-                                                :
-                                                <td><input type="checkbox" onChange={() => addSelected(test.id)}/></td>
-                                            }
-                                        
+                                            <td><input type="checkbox" onChange={() => addSelected(test.id)}/></td>
                                         </tr>
                                     ))
                                 }

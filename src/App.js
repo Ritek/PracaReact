@@ -26,6 +26,7 @@ import TestList from './components/teacher/TestList';
 // student
 import JoinGroup from './components/student/JoinGroup';
 import SolveTest from './components/student/SolveTest';
+import AssignedTests from './components/student/AssignedTests';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,8 +70,8 @@ function App() {
             
             {/* student routes */}
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
-            <ProtectedRoute path="/user/solvetest" exact component={SolveTest} />
-
+            <ProtectedRoute path="/user/solvetest" exact component={AssignedTests} />
+            <ProtectedRoute path="/user/solvetest/:id" component={SolveTest} />
             
           </Switch>
         </div>

@@ -64,8 +64,8 @@ function DeleteStudents(props) {
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">login</th>
                         <th scope="col">email</th>
+                        <th scope="col">login</th>
                         <th scope="col">check</th>
                     </tr>
                 </thead>
@@ -73,8 +73,8 @@ function DeleteStudents(props) {
                 {
                     group.members !== undefined && group.members.map((value, index) => (
                         <tr key={index} style={cross}>
-                            <td>{value[1]}</td>
-                            <td>{value[2]}</td>
+                            <td>{value.email}</td>
+                            <td>{value.login}</td>
                             <td><input type="checkbox" onClick={() => addToArray(index)}/></td>
                         </tr>
                     ))

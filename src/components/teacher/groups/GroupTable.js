@@ -29,8 +29,8 @@ function GroupTable(props) {
                         {props.value.members.length !== 0 ?
                             props.value.members.map((value, index) => {
                             return <tr key={index}>
-                                <td>{value[2]}</td>
-                                <td>{value[1]}</td>
+                                <td>{value.email}</td>
+                                <td>{value.login}</td>
                             </tr>
                         }) :
                         <tr>
