@@ -5,6 +5,8 @@ import decode from 'jwt-decode'
 import './testQuestions/style.css'
 
 import Open from './testQuestions/Open'
+import Choices from './testQuestions/Choices'
+import Subquestions from './testQuestions/Subquestions'
 
 function SolveTest({match}) {
     const {id} = decode(sessionStorage.getItem('token'));
@@ -50,6 +52,12 @@ function SolveTest({match}) {
 
                         {question.type === "open" &&
                             <Open question={question} questionNum={index} updateTest={updateTest}/>
+                        }
+                        {question.type === "choices" &&
+                            <Choices choices={question.choices}/>
+                        }
+                        {question.type === "truefalse" &&
+                            <Subquestions subquestions={question.subquestions}/>
                         }
                     </div>
                 ))
