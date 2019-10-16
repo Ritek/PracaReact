@@ -5,6 +5,9 @@ function Open(props) {
     const [state, setState] = useState(props.question);
 
     const handleTextChange = (event) => {
+        event.target.style.height = 'inherit';
+        event.target.style.height = `${event.target.scrollHeight}px`;
+
         setState({...state, [event.target.name]: event.target.value});
     }
 
@@ -14,7 +17,7 @@ function Open(props) {
 
     return (
         <div>
-            <input className="textarea" style={{width: '100%'}} name="answer" value={state.answer}
+            <textarea className="textarea" style={{width: '100%'}} name="answer" value={state.answer}
                 onChange={(e) => handleTextChange(e)}
             />
         </div>

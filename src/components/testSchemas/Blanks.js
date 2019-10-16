@@ -6,7 +6,7 @@ import useQuestions from '../../hooks/useQuestions'
 
 function Blanks(props) {
 
-    const {handleTextChange, setPoints, state, makeBlanks} = useQuestions(props.object, props.exNum, props.handleChange);
+    const {handleTextChange, setPoints, state, makeBlanks, blanksLines} = useQuestions(props.object, props.exNum, props.handleChange);
 
     return (
         <div className="card card-bot">
@@ -18,7 +18,7 @@ function Blanks(props) {
             </div>
             
             <textarea placeholder="Enter sentences line by line. If you want to create blanc use brackets eg. [example]" 
-                style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences}>
+                style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences} rows={blanksLines().toString()}>
             </textarea>
 
             <div className="card-body mt-2 mb-2">

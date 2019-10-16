@@ -13,7 +13,7 @@
 textarea {
     resize: none;
     overflow: hidden;
-    width: 90%;
+    width: 100%;
 }
 
 .instruction, .answer, .subquestion {
@@ -24,45 +24,8 @@ textarea {
     /* background: repeating-linear-gradient(0, #000, #fff 1px, #fff 1px, #fff 21px); */
 }
 
-.input-group {
-    margin-bottom: 2vh;
-}
 
-.card-bot {
-    margin-bottom: 4vh;
-}
-
-.points-input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #CCC;
-    color: #555;
-    box-sizing: border-box;
-    font-size: 20px;
-    width: 40px;
-    padding: 2px 0px;
-    position: relative; 
-}
-
-.points-input:focus {
-    outline: none;
-}
-
-.points-input:hover {
-    color: #000;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li {
-    font-size: 20px;
-    display: block;
-    text-align: center;
-    padding-right: 10px;
-    text-decoration: none;
+.checkmark {
+    height: 25px;
+    width: 25px;
 }

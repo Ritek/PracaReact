@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 function GroupTable(props) {
 
     return (
-        <div className="card mb-5">
+        <div className="card mb-4">
             <div className="card-header">
                 <div className="row">
                     <div className="col sm">Name: {props.value.name} <br />Password: {props.value.password}</div>
@@ -47,7 +47,7 @@ function GroupTable(props) {
                     <p>One test added to the group!</p>
                 }
                 {props.value.tests.length > 1 &&
-                    <p>{props.value.length} added to the group!</p>
+                    <p>{props.value.tests.length} tests added to the group!</p>
                 }
             </div>
         </div>

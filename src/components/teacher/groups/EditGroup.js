@@ -61,18 +61,17 @@ function EditGroup({match}) {
             <AddStudents groupId={match.params.id} />
             <DeleteStudents group={group} setGroup={setGroup} />
 
-            { group.name !== undefined && userTests.length !== 0 &&
+            { group.name !== undefined &&
                 <ShowGroupTests fun="add" group={group} setGroup={setGroup} 
-                addNewTest={addNewTest} userTests={userTests} do='add'
+                    addNewTest={addNewTest} userTests={userTests} do='add'
                 />
             }
 
-            {group.name !== undefined && userTests.length !== 0 &&
+            {group.name !== undefined &&
                 <ShowGroupTests fun="delete" group={group} setGroup={setGroup} 
-                deleteTest={deleteTest} userTests={userTests} do="delete"
-                />
+                    deleteTest={deleteTest} userTests={userTests} do="delete"
+                />   
             }
-
 
             {group.name !== undefined &&
                 <ChangeGroupDetails name={group.name} password={group.password} />

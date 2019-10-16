@@ -6,19 +6,12 @@ import './testQuestions/style.css'
 
 import Open from './testQuestions/Open'
 import Choices from './testQuestions/Choices'
-import Subquestions from './testQuestions/Subquestions'
+import TrueFalse from './testQuestions/Subquestions'
+import Blanks from './testQuestions/Blanks'
 
 function SolveTest({match}) {
     const {id} = decode(sessionStorage.getItem('token'));
     const [test, setTest] = useState({});
-
-    const handleTextChange = (event, questionNum) => {
-        console.log(event.target.value);
-        event.target.style.height = 'inherit';
-        event.target.style.height = `${event.target.scrollHeight}px`
-        test.questions[questionNum].answer = event.target.value;
-        //setTest({...test, questions[questionNum].answer})
-    } 
 
     const updateTest = (newQuestion, index) => {
         console.log('update Test');
@@ -54,10 +47,13 @@ function SolveTest({match}) {
                             <Open question={question} questionNum={index} updateTest={updateTest}/>
                         }
                         {question.type === "choices" &&
-                            <Choices choices={question.choices}/>
+                            <Choices question={question} questionNum={index} updateTest={updateTest}/>
                         }
                         {question.type === "truefalse" &&
-                            <Subquestions subquestions={question.subquestions}/>
+                            <TrueFalse question={question} questionNum={index} updateTest={updateTest}/>
+                        }
+                        {question.type === "blanks" &&
+                            <Blanks question={question} questionNum={index} updateTest={updateTest}/>
                         }
                     </div>
                 ))

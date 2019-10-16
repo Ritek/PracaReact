@@ -24,7 +24,7 @@ function ModalTest(props) {
                 <div className="row">
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("open")}>Open</button>
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("truefalse")}>True or false</button>
-                    <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("blancs")}>Blancs</button>
+                    <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("blanks")}>Blanks</button>
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("choices")}>Choices</button>
                 </div>
             </Modal.Body>

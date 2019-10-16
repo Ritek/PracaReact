@@ -34,7 +34,7 @@ function ShowUserTests(props) {
         <div>
             {
                 filtered.map((test, index) => (
-                    <div key={index} className="card">
+                    <div key={index} className="card mb-5">
                         <div className="card-body"> 
                             <h3 className="text-left">Name: {test.name}</h3>
                             <div>
@@ -50,7 +50,6 @@ function ShowUserTests(props) {
                         <div className="card-footer text-right">
                             <p>{test.id}</p>
                             <Link to={`/user/edittest/${test.id}`} className="btn btn-primary mr-2">Edit</Link>
-                            {/* <button className="btn btn-primary mr-1">Edit</button> */}
                             <button className="btn btn-danger" onClick={() => props.deleteTest(test.id, index)}>Delete</button>
                         </div>
                     </div>

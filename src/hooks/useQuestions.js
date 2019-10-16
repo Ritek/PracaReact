@@ -77,12 +77,19 @@ const useQuestions = (object, exNum, handleChange) => {
         event.target.style.height = `${event.target.scrollHeight}px`
 
         let tempText = event.target.value;
-        const sentences = tempText.split("\n");
+        //const sentences = tempText.split("\n");
 
         //let tempArray = tempText.match(/\[(.*?)\]/g);
         let tempArray = tempText.match(/(?<=\[)(.*?)(?=\])/g);
 
-        setState({...state, sentences: sentences, blanks: tempArray});
+        //setState({...state, sentences: sentences, blanks: tempArray});
+        setState({...state, sentences: event.target.value, blanks: tempArray});
+    }
+
+    const blanksLines = () => {
+        let arr = state.sentences.split('\n');
+        console.log('length', arr.length);
+        return arr.length;
     }
 
     const setPoints = (newValue) => {
@@ -107,6 +114,7 @@ const useQuestions = (object, exNum, handleChange) => {
         delChoice,
 
         makeBlanks,
+        blanksLines,
 
         setPoints,
         state,

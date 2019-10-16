@@ -91,7 +91,7 @@ function ShowGroupTests(props) {
                         :
                         <div className="jumbotron">
                             {props.fun === "add" ?
-                                <h3>Group has assigned all the test you have created</h3>
+                                <h3>Group has no tests to add</h3>
                                 :
                                 <h3>Group has no tests to delete</h3>
                             }      

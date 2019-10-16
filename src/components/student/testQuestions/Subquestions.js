@@ -1,6 +1,20 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import './style.css'
 
 function Subquestions(props) {
+
+    const [state, setState] = useState(props.question);
+
+    const changeAnswer = (value, index) => {
+        let temp = state.subquestions;
+        temp[index][1] = value;
+        setState({...state, subquestions: temp});
+    }
+
+    useEffect(() => {
+        props.updateTest(state, props.questionNum);
+    }, [state])
+
     return (
         <table className="table">
             <thead>
@@ -12,12 +26,16 @@ function Subquestions(props) {
             </thead>
 
             <tbody>
-                {
-                    props.subquestions.map((ques, index) => (
+                {state.subquestions !== undefined &&
+                    state.subquestions.map((ques, index) => (
                         <tr key={index}>
                             <td>{ques[0]}</td>
-                            <td>T</td>
-                            <td>F</td>
+                            <td className="text-center"><input type="radio" className="checkmark" 
+                                name={`tf${index}`} value="true" onClick={() => changeAnswer('true', index)}/>
+                            </td>
+                            <td className="text-center"><input type="radio" className="checkmark" 
+                                name={`tf${index}`} value="false" onClick={() => changeAnswer('false', index)}/>
+                            </td>
                         </tr>
                     ))
                 }

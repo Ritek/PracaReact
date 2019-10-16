@@ -34,8 +34,6 @@ function CreateTest({match}) {
         let arr = [...test.questions];
         arr[index] = object;
         setTest({...test, questions: arr});
-
-        console.log('handle chanage');
     }
 
     const handleDelete = (index) => {
@@ -72,7 +70,7 @@ function CreateTest({match}) {
             {id: "0", points: "1", type: "open", instruction: "init instruction", answer: "answer init"},
             {answer: "BBB", choices: ["AAA", "BBB"], id: "1", instruction: "Choices init", points: "3", type: "choices"},
             {id: "2", type: "truefalse",  instruction: "Ex1", points: "1", subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
-            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blancs instr", points: "1", sentences: ["blancs [are] dope [becouse] of [dnd]"], type: "blancs"}
+            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blanks instr", points: "1", sentences: ["blanks [are] dope [becouse] of [dnd]"], type: "blanks"}
         ]})
         console.log('full');
     }
@@ -102,9 +100,9 @@ function CreateTest({match}) {
         })
     }
 
-    /* useEffect(() => {
+    useEffect(() => {
         console.log("new state", test);
-    }, [test]) */
+    }, [test])
 
     useEffect(() => {
         //console.log(match.params.id);
@@ -142,7 +140,7 @@ function CreateTest({match}) {
                     else if (ex.type === "choices") return (
                         <Choices key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
-                    else if (ex.type === "blancs") return (
+                    else if (ex.type === "blanks") return (
                         <Blanks key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
 
