@@ -41,7 +41,7 @@ function SolveTest({match}) {
                 test.questions.map((question, index) => (
                     <div key={index} className="text-left" style={{marginBottom: "70px"}}>
                         <h4>{question.points}p</h4>
-                        <h5>{question.instruction}</h5>
+                        <h5 className="mb-4">{question.instruction}</h5>
 
                         {question.type === "open" &&
                             <Open question={question} questionNum={index} updateTest={updateTest}/>
