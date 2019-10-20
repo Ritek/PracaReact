@@ -87,9 +87,10 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const blanksLines = () => {
-        let arr = state.sentences.split('\n');
-        console.log('length', arr.length);
-        return arr.length;
+        if (typeof(state.sentences) === String) {
+            let arr = state.sentences.split('\n');
+            return arr.length;
+        } else return 1
     }
 
     const setPoints = (newValue) => {

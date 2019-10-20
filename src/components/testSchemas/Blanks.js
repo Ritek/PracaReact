@@ -17,7 +17,7 @@ function Blanks(props) {
                 placeholder="You can enter instructions here" value={state.instruction}/>
             </div>
             
-            <textarea placeholder="Enter sentences line by line. If you want to create blanc use brackets eg. [example]" 
+            <textarea placeholder="Enter sentences line by line. If you want to create a blank use brackets eg. [example]" 
                 style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences} rows={blanksLines().toString()}>
             </textarea>
 

@@ -6,6 +6,7 @@ function TestDetails(props) {
     const [details, setDetails] = useState({
         name: props.name || "", 
         tags: props.tags || "",
+        access: props.access || "",
     });
 
     const setName = (event) => {
@@ -21,14 +22,18 @@ function TestDetails(props) {
         setDetails({...details, tags: temp2});
     }
 
+    const setAccess = (event) => {
+        setDetails({...details, access: event.target.value});
+    }
+
     useEffect(() => {
-        if (props.name !== details.name || props.tags !== details.tags) {
-            setDetails({name: props.name, tags: props.tags});
+        if (props.name !== details.name || props.tags !== details.tags || props.access !== details.access) {
+            setDetails({name: props.name, tags: props.tags, access: props.access});
         }
     }, [props])
 
     useEffect(() => {
-        props.changeDetails(details.name, details.tags);
+        props.changeDetails(details.name, details.tags, details.access);
     }, [details])
 
     const handleModalClose = () => {
@@ -50,8 +55,14 @@ function TestDetails(props) {
 
 
                 <label htmlFor="tags">Tags:</label>
-                <input type="text" className="form-control mb-4" id="tags" name="tags" 
+                <input type="text" className="form-control mb-2" id="tags" name="tags" 
                     value={details.tags} onChange={(e) => setTags(e)}
+                />
+
+
+                <label htmlFor="access">Users who have access to this test:</label>
+                <input type="text" className="form-control mb-4" id="access" name="access" 
+                    value={details.access} onChange={(e) => setAccess(e)}
                 />
 
             </Modal.Body>

@@ -80,7 +80,7 @@ function TestList() {
             </Modal>
 
             <div className="card mb-4">
-                <h1>Your tests</h1>
+                <h1>Enter name or tag to filter</h1>
                 <div className="card-body">
                     <input type="text" className="form-control mb-1" onChange={(e) => handleSearch(e)} 
                     value={search.content} placeholder="Type here to filter list by test name or it's tags" />
@@ -88,7 +88,7 @@ function TestList() {
             </div>
 
             {list.length !== 0 &&
-                <ShowTests initial={list} search={search.content} handleTags={handleTags} deleteTest={deleteTest}/>
+                <ShowTests initial={list} search={search.content} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
             }
 
             {list.length === 0 &&

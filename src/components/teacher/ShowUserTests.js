@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
+
+
+import ShowSingleTest from './ShowSingleTest'
 
 function ShowUserTests(props) {
     const initial = props.initial;
@@ -34,25 +36,7 @@ function ShowUserTests(props) {
         <div>
             {
                 filtered.map((test, index) => (
-                    <div key={index} className="card mb-5">
-                        <div className="card-body"> 
-                            <h3 className="text-left">Name: {test.name}</h3>
-                            <div>
-                                {
-                                    test.tags.map((tag, index2) => (
-                                        <div key={index2} className="badge badge-primary m-1" style={{cursor: 'pointer'}} value={tag} 
-                                            onClick={() => searchTag({tag})}><h4>{tag}</h4>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>
-                        <div className="card-footer text-right">
-                            <p>{test.id}</p>
-                            <Link to={`/user/edittest/${test.id}`} className="btn btn-primary mr-2">Edit</Link>
-                            <button className="btn btn-danger" onClick={() => props.deleteTest(test.id, index)}>Delete</button>
-                        </div>
-                    </div>
+                    <ShowSingleTest key={index} searchTag={searchTag} test={test} deleteTest={props.deleteTest}/>
                 )) 
             }
         </div>

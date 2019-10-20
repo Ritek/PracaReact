@@ -13,13 +13,12 @@ import decode from 'jwt-decode'
 
 //import update from 'immutability-helper';
 
-//import useDND from '../../hooks/useDND'
-
 function CreateTest({match}) {
     // State
     const [test, setTest] = useState({
         name: "", 
         tags: "",
+        access: [],
         questions: []
     });
 
@@ -49,11 +48,7 @@ function CreateTest({match}) {
         let newPos;
         if (direction === "up") newPos = oldPos-1;
         else newPos = oldPos+1; 
-        // to do dodaj zegarek
-        // zabezpiecz przed printscreen
-        // informacja zwriotna
-        // automatyczny przyznawanie punktów
-        // 
+
         if (newPos === -1) newPos = 0;
         if (newPos === test.questions.length) newPos = test.questions.length-1;
 
@@ -66,17 +61,16 @@ function CreateTest({match}) {
     }
 
     const getInitial = () => {
-        setTest({name: "init name", tags: ["tag1", "tag2"], questions: [
+        setTest({name: "init name", tags: ["tag1", "tag2"], access: "", questions: [
             {id: "0", points: "1", type: "open", instruction: "init instruction", answer: "answer init"},
             {answer: "BBB", choices: ["AAA", "BBB"], id: "1", instruction: "Choices init", points: "3", type: "choices"},
             {id: "2", type: "truefalse",  instruction: "Ex1", points: "1", subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
-            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blanks instr", points: "1", sentences: ["blanks [are] dope [becouse] of [dnd]"], type: "blanks"}
+            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blanks instr", points: "1", sentences: ["blanks [are] dope [becouse] of [dnd]\n"], type: "blanks"}
         ]})
-        console.log('full');
     }
 
-    const changeDetails = (name, tags) => {
-        setTest({...test, name: name, tags: tags});
+    const changeDetails = (name, tags, access) => {
+        setTest({...test, name: name, tags: tags, access: access});
     }
 
     const saveTest = () => {
@@ -84,7 +78,11 @@ function CreateTest({match}) {
         const {id} = decode(sessionStorage.getItem('token'));
         let url = "";
         
-        if (match.params.id === undefined) {
+        if (match.params.id === undefined && test.author === undefined) {
+            console.log('New Test');
+            url = '/api/tests/createtest';
+        }
+        else if (test.author !== id) {
             console.log('New Test');
             url = '/api/tests/createtest';
         }
@@ -95,6 +93,7 @@ function CreateTest({match}) {
         
         Axios.post(url, {id: id, test: test}).then(res => {
             console.log('server response:', res);
+            setTest({...test, author: id});
         }).catch(error => {
             console.log(error);
         })
@@ -105,12 +104,11 @@ function CreateTest({match}) {
     }, [test])
 
     useEffect(() => {
-        //console.log(match.params.id);
         const {id} = decode(sessionStorage.getItem('token'));
         if ( match.params.id !== undefined ) {
             Axios.post('/api/tests/gettest', {testId: match.params.id, userId: id}).then(res => {
-                //console.log("data", res.data);
-                setTest({_id: res.data._id, name: res.data.name, tags: res.data.tags, questions: res.data.questions});
+                console.log("data", res.data);
+                setTest(res.data);
             }).catch(error => {
                 console.log(error);
             });
@@ -121,12 +119,13 @@ function CreateTest({match}) {
         <div>
             <ModalTest test={test} setTest={setTest} showModal={showModal} handleModalShow={handleModalShow} setShowModal={setShowModal}/>
             <TestDetails showSave={showSave} setShowSave={setShowSave} 
-                handleShowSave={handleShowSave} name={test.name} tags={test.tags} saveTest={saveTest} changeDetails={changeDetails}
+                handleShowSave={handleShowSave} name={test.name} tags={test.tags} access={test.access} saveTest={saveTest} changeDetails={changeDetails}
             />
 
             <div className="card mb-5">
                 <button className="btn btn-primary" onClick={() => setShowSave(true)}>Save</button>
             </div>
+
 
             <div id="questionList">
             {test.questions !== undefined &&
@@ -143,8 +142,6 @@ function CreateTest({match}) {
                     else if (ex.type === "blanks") return (
                         <Blanks key={ex.id} exNum={idx} handleChange={handleChange} handleDelete={handleDelete} handleReorder={handleReorder} object={test.questions[idx]}/>
                     )
-
-
                 })
             }
             </div>
