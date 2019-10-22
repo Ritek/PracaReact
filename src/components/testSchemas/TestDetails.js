@@ -62,7 +62,7 @@ function TestDetails(props) {
 
                 <label htmlFor="access">Users who have access to this test:</label>
                 <input type="text" className="form-control mb-4" id="access" name="access" 
-                    value={details.access} onChange={(e) => setAccess(e)}
+                    value = {details.access !== null ? details.access : ""} onChange={(e) => setAccess(e)}
                 />
 
             </Modal.Body>

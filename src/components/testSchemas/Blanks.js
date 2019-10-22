@@ -14,11 +14,11 @@ function Blanks(props) {
 
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 
-                placeholder="You can enter instructions here" value={state.instruction}/>
+                placeholder="You can enter instructions here" value={state.instruction} />
             </div>
             
             <textarea placeholder="Enter sentences line by line. If you want to create a blank use brackets eg. [example]" 
-                style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences} rows={blanksLines().toString()}>
+                style={{width: "100%"}} onChange={(e) => makeBlanks(e)} value={state.sentences} rows={blanksLines()}>
             </textarea>
 
             <div className="card-body mt-2 mb-2">

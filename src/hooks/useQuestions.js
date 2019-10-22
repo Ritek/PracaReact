@@ -87,10 +87,11 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const blanksLines = () => {
-        if (typeof(state.sentences) === String) {
+        if (typeof(state.sentences) === 'string') {
             let arr = state.sentences.split('\n');
+            console.log('arr.lengh =', arr.length);
             return arr.length;
-        } else return 1
+        }
     }
 
     const setPoints = (newValue) => {

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 
-import Open from '../testSchemas/open'
-import TrueFalse from '../testSchemas/TrueFalse'
-import Choices from '../testSchemas/Choices'
-import Blanks from '../testSchemas/Blanks'
+import Open from '../../testSchemas/open'
+import TrueFalse from '../../testSchemas/TrueFalse'
+import Choices from '../../testSchemas/Choices'
+import Blanks from '../../testSchemas/Blanks'
 
-import TestDetails from '../testSchemas/TestDetails'
-import ModalTest from '../testSchemas/ModalTest'
+import TestDetails from '../../testSchemas/TestDetails'
+import ModalTest from '../../testSchemas/ModalTest'
 
 import Axios from 'axios'
 import decode from 'jwt-decode'
@@ -106,6 +106,7 @@ function CreateTest({match}) {
     useEffect(() => {
         const {id} = decode(sessionStorage.getItem('token'));
         if ( match.params.id !== undefined ) {
+            console.log('id', match.params.id);
             Axios.post('/api/tests/gettest', {testId: match.params.id, userId: id}).then(res => {
                 console.log("data", res.data);
                 setTest(res.data);

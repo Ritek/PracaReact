@@ -14,17 +14,17 @@ function SolveTest({match}) {
     const [test, setTest] = useState({});
 
     const updateTest = (newQuestion, index) => {
-        console.log('update Test');
+        //console.log('update Test');
         let copy = [...test.questions];
         copy[index] = newQuestion;
         setTest({...test, questions: copy});
     }
 
     useEffect(() => {
-        console.log(match.params.id);
+        //console.log(match.params.id);
 
         Axios.post('/api/tests/solvetest', {id: id, testId: match.params.id}).then(res => {
-            console.log("res:", res.data);
+            //console.log("res:", res.data);
             setTest(res.data);
         }).catch(error => {
             console.log(error);

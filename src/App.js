@@ -20,8 +20,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CreateGroup from './components/teacher/groups/CreateGroup';
 import MenageGroup from './components/teacher/groups/MenageGroup';
 import EditGroup from './components/teacher/groups/EditGroup';
-import CreateTest from './components/teacher/CreateTest';
-import TestList from './components/teacher/TestList';
+import CreateTest from './components/teacher/teachersTest/CreateTest';
+import TestList from './components/teacher/teachersTest/TestList';
 
 // student
 import JoinGroup from './components/student/JoinGroup';
