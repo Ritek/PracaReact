@@ -5,6 +5,9 @@ function ShowGroupTests(props) {
     const [selected, setSelected] = useState([]);
 
     const addSelected = (id) => {
+        console.log('add selected');
+        console.log(id);
+
         let temp = [...selected];
 
         if (temp.indexOf(id) === -1) {
@@ -18,13 +21,17 @@ function ShowGroupTests(props) {
         setSelected(temp);
     }
 
+    useEffect(() => {
+        console.log(selected);
+    }, [selected])
+
     const filterTestsAdd = () => {
-        const allUserTests = tests;
+        const allUserTests = props.userTests;
         const testsInGroup = props.group.tests;
         let filtered = [];
 
         for (let i=0;i<allUserTests.length;i++) {
-            if (testsInGroup.indexOf(allUserTests[i].id) === -1) filtered.push(allUserTests[i]);
+            if (testsInGroup.indexOf(allUserTests[i]._id) === -1) filtered.push(allUserTests[i]);
         }
 
         setTests(filtered);
@@ -37,13 +44,14 @@ function ShowGroupTests(props) {
         let filtered = [];
 
         for (let i=0;i<allUserTests.length;i++) {
-            if (testsInGroup.indexOf(allUserTests[i].id) !== -1) filtered.push(allUserTests[i]);
+            if (testsInGroup.indexOf(allUserTests[i]._id) !== -1) filtered.push(allUserTests[i]);
         }
 
         setTests(filtered);
     }
 
     useEffect(() => {  
+        //console.log("userTests", props.userTests);
         if (props.do === "add") filterTestsAdd();
         else filterTestsDelete();
     }, []);
@@ -60,7 +68,7 @@ function ShowGroupTests(props) {
 
             <div className="card-body">
                 <div className="mb-4">
-                    {tests.length !== 0 && tests !== undefined ? 
+                    {tests.length !== 0 ?
                         <>
                             <table className="table">
                             <thead>
@@ -76,7 +84,7 @@ function ShowGroupTests(props) {
                                         <tr key={index}>
                                             <td>{test.name}</td>
                                             <td>{test.tags.join()}</td>
-                                            <td><input type="checkbox" onChange={() => addSelected(test.id)}/></td>
+                                            <td><input type="checkbox" onChange={() => addSelected(test._id)}/></td>
                                         </tr>
                                     ))
                                 }

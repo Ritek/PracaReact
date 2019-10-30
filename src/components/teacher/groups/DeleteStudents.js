@@ -37,23 +37,13 @@ function DeleteStudents(props) {
         for (let i=0;i<groupCopy.length;i++) {
             if (!selected.includes(i)) newArray.push(groupCopy[i]);
         }
-        
+
         console.log(newArray);
-
-        let cos = group;
-        cos.members = newArray;
-        console.log(cos);
-        setGroup(cos);
-
-        window.location.reload(false);
 
         let token = sessionStorage.getItem('token');
         Axios.post('/api/groups/deletemembers', {groupId: group._id, members: newArray}, {headers: {authToken: token}}).then(res => {
             console.log(res);
-            let groupCopy = group;
-            groupCopy.members = newArray;
-            console.log(groupCopy);
-            setGroup(groupCopy);
+            props.deleteMembers(newArray);
         }).catch(err => {
             console.log(err);
         });
@@ -61,26 +51,31 @@ function DeleteStudents(props) {
 
     return (
         <div className="card mb-5">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">email</th>
-                        <th scope="col">login</th>
-                        <th scope="col">check</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    group.members !== undefined && group.members.map((value, index) => (
-                        <tr key={index} style={cross}>
-                            <td>{value.email}</td>
-                            <td>{value.login}</td>
-                            <td><input type="checkbox" onClick={() => addToArray(index)}/></td>
+            <div className="card-header">
+                <h3>Students in group</h3>
+            </div>
+            <div className="card-body">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">email</th>
+                            <th scope="col">login</th>
+                            <th scope="col"></th>
                         </tr>
-                    ))
-                } 
-                </tbody>           
-            </table>
+                    </thead>
+                    <tbody>
+                    {
+                        group.members !== undefined && group.members.map((value, index) => (
+                            <tr key={index} style={cross}>
+                                <td>{value.email}</td>
+                                <td>{value.login}</td>
+                                <td><input type="checkbox" onClick={() => addToArray(index)}/></td>
+                            </tr>
+                        ))
+                    } 
+                    </tbody>           
+                </table>
+            </div>
             <button className="btn btn-danger" style={buttonStyle} onClick={() => deleteStudents()}>Delete selected</button>
         </div>
     )

@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import Toast from 'react-bootstrap/Toast'
+import {Link} from 'react-router-dom'
 
 import Open from '../../testSchemas/open'
 import TrueFalse from '../../testSchemas/TrueFalse'
@@ -28,6 +30,8 @@ function CreateTest({match}) {
 
     const [showModal, setShowModal] = useState(false);
     const handleModalShow = () => setShowModal(true);
+
+    const [showToast, setShowToast] = useState({show: false, msg: ""});
 
     const handleChange = (index, object) => {
         let arr = [...test.questions];
@@ -77,6 +81,7 @@ function CreateTest({match}) {
         console.log('Saving test');
         const {id} = decode(sessionStorage.getItem('token'));
         let url = "";
+        let msg = "Test successfuly saved!";
         
         if (match.params.id === undefined && test.author === undefined) {
             console.log('New Test');
@@ -89,15 +94,21 @@ function CreateTest({match}) {
         else {
             console.log('Update Test');
             url = '/api/tests/edittest';
+            msg = "Test successfuly updated!";
         }
         
         Axios.post(url, {id: id, test: test}).then(res => {
             console.log('server response:', res);
             setTest({...test, author: id});
+            setShowToast({show: true, msg: msg});
         }).catch(error => {
             console.log(error);
         })
     }
+
+    useEffect(() => {
+        console.log(">", showToast);
+    }, [showToast])
 
     useEffect(() => {
         console.log("new state", test);
@@ -122,6 +133,16 @@ function CreateTest({match}) {
             <TestDetails showSave={showSave} setShowSave={setShowSave} 
                 handleShowSave={handleShowSave} name={test.name} tags={test.tags} access={test.access} saveTest={saveTest} changeDetails={changeDetails}
             />
+
+            <Toast onClose={() => setShowToast({show: false})} show={showToast.show} delay={5000} 
+                style={{position: 'absolute', bottom: '20px', left: '30px', zIndex: '1'}} autohide>
+
+                <Toast.Header><strong className="mr-auto">Test saved</strong></Toast.Header>
+                <Toast.Body>
+                    <h5>{showToast.msg}</h5>
+                    See all yout tests: <Link className="btn btn-primary ml-4" style={{margin: 'auto'}} to='/user/testlist'>Tests</Link>
+                </Toast.Body>
+            </Toast>
 
             <div className="card mb-5">
                 <button className="btn btn-primary" onClick={() => setShowSave(true)}>Save</button>

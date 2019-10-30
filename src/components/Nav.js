@@ -1,16 +1,32 @@
 import React from 'react';
 import '../App.css';
 
+import decode from 'jwt-decode';
 import {Link} from 'react-router-dom';
 
-function Nav(props) { 
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+
+function NavBar(props) { 
     const [login, setLogin] = props.value;
+    let user = {};
+
+    try {
+        user = decode(sessionStorage.getItem('token'));
+    } catch(error) {
+
+    }
+    
+    //const {id} = decode(sessionStorage.getItem('token'));
+
     let loginButton;
     let dashboard;
     let about;
+    let home;
 
     const navStyle = {
         color: 'white',
+        marginRight: '20px',
     }
 
     const handleLogOut = () => {
@@ -27,8 +43,10 @@ function Nav(props) {
 
     if (login === false) {
         dashboard = <Link style={navStyle} to='/'> <li>Home</li> </Link>;
+        home = '/';
     } else {
         dashboard = <Link style={navStyle} to='/user'> <li>Home</li> </Link>;
+        home ='/user';
     }
 
     if (login === false) {
@@ -38,15 +56,38 @@ function Nav(props) {
     }
 
     return (
-        <nav>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href={home}>React-Bootstrap</Navbar.Brand>
+
+            {user.login !== undefined &&
+                <Navbar.Text className="mr-auto">
+                    Signed in as: {user.login}
+                </Navbar.Text>
+            }
+
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto"></Nav>
+                
+                <Nav>
+                    {dashboard}
+                    {about}
+                    {loginButton}
+                </Nav>
+            </Navbar.Collapse>
+            
+        </Navbar>
+    );
+}
+
+export default NavBar;
+
+
+        {/* <nav>
             <h3>Logo</h3>
             <ul className="nav-links">
                 {dashboard}
                 {about}
                 {loginButton}
             </ul>
-        </nav>
-    );
-}
-
-export default Nav;
+        </nav> */}

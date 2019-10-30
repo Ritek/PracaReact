@@ -1,10 +1,16 @@
 import React, {useState, useRef, useEffect} from 'react'
 import Axios from 'axios';
 import decode from 'jwt-decode';
+import useCheckForbidden from '../../../hooks/validateCaracters'
+
+import {Redirect} from 'react-router-dom'
+import Toast from 'react-bootstrap/Toast'
 
 function CreateGroup() {
     const focusInput = useRef(null);
     const {id} = decode(sessionStorage.getItem('token'));
+
+    const {filterForbidden} = useCheckForbidden();
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -13,7 +19,13 @@ function CreateGroup() {
         minWidth: '300px',
     }
 
-    const [inputs, setInputs] = useState({userId: id, name: "", password: ""});
+    const [inputs, setInputs] = useState({name: "", password: ""});
+    const [errors, setErrors] = useState({nameError: false, passwordError: false});
+
+    const [disableSubmit, setDisableSubmit] = useState(true);
+    const [message, setMessage] = useState({status: "", msg: ""});
+
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         focusInput.current.focus();
@@ -21,21 +33,22 @@ function CreateGroup() {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(inputs);
-        console.log("userId:", inputs.userId);
+        //console.log(inputs);
+        //console.log("userId:", inputs.userId);
 
         const newGroup = { 
-            id: inputs.userId,
+            id: id,
             name: inputs.name,
             password: inputs.password,
         }
 
-        console.log(newGroup);
+        //console.log(newGroup);
  
         Axios.post('/api/groups/creategroup', newGroup, {headers: {authToken: sessionStorage.getItem('token')} }).then(res => {
-            console.log(res.data);
+            setRedirect(true);
         }).catch(error => {
             console.log(error);
+            setMessage({status: "error", msg: error.response.data});
         });
     }
 
@@ -43,28 +56,63 @@ function CreateGroup() {
         setInputs({...inputs, [event.target.name]: event.target.value});
     }
 
+    useEffect(() => {
+        const ans = filterForbidden(inputs);
+        setErrors(ans);
+    }, [inputs]);
+
+    useEffect(() => {
+        if (errors.nameError || errors.passwordError || inputs.name === "" || inputs.password === "") setDisableSubmit(true);
+        else setDisableSubmit(false);
+    }, [errors])
+
     return (
         <div>
+            
+            {message.status === "error" &&
+                <div className="alert alert-danger" style={cardStyle}>
+                    <p>{message.msg}</p>
+                </div>
+            }
+
             <div className="card" style={cardStyle}>
                 <div className="card-header">
                     <h1>Create group</h1>
                 </div>
-                <form className="card-body">
+                <div className="card-body form-group">
 
-                    <input ref={focusInput} type="text" className="form-control is-invalid" name="name" value={inputs.name} onChange={e => handleChange(e)} placeholder="Group name" required/>
-                    <br/>
-                    <p>lllll</p>
+                    <div className="input-group">
+                        <input ref={focusInput} type="text" name="name" 
+                            value={inputs.name} onChange={e => handleChange(e)} placeholder="Group name" required
+                            className={ errors.nameError ? 'form-control is-invalid' : 'form-control'} 
+                        />
+                        <div className="invalid-feedback">
+                            Name should only contain letters and numbers! 
+                        </div>
+                    </div>
 
-                    <br/>
+                    <div className="input-group">
+                        <input type="text" name="password" 
+                            value={inputs.password} onChange={e => handleChange(e)} placeholder="Group password" required
+                            className={ errors.passwordError ? 'form-control is-invalid' : 'form-control'}
+                        /> 
+                        <div className="invalid-feedback">
+                            Name should only contain letters and numbers! 
+                        </div>
+                    </div>
 
-                    <input type="text" className="form-control" name="password" value={inputs.password} onChange={e => handleChange(e)} placeholder="Group password" required/>
-                    <br/>
-                    <p></p>  
-
-                    <button type="submit" className="btn btn-primary" onClick={e => onSubmit(e)}>Create</button>  
-
-                </form>
+                    <div className="input-group">
+                        <button type="submit" className="btn btn-primary" disabled={disableSubmit}
+                            onClick={e => onSubmit(e)} style={{margin: 'auto'}}>Create
+                        </button>
+                    </div>  
+                    
+                </div>
             </div>
+
+            {redirect === true &&
+                <Redirect to="/user/menagegroups" />
+            }
         </div>
     )
 }

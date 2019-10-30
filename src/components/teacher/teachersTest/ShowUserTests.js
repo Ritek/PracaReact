@@ -18,22 +18,8 @@ function ShowUserTests(props) {
     }
 
     useEffect(() => {
-        let tagsArray = props.search.tags;
-        let temp = [];
-
-        //var re = new RegExp(props.search.content, 'i');
         let re = props.search.content;
         console.log(re);
-
-        /* if (props.search.content === "" && props.search.tags.length === 0) {
-            setFiltered(initial)
-        } else {
-            for (let i=0;i<initial.length;i++) {
-                if (checkName(initial[i].name, re)) temp.push(initial[i]);
-                else if (checkTags(initial[i])) temp.push(initial[i]);
-            }
-            setFiltered(temp);
-        } */
 
         if (props.search.content === "" && props.search.tags.length === 0) {
             setFiltered(initial)
@@ -78,6 +64,3 @@ function ShowUserTests(props) {
 }
 
 export default ShowUserTests
-
-
-/*  */

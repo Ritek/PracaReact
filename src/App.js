@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 // components
 import About from './components/About';
-import Nav from './components/Nav';
+import NavBar from './components/Nav';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -17,6 +17,8 @@ import checkToken from './components/checkLoginStatus';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // teacher
+import TeacherDashboard from './components/protected/TeacherDashboard'
+
 import CreateGroup from './components/teacher/groups/CreateGroup';
 import MenageGroup from './components/teacher/groups/MenageGroup';
 import EditGroup from './components/teacher/groups/EditGroup';
@@ -24,6 +26,8 @@ import CreateTest from './components/teacher/teachersTest/CreateTest';
 import TestList from './components/teacher/teachersTest/TestList';
 
 // student
+import StudentDashboard from './components/protected/StudentDashboard'
+
 import JoinGroup from './components/student/JoinGroup';
 import SolveTest from './components/student/SolveTest';
 import AssignedTests from './components/student/AssignedTests';
@@ -45,10 +49,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Nav value={[isLoggedIn, setIsLoggedIn]}/>
+        <NavBar value={[isLoggedIn, setIsLoggedIn]}/>
         <div className="container text-break">
           <Switch>
-            <Route path="/" exact component={Home}/>
+          <Route path="/" exact component={Home}/>
             <Route path="/about" render={props => <About {...props} value={isLoggedIn} />} />
 
             <Route path="/register" component={Register}/>
@@ -59,7 +63,10 @@ function App() {
             <ProtectedRoute path="/edituser" exact component={EditProfie} />
 
             {/* teacher routes */}
+
             {/* <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } /> */}
+            <ProtectedRoute path="/user/teacherdashboard" exact component={TeacherDashboard} />
+
             <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
             <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
             <ProtectedRoute path="/user/menagegroups/:id" component={EditGroup} />
@@ -69,6 +76,8 @@ function App() {
 
             
             {/* student routes */}
+            <ProtectedRoute path="/user/studentdashboard" exact component={StudentDashboard} />
+
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
             <ProtectedRoute path="/user/solvetest" exact component={AssignedTests} />
             <ProtectedRoute path="/user/solvetest/:id" component={SolveTest} />

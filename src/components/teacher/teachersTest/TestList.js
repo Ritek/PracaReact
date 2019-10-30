@@ -158,7 +158,7 @@ function TestList() {
                 <ShowTests initial={list.othersTests} search={search.content} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
-                    <h2 className="display-4">You have no access to others tests</h2>
+                    <h2 className="display-4">You haven't been granted acces to other users tests</h2>
                 </div> 
             }
         </div>

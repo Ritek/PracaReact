@@ -6,11 +6,12 @@ function Blanks(props) {
   const [state, setState] = useState(props.question);
   const [sentences, setSentences] = useState([]);
 
-  useEffect(() => {}, [state]);
+  //useEffect(() => {}, [state]);
 
   useEffect(() => {
-    let temp = state.sentences.split("\n");
-    setSentences(temp);
+    //console.log('sen:', state.sentences);
+    //let temp = state.sentences.split("\n");
+    setSentences(state.sentences);
   }, []);
 
   const dragStart = (e, value) => {
@@ -30,10 +31,11 @@ function Blanks(props) {
   return (
     <div style={{ fontSize: "20px" }}>
       <div className="mb-3">
-        {state.sentences !== undefined &&
+        {
           sentences.map((line, lineIndex) => (
             <BlanksLine key={lineIndex} line={line} />
-          ))}
+          ))
+        }
       </div>
 
       <div>

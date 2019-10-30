@@ -27,6 +27,8 @@ function Register() {
         console.log(values);
         let newUser = {
             login: values.login,
+            name: values.name,
+            surname: values.surname,
             email: values.email,
             password: values.password,
         };
@@ -52,9 +54,71 @@ function Register() {
             <div className="card-header">
                 <h1>Registration</h1>
             </div>
-            <form className="card-body">
-                <p className="font-italic">Login will only be used for greetings. You do not have to give one now.</p>
-                <input ref={focusInput} type="text" className={"form-control"} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
+            <form className="form card-body">
+                <p className="font-italic">You do not have to provide login now. You will be able o change it later.</p>
+
+                <div className="input-group">
+                    <input ref={focusInput} type="text" id="login" name="login" className={'form-control'}
+                        value={values.login} onChange={e => handleChange(e)} placeholder="Login"
+                    /> 
+                </div>
+
+                <div className="input-group">
+                    <input type="text" name="name" 
+                        value={values.name} onChange={e => handleChange(e)} placeholder="Name" required
+                        className={ errors.name ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        {errors.name}
+                    </div>
+                </div>
+
+                <div className="input-group">
+                    <input type="text" name="surname" 
+                        value={values.surname} onChange={e => handleChange(e)} placeholder="Surname" required
+                        className={ errors.surname ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        {errors.surname}
+                    </div>
+                </div>
+
+                <div className="input-group">
+                    <input type="text" name="email" 
+                        value={values.email} onChange={e => handleChange(e)} placeholder="Email" required
+                        className={ errors.email ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        {errors.email}
+                    </div>
+                </div>
+
+                <div className="input-group">
+                    <input type="text" name="password" 
+                        value={values.password} onChange={e => handleChange(e)} placeholder="Password" required
+                        className={ errors.password ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        {errors.password}
+                    </div>
+                </div>
+
+                <div className="input-group">
+                    <input type="text" name="password2" 
+                        value={values.password2} onChange={e => handleChange(e)} placeholder="Repeat password" required
+                        className={ errors.password2 ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        {errors.password2}
+                    </div>
+                </div>
+
+                <div className="input-group">
+                    <button type="submit" className="btn btn-primary"
+                        onClick={e => handleSubmit(e)} style={{margin: 'auto'}}>Create account
+                    </button>
+                </div>
+                {/* <input ref={focusInput} type="text" className={"form-control"} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
                 <br />
 
                 <input type="text" className={errors.email ? "form-control is-invalid": "form-control"} placeholder="Enter your email" name="email" value={values.email} onChange={e => handleChange(e)}></input><br />
@@ -70,7 +134,7 @@ function Register() {
                 <br />
 
                 <button type="submit" className="btn btn-primary" onClick={e => handleSubmit(e)}>Register</button>
-                <br />
+                <br /> */}
             </form>
             <div className="card-footer text-muted">
                 <Link to='/login'><p>Already have an account? Log in here >></p></Link>

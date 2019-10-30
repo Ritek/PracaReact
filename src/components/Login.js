@@ -39,7 +39,6 @@ function Login(props) {
             console.log(res.headers);
 
             sessionStorage.setItem('token', res.data.token);
-            sessionStorage.setItem('refreshToken', res.data.refreshToken);
             console.log("seted");
 
             setServerError({msg: "ok"});

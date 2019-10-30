@@ -4,6 +4,12 @@ const useForm = (callback, validate) => {
     const [values, setValues] = useState({
         login: "",
 
+        name: "",
+        nameTouched: false,
+
+        surname: "",
+        surnameTouched: false,
+
         email: "",
         emailTouched: false,
 
@@ -30,7 +36,7 @@ const useForm = (callback, validate) => {
     }
 
     const clearForm = () => {
-        setValues({...values, login: "", email: "", emailTouched: false, password: "", passwordTouched: false, password2: ""});
+        setValues({...values, login: "", email: "", name: "", surname: "", nameTouched: false, surnameTouched: false, emailTouched: false, password: "", passwordTouched: false, password2: ""});
     }
 
     const handleChange = (event) => {
@@ -42,11 +48,11 @@ const useForm = (callback, validate) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (values.emailTouched === false || values.passwordTouched === false) {
-            setValues({...values, emailTouched: true, passwordTouched: true, password2Touched: true});
+            setValues({...values, nameTouched: true, surnameTouched: true, emailTouched: true, passwordTouched: true, password2Touched: true});
         }
         
         
-        if (values.email !== "" && values.password !== "") {
+        if (values.email !== "" || values.password !== "" || values.name !== "" || values.surname !== "") {
             setErrors(validate(values));
             setIsSubmiting(true);
         }

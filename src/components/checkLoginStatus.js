@@ -1,7 +1,7 @@
 import decode from 'jwt-decode';
 import Axios from 'axios';
 
-const getNewToken = async (refToken) => {
+/* const getNewToken = async (refToken) => {
     //console.log('sending request for new token');
     await Axios.post('/api/user/checkRefreshToken', {refreshToken: refToken, withCredentials: true})
     .then(res => {
@@ -11,7 +11,7 @@ const getNewToken = async (refToken) => {
         console.log(error);
     });
     //console.log('after request');
-}
+} */
 
 /* const checkExpired = (token) => {
     try {
@@ -26,7 +26,7 @@ const getNewToken = async (refToken) => {
     }
 } */
 
-const isActive = (token) => {
+/* const isActive = (token) => {
     try {
         const {exp} = decode(token);
 
@@ -37,18 +37,19 @@ const isActive = (token) => {
     }   catch(error) {
         return false;
     }
-}
+} */
 
 export default function checkLoginStatus() {
     const token = sessionStorage.getItem('token');
-    const refreshToken = sessionStorage.getItem('refreshToken');
+    //const refreshToken = sessionStorage.getItem('refreshToken');
     //console.log('checking token');
 
     // if returns false protected route won't let you in
-    if (!token || !refreshToken) {
+    if (!token /* || !refreshToken */) {
         //console.log('no tokens');
         return false;
-    } else {
+    } else return true;
+    /* else {
         //console.log('there are tokens');
         if (isActive(token)) {
             //console.log('token is not expired');
@@ -66,5 +67,5 @@ export default function checkLoginStatus() {
                 return false;
             }
         }
-    }
+    } */
 }

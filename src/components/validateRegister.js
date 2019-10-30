@@ -9,6 +9,22 @@ export default function validateLogin(values) {
         } 
     }
 
+    if (values.nameTouched) {
+        if (!values.name) {
+            errors.name = "Name can not be empty!"
+        } else if (values.name.length < 2) {
+            errors.name = "Name can not be shorter then three letters!"
+        } 
+    }
+
+    if (values.surnameTouched) {
+        if (!values.surname) {
+            errors.surname = "Surname can not be empty!"
+        } else if (values.surname.length < 2) {
+            errors.surname = "Surname can not be shorter then three letters!"
+        } 
+    }
+
     if (values.passwordTouched) {
         if (!values.password) {
             errors.password = "Password is required";

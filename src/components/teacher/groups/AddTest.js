@@ -62,7 +62,8 @@ function AddTest(props) {
 
     return (
         <div className="card mb-5">
-            <div className="card-header"><h3>Select test that you would like to add</h3></div>
+            <div className="card-header"><h3>Select tests that you would like to add</h3></div>
+            <h1 className="mb-3">Length: {tests.length}</h1>
 
             <div className="card-body">
                 <div className="mb-4">
