@@ -17,21 +17,15 @@ function DeleteStudents(props) {
     const [group, setGroup] = [props.group, props.setGroup];
 
     const addToArray = (index) => {
-        let idx = selected.indexOf(index);
-        if (idx === -1) {
-            console.log('added');
-            setSelected([...selected, index]);
-        } else {
-            console.log('deleted');
-            let newState = [...selected];
-            newState.splice(idx, 1);
-            setSelected(newState);
-        }
+        let temp = [...selected];
+
+        if (temp.indexOf(index) === -1) temp.push(index);
+        else temp.splice(temp.indexOf(index), 1);
+
+        setSelected(temp);
     }
 
     const deleteStudents = () => {
-        console.log('OK');
-
         let groupCopy = group.members.slice();
         let newArray = [];
         for (let i=0;i<groupCopy.length;i++) {
@@ -76,7 +70,7 @@ function DeleteStudents(props) {
                     </tbody>           
                 </table>
             </div>
-            <button className="btn btn-danger" style={buttonStyle} onClick={() => deleteStudents()}>Delete selected</button>
+            <button className="btn btn-danger" style={buttonStyle} onClick={() => deleteStudents()} disabled={selected.length > 0 ? false : true}>Delete selected</button>
         </div>
     )
 }

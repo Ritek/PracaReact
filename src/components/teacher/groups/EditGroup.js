@@ -39,9 +39,9 @@ function EditGroup({match}) {
         });
     }
 
-    const addNewTest = (selected) => {
+    const addNewTests = (selected) => {
         let groupId = match.params.id;
-        Axios.post('/api/groups/addtests', {id: id, groupId: groupId, tests: selected}).then(res => {
+        Axios.post('/api/groups/addtests', {groupId: groupId, tests: selected}).then(res => {
             //console.log(res);
             window.location.reload();
         }).catch(error => {
@@ -49,10 +49,10 @@ function EditGroup({match}) {
         });
     }
 
-    const deleteTest = (selected) => {
+    const deleteTests = (selected) => {
         console.log('del', selected)
         let groupId = match.params.id;
-        Axios.post('/api/groups/deletetests', {id: id, groupId: groupId, tests: selected}).then(res => {
+        Axios.post('/api/groups/deletetests', {groupId: groupId, tests: selected}).then(res => {
             //console.log(res);
             window.location.reload();
         }).catch(error => {
@@ -72,7 +72,9 @@ function EditGroup({match}) {
 
 
             {userTests !== undefined &&
-                <AddOrDeleteTest allTests={userTests} groupTests={group.tests}/>
+                <AddOrDeleteTest allTests={userTests} groupTests={group.tests} 
+                    addNewTests={addNewTests} deleteTests={deleteTests}
+                />
             }
     
 
