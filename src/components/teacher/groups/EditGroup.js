@@ -7,14 +7,16 @@ import DeleteStudents from './DeleteStudents'
 
 import ChangeGroupDetails from './ChangeGroupDetails'
 import ShowGroupTests from './ShowGroupTests'
-
-
 import AddOrDeleteTest from './AddOrDeleteTest'
+
+import useCheckForbidden from '../../../hooks/validateCaracters'
 
 function EditGroup({match}) {
     const {id} = decode(sessionStorage.getItem('token'));
     const [group, setGroup] = useState({});
     const [userTests, setUserTests] = useState(undefined);
+
+    const {filterForbidden} = useCheckForbidden();
 
     const deleteMembers = (students) => {
         console.log('Delete');
@@ -79,7 +81,7 @@ function EditGroup({match}) {
     
 
             {group.name !== undefined &&
-                <ChangeGroupDetails name={group.name} password={group.password} />
+                <ChangeGroupDetails name={group.name} password={group.password} filterForbidden={filterForbidden}/>
             }  
             
         </div>
