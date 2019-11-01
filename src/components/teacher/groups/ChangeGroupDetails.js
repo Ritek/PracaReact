@@ -2,11 +2,6 @@ import React, {useState, useEffect} from 'react'
 
 function ChangeGroupDetails(props) {
 
-    const newStudentBox = {
-        marginBottom: '100px',
-        marginTop: '100px',
-    }
-
     const [details, setDetails] = useState({name: props.name, password: props.password});
     const [errors, setErrors] = useState({nameError: false, passwordError: false});
     const [submitDissabled, setSubmitDissabled] = useState(true);
@@ -34,7 +29,7 @@ function ChangeGroupDetails(props) {
     }, [errors])
 
     return (
-        <form className="card cardMargin" style={newStudentBox}>
+        <form className="card">
             <h2 className="card-header">Change group details</h2>
             <div className="card-body text-left">
 

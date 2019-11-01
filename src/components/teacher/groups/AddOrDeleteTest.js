@@ -17,9 +17,11 @@ function AddOrDeleteTest(props) {
         let inGroup = [];
         let notInGroup = [];
 
-        for (let i=0;i<props.allTests.length;i++) {
-            if (props.groupTests.indexOf(props.allTests[i]._id) !== -1) inGroup.push(props.allTests[i]);
-            else notInGroup.push(props.allTests[i]);
+        if (props.groupTests !== undefined) {
+            for (let i=0;i<props.allTests.length;i++) {
+                if (props.groupTests.indexOf(props.allTests[i]._id) !== -1) inGroup.push(props.allTests[i]);
+                else notInGroup.push(props.allTests[i]);
+            }
         }
 
         setTests({testsInGroup: inGroup, testsNotInGroup: notInGroup});
@@ -67,72 +69,95 @@ function AddOrDeleteTest(props) {
         console.log('Del tests:', delSelect);
     }, [delSelect])
 
-    const myModal = {
-        maxHeight: '80%',
-    }
+
+    const showTable = (
+        <table className="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Tags</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {
+                    tests.testsNotInGroup.map((test, index) => (
+                        <tr key={index}>
+                            <td>{test.name}</td>
+                            <td>{test.tags.join()}</td>
+                            <td><input type="checkbox" onClick={() => addNewTests(test._id)}/></td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    )
+
 
     return (
         <div className="card mb-4">
 
-            <Modal show={showModal} onHide={handleClose} dialogClassName={myModal}>
+            <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Select tests to add</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body style={{maxHeight: 'calc(100vh - 210px)', overflowY: 'auto'}}>
-                <table className="table table-hover">
+                    {
+                        tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length > 0 &&
+                        <>{showTable}</>
+                    }
+
+                    {
+                        tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length === 0 &&
+                        <div className="jumbotron">
+                            <h3>All your tests are already assigned to this group.</h3>
+                        </div>
+                    }
+                </Modal.Body>
+
+                {
+                    tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length > 0 &&
+                    <Modal.Footer>
+                        <button className="btn btn-primary" onClick={() => props.addNewTests(addSelect)}>Add selected</button>
+                    </Modal.Footer>
+                }
+            </Modal>
+
+            <div className="card-header">
+                <h3>Add or delete tests</h3>
+            </div>
+
+            <div className="card-body">
+                {tests.testsInGroup.length > 0 ?
+                    <table className="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Tags</th>
+                                <th>cos</th>
+                                <th>cos</th>
                                 <th></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {tests.testsNotInGroup !== undefined &&
-                                tests.testsNotInGroup.map((test, index) => (
+                            {
+                                tests.testsInGroup.map((test, index) => (
                                     <tr key={index}>
-                                        <td>{test.name}</td>
-                                        <td>{test.tags.join()}</td>
-                                        <td><input type="checkbox" onClick={() => addNewTests(test._id)}/></td>
+                                        <th>{test.name}</th>
+                                        <th>{test.name}</th>
+                                        <th><input type="checkbox" onClick={() => delSelectedTests(test._id)}></input></th>
                                     </tr>
                                 ))
                             }
                         </tbody>
                     </table>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className="btn btn-primary" onClick={() => props.addNewTests(addSelect)}>Add selected</button>
-                </Modal.Footer>
-            </Modal>
-
-            <div className="card-header">
-                New add or delete
-            </div>
-
-            <div className="card-body">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>cos</th>
-                            <th>cos</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {
-                            tests.testsInGroup.map((test, index) => (
-                                <tr key={index}>
-                                    <th>{test.name}</th>
-                                    <th>{test.name}</th>
-                                    <th><input type="checkbox" onClick={() => delSelectedTests(test._id)}></input></th>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                    :
+                    <div className="jumbotron">
+                        <h3>Group has no tests assigned.</h3>
+                    </div>
+                }
+                
             </div>
 
             <div className="card-footer text-right">

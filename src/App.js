@@ -48,7 +48,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{marginBottom: '100px'}}>
         <NavBar value={[isLoggedIn, setIsLoggedIn]}/>
         <div className="container text-break">
           <Switch>

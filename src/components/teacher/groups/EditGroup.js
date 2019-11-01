@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
 import decode from 'jwt-decode'
 
-import AddStudents from './AddStudents'
-import DeleteStudents from './DeleteStudents'
+import DeleteStudents from './AddOrDeleteMembers'
 
 import ChangeGroupDetails from './ChangeGroupDetails'
 import ShowGroupTests from './ShowGroupTests'
@@ -24,8 +23,9 @@ function EditGroup({match}) {
     }
 
     const fetchData = (groupId) => {
+        console.log("groupId:", groupId);
         Axios.post('/api/groups/getgroup', {groupId: groupId}).then(res => {
-            console.log('getGroup', res.data);
+            console.log('!!!getGroup', res.data);
             setGroup(res.data);
         }).catch(error => {
             console.log(error);
@@ -63,13 +63,13 @@ function EditGroup({match}) {
     }
 
     useEffect(() => {
+        console.log('match:', match.params.id);
         fetchData(match.params.id);
         getAllTests();
     }, []);
 
     return (
         <div>
-            <AddStudents groupId={match.params.id} />
             <DeleteStudents group={group} deleteMembers={deleteMembers} />
 
 
@@ -89,16 +89,3 @@ function EditGroup({match}) {
 }
 
 export default EditGroup
-
-
-/* { group.name !== undefined && userTests !== undefined &&
-                <ShowGroupTests fun="add" group={group} setGroup={setGroup} 
-                    addNewTest={addNewTest} userTests={userTests} do='add'
-                />
-            }
-
-            { group.name !== undefined && userTests !== undefined &&
-                <ShowGroupTests fun="delete" group={group} setGroup={setGroup} 
-                    deleteTest={deleteTest} userTests={userTests} do="delete"
-                />   
-            } */
