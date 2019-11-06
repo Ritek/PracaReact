@@ -1,42 +1,34 @@
 import React, {useState, useEffect} from 'react'
-import Modal from 'react-bootstrap/Modal'
+import AddTestsModal from './AddTestsModal'
+import ChangeTimeModal from './ChangeTimeModal'
 
 function AddOrDeleteTest(props) {
 
-    const [tests, setTests] = useState({testsInGroup: [], testsNotInGroup: []});
+    const [tests, setTests] = useState({inGroup: [], notInGroup: []});
 
     const [addSelect, setAddSelect] = useState([]);
     const [delSelect, setDelSelect] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
     const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
-
-
-    const filterTests = () => {
-        let inGroup = [];
-        let notInGroup = [];
-
-        if (props.groupTests !== undefined) {
-            for (let i=0;i<props.allTests.length;i++) {
-                if (props.groupTests.indexOf(props.allTests[i]._id) !== -1) inGroup.push(props.allTests[i]);
-                else notInGroup.push(props.allTests[i]);
-            }
-        }
-
-        setTests({testsInGroup: inGroup, testsNotInGroup: notInGroup});
+    const handleClose = (logic) => {
+        if (logic === true) props.addNewTests(addSelect)
+        setShowModal(false);
     }
 
-    useEffect(() => {
-        console.log("!>", props.allTests);
-        console.log("!>", props.groupTests);
+    const [timeModal, setTimeModal] = useState(false);
+    const showTimeModal = (id, time) => {
+        setTimeInfo({id: id, time: time});
+        setTimeModal(true);
+    }
+    const closeTimeModal = () => setTimeModal(false);
 
-        filterTests();
+    const [timeInfo, setTimeInfo] = useState({id: undefined, time: undefined});
+
+    useEffect(() => {
+        console.log("props.allTests", props.userTests.inGroup);
+        console.log("props.groupTests", props.userTests.notInGroup);
     }, [])
-
-    useEffect(() => {
-        console.log('Filtered:', tests);
-    }, [tests])
 
     const addNewTests = (id) => {
         let temp = [...addSelect];
@@ -58,6 +50,11 @@ function AddOrDeleteTest(props) {
     }
 
     useEffect(() => {
+        console.log('!', props.userTests);
+        setTests(props.userTests);
+    }, [props.userTests])
+
+    useEffect(() => {
         setAddSelect([]);
     }, [showModal])
 
@@ -69,84 +66,47 @@ function AddOrDeleteTest(props) {
         console.log('Del tests:', delSelect);
     }, [delSelect])
 
-
-    const showTable = (
-        <table className="table table-hover">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Tags</th>
-                    <th></th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                {
-                    tests.testsNotInGroup.map((test, index) => (
-                        <tr key={index}>
-                            <td>{test.name}</td>
-                            <td>{test.tags.join()}</td>
-                            <td><input type="checkbox" onClick={() => addNewTests(test._id)}/></td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </table>
-    )
-
+    useEffect(() => {
+        console.log('timeId', timeInfo);
+    }, [timeInfo])
 
     return (
         <div className="card mb-4">
 
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Select tests to add</Modal.Title>
-                </Modal.Header>
+            <AddTestsModal tests={tests} showModal={showModal} handleClose={handleClose} 
+                addNewTests={addNewTests}
+            />
 
-                <Modal.Body style={{maxHeight: 'calc(100vh - 210px)', overflowY: 'auto'}}>
-                    {
-                        tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length > 0 &&
-                        <>{showTable}</>
-                    }
-
-                    {
-                        tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length === 0 &&
-                        <div className="jumbotron">
-                            <h3>All your tests are already assigned to this group.</h3>
-                        </div>
-                    }
-                </Modal.Body>
-
-                {
-                    tests.testsNotInGroup !== undefined && tests.testsNotInGroup.length > 0 &&
-                    <Modal.Footer>
-                        <button className="btn btn-primary" onClick={() => props.addNewTests(addSelect)}>Add selected</button>
-                    </Modal.Footer>
-                }
-            </Modal>
+            {timeInfo.time !== undefined &&
+                <ChangeTimeModal show={timeModal} closeTimeModal={closeTimeModal} 
+                    updateTestTime={props.updateTestTime} testInfo={timeInfo}
+                />
+            }
 
             <div className="card-header">
                 <h3>Add or delete tests</h3>
             </div>
 
             <div className="card-body">
-                {tests.testsInGroup.length > 0 ?
+                {tests.inGroup.length > 0 ?
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>cos</th>
-                                <th>cos</th>
+                                <th>Name</th>
+                                <th>Tags</th>
+                                <th>Time</th>
                                 <th></th>
                             </tr>
                         </thead>
 
                         <tbody>
                             {
-                                tests.testsInGroup.map((test, index) => (
-                                    <tr key={index}>
+                                tests.inGroup.map((test, index) => (
+                                    <tr key={test.id}>
                                         <th>{test.name}</th>
-                                        <th>{test.name}</th>
-                                        <th><input type="checkbox" onClick={() => delSelectedTests(test._id)}></input></th>
+                                        <th>{test.tags}</th>
+                                        <th><button className="btn btn-primary" onClick={() => showTimeModal(test.id, test.time)}>{test.time} m</button></th>
+                                        <th><input type="checkbox" onClick={() => delSelectedTests(test.id)}></input></th>
                                     </tr>
                                 ))
                             }
@@ -162,7 +122,10 @@ function AddOrDeleteTest(props) {
 
             <div className="card-footer text-right">
                 <button className="btn btn-primary mr-2" onClick={() => handleShow()}>Add test</button>
-                <button className="btn btn-danger" onClick={() => props.deleteTests(delSelect)} disabled={delSelect.length > 0 ? false : true}>Delete selected</button>
+
+                <button className="btn btn-danger" onClick={() => props.deleteTests(delSelect)} 
+                    disabled={delSelect.length > 0 ? false : true}>Delete selected
+                </button>
             </div>
             
         </div>

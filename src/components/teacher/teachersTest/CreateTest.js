@@ -135,7 +135,9 @@ function CreateTest({match}) {
             />
 
             <Toast onClose={() => setShowToast({show: false})} show={showToast.show} delay={5000} 
-                style={{position: 'absolute', bottom: '20px', left: '30px', zIndex: '1'}} autohide>
+                style={showToast.show ? {position: 'fixed', bottom: '20px', left: '30px', zIndex: '1'} 
+                                    : {position: 'fixed', bottom: '20px', left: '30px', zIndex: '-1'}}
+                autohide>
 
                 <Toast.Header><strong className="mr-auto">Test saved</strong></Toast.Header>
                 <Toast.Body>

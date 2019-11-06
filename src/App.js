@@ -20,7 +20,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import TeacherDashboard from './components/protected/TeacherDashboard'
 
 import CreateGroup from './components/teacher/groups/CreateGroup';
-import MenageGroup from './components/teacher/groups/MenageGroup';
+import ShowAllGroups from './components/teacher/groups/ShowAllGroups';
 import EditGroup from './components/teacher/groups/EditGroup';
 import CreateTest from './components/teacher/teachersTest/CreateTest';
 import TestList from './components/teacher/teachersTest/TestList';
@@ -68,7 +68,7 @@ function App() {
             <ProtectedRoute path="/user/teacherdashboard" exact component={TeacherDashboard} />
 
             <ProtectedRoute path="/user/creategroup" exact component={CreateGroup} />
-            <ProtectedRoute path="/user/menagegroups" exact component={MenageGroup} />
+            <ProtectedRoute path="/user/menagegroups" exact component={ShowAllGroups} />
             <ProtectedRoute path="/user/menagegroups/:id" component={EditGroup} />
             <ProtectedRoute path="/user/createtest" exact component={CreateTest} />
             <ProtectedRoute path="/user/edittest/:id" component={CreateTest} />

@@ -9,7 +9,7 @@ function GroupTable(props) {
                 <div className="row">
                     <div className="col sm">Name: {props.value.name} <br />Password: {props.value.password}</div>
                     <div className="col sm text-right">
-                        <button className="btn btn-danger mr-1">Delete</button>
+                        <button className="btn btn-danger mr-1" onClick={() => props.deleteGroup(props.value._id)}>Delete</button>
                         <Link to={`menagegroups/${props.value._id}`} className="btn btn-primary" >Edit</Link>
                     </div>
                 </div>
@@ -32,10 +32,10 @@ function GroupTable(props) {
                                 <td>{value.email}</td>
                                 <td>{value.login}</td>
                             </tr>
-                        }) :
-                        <tr>
-                            <th colSpan="2">No students assigned to the group</th>
-                        </tr>
+                            }) :
+                            <tr>
+                                <th colSpan="2">No students assigned to the group</th>
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -24,7 +24,8 @@ function AddStudents(props) {
 
         let token = sessionStorage.getItem('token');
         Axios.post('/api/groups/addmembers', {groupId: props.groupId, members: arr}, {headers: {authToken: token}}).then(res => {
-            console.log('res:', res);
+            //console.log('res:', res);
+            props.fetchData(props.groupId);
             clearAndClose();
         }).catch(err => {
             console.log(err);

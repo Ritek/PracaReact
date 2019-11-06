@@ -6,18 +6,12 @@ function ChangeGroupDetails(props) {
     const [errors, setErrors] = useState({nameError: false, passwordError: false});
     const [submitDissabled, setSubmitDissabled] = useState(true);
 
-    /* //Not needed here, in profile needed because state updates, here the state is new after post
-    useEffect(() => {
-        setDetails({name: props.name, password: props.password});
-    }, [props]); */
-
     const handleChange = (event) => {
         setDetails({...details, [event.target.name]: event.target.value});
     }
 
     useEffect(() => {
         let err = props.filterForbidden(details);
-        console.log('error:', err);
         setErrors(err);
     }, [details])
 
@@ -29,7 +23,7 @@ function ChangeGroupDetails(props) {
     }, [errors])
 
     return (
-        <form className="card">
+        <div className="card">
             <h2 className="card-header">Change group details</h2>
             <div className="card-body text-left">
 
@@ -56,13 +50,14 @@ function ChangeGroupDetails(props) {
                         Passowrd should only contain letters and numbers! 
                     </div>
                 </div>
+
             </div>
             <div className="card-footer text-right">
                 <button className="btn btn-danger" 
                     disabled={submitDissabled}>Change Details
                 </button>
             </div>
-        </form>
+        </div>
     )
 }
 
