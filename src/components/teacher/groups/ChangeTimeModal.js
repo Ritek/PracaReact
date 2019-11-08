@@ -7,7 +7,7 @@ function ChangeTimeModal(props) {
 
     const handleClose = () => {
         props.closeTimeModal();
-        props.updateTestTime(props.testId, time);
+        props.updateTestTime(props.testInfo.id, time);
     }
 
     const handleTimeChange = (value) => {
@@ -28,6 +28,7 @@ function ChangeTimeModal(props) {
                 <div className="input-group">
                     Enter time students will have to solve the test. (In minutes)
                 </div>
+
 
                 <input type="text" className="form-control" value={time} 
                     onChange={(e) => handleTimeChange(e.target.value)}

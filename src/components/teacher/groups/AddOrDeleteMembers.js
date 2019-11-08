@@ -33,7 +33,7 @@ function AddOrDeleteMembers(props) {
         } 
         console.log("newArray", newArray);
 
-        Axios.post('/api/groups/deletemembers', {groupId: group._id, members: newArray}).then(res => {
+        Axios.post('/api/groups/deletemembers', {groupId: props.group._id, members: newArray}).then(res => {
             console.log(res);
             setSelected([]);
             props.deleteMembers(newArray);

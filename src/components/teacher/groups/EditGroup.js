@@ -24,7 +24,7 @@ function EditGroup({match}) {
 
     const fetchData = (groupId) => {
         console.log("groupId:", groupId);
-        Axios.post('/api/groups/getgroup', {groupId: groupId}).then(res => {
+        Axios.post('/api/groups/getgroup', {groupId: match.params.id}).then(res => {
             console.log('getGroup', res.data);
             setGroup(res.data.group);
             setUserTests({inGroup: res.data.inGroup, notInGroup: res.data.notInGroup});
@@ -55,6 +55,9 @@ function EditGroup({match}) {
     }
 
     const updateTestTime = (testId, time) => {
+        time = parseInt(time);
+        if (time % 1 !== 0) Math.trunc(time);
+        
         console.log("update", testId, time);
         let groupId = match.params.id;
         
@@ -83,8 +86,8 @@ function EditGroup({match}) {
     }, []);
 
     useEffect(() => {
-        console.log("userTests", userTests)
-    }, [userTests]);
+        console.log("group", group)
+    }, [group]);
 
     return (
         <div>

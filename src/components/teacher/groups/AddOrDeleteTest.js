@@ -26,8 +26,8 @@ function AddOrDeleteTest(props) {
     const [timeInfo, setTimeInfo] = useState({id: undefined, time: undefined});
 
     useEffect(() => {
-        console.log("props.allTests", props.userTests.inGroup);
-        console.log("props.groupTests", props.userTests.notInGroup);
+        /* console.log("props.allTests", props.userTests.inGroup);
+        console.log("props.groupTests", props.userTests.notInGroup); */
     }, [])
 
     const addNewTests = (id) => {
@@ -41,7 +41,7 @@ function AddOrDeleteTest(props) {
 
     const delSelectedTests = (id) => {
         let temp = [...delSelect];
-        console.log('len', temp.length);
+        /* console.log('len', temp.length); */
 
         if (temp.indexOf(id) === -1) temp.push(id);
         else temp.splice(temp.indexOf(id), 1);
@@ -50,7 +50,7 @@ function AddOrDeleteTest(props) {
     }
 
     useEffect(() => {
-        console.log('!', props.userTests);
+        /* console.log('!', props.userTests); */
         setTests(props.userTests);
     }, [props.userTests])
 
@@ -59,15 +59,15 @@ function AddOrDeleteTest(props) {
     }, [showModal])
 
     useEffect(() => {
-        console.log('New tests:', addSelect);
+        /* console.log('New tests:', addSelect); */
     }, [addSelect])
 
     useEffect(() => {
-        console.log('Del tests:', delSelect);
+        /* console.log('Del tests:', delSelect); */
     }, [delSelect])
 
     useEffect(() => {
-        console.log('timeId', timeInfo);
+        /* console.log('timeId', timeInfo); */
     }, [timeInfo])
 
     return (

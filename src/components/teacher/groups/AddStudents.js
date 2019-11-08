@@ -21,9 +21,9 @@ function AddStudents(props) {
     const addStudent = () => {
         const arr = textArea.split("\n");
         //console.log(arr);
+        console.log('groupId', props.groupId);
 
-        let token = sessionStorage.getItem('token');
-        Axios.post('/api/groups/addmembers', {groupId: props.groupId, members: arr}, {headers: {authToken: token}}).then(res => {
+        Axios.post('/api/groups/addmembers', {groupId: props.groupId, members: arr}).then(res => {
             //console.log('res:', res);
             props.fetchData(props.groupId);
             clearAndClose();
