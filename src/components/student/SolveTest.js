@@ -9,7 +9,7 @@ import TrueFalse from './testQuestions/Subquestions'
 import Blanks from './testQuestions/Blanks'
 
 function SolveTest({match}) {
-    const [test, setTest] = useState({});
+    const [test, setTest] = useState({time: undefined});
 
     const updateTest = (newQuestion, index) => {
         //console.log('update Test');
@@ -18,16 +18,42 @@ function SolveTest({match}) {
         setTest({...test, questions: copy});
     }
 
-    useEffect(() => {
-        //console.log(match.params.id);
-
+    const getTest = () => {
         Axios.post('/api/tests/solvetest', {testId: match.params.id}).then(res => {
             console.log("res:", res.data);
             setTest(res.data);
         }).catch(error => {
             console.log(error);
         })
+    }
+
+    const sendSolved = () => {
+        Axios.post('/api/tests/savesolved', {test: test, name: 'cos'}).then(res => {
+            console.log(res.body);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const prepareTimout = () => {
+        console.log('prepare timout ====>');
+        let timer = setTimeout(() => {
+            sendSolved();
+            alert('Times up!');
+        }, [test.time * 60000]);
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }
+
+    useEffect(() => {
+        getTest();
     }, []);
+
+    useEffect(() => {
+        if (test.time !== undefined) prepareTimout();
+    }, [test.time])
 
     useEffect(() => {
         console.log("test", test);

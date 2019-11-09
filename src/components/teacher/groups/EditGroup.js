@@ -54,7 +54,7 @@ function EditGroup({match}) {
         });
     }
 
-    const updateTestTime = (testId, time) => {
+    const updateTestTime = (testId, time, autoCheck) => {
         time = parseInt(time);
         if (time % 1 !== 0) Math.trunc(time);
         
@@ -62,9 +62,12 @@ function EditGroup({match}) {
         let groupId = match.params.id;
         
         let temp = [...userTests.inGroup];
-        for (let i=0;i<temp.length;i++) if (temp[i].id === testId) temp[i].time = time
+        for (let i=0;i<temp.length;i++) if (temp[i].id === testId) {
+            temp[i].time = time;
+            temp[i].autoCheck = autoCheck;
+        }
 
-        Axios.post('/api/groups/updatetesttime', {groupId: groupId, testId: testId, time: time}).then(res => {
+        Axios.post('/api/groups/updatetestprops', {groupId: groupId, testId: testId, time: time, autoCheck: autoCheck}).then(res => {
             console.log(res);
         }).catch(error => {
             console.log(error);

@@ -3,15 +3,22 @@ import Modal from 'react-bootstrap/Modal'
 
 function ChangeTimeModal(props) {
 
-    const [time, setTime] = useState(props.testInfo.time);
+    const [time, setTime] = useState({time: props.testInfo.time, autoCheck: props.testInfo.autoCheck});
 
     const handleClose = () => {
         props.closeTimeModal();
-        props.updateTestTime(props.testInfo.id, time);
+        props.updateTestTime(props.testInfo.id, time.time, time.autoCheck);
     }
 
-    const handleTimeChange = (value) => {
-        setTime(value);
+    const handleTimeChange = (event) => {
+        console.log(event.target.value);
+        if (event.target.name === "autoCheck") {
+            let temp;
+            if (event.target.value === "true") temp = true;
+            else temp = false;
+            setTime({...time, autoCheck: temp});
+        }
+        else setTime({...time, [event.target.name]: event.target.value});
     }
 
     useEffect(() => {
@@ -30,9 +37,30 @@ function ChangeTimeModal(props) {
                 </div>
 
 
-                <input type="text" className="form-control" value={time} 
-                    onChange={(e) => handleTimeChange(e.target.value)}
-                />
+                <div className="input-group">
+                    <input type="text" name="time" className="form-control mb-3" placeholder={props.testInfo.time}
+                        onChange={(e) => handleTimeChange(e)}
+                    />
+                </div>
+
+                
+                <div className="input-group">
+                    <label htmlFor="autocheck" className="form-check-label mr-1">Use expermiental autocheck</label>
+                    <select id="autocheck" name="autoCheck" onChange={(e) => handleTimeChange(e)}>
+                        {props.testInfo.autoCheck === true ?
+                            <>
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
+                            </>
+                            :
+                            <>
+                                <option value={false}>No</option>
+                                <option value={true}>Yes</option>
+                            </>
+                        }
+                    </select>
+                </div>
+                
             </Modal.Body>
 
             <Modal.Footer>

@@ -17,18 +17,13 @@ function AddOrDeleteTest(props) {
     }
 
     const [timeModal, setTimeModal] = useState(false);
-    const showTimeModal = (id, time) => {
-        setTimeInfo({id: id, time: time});
+    const showTimeModal = (id, time, autoCheck) => {
+        setTimeInfo({id: id, time: time, autoCheck: autoCheck});
         setTimeModal(true);
     }
     const closeTimeModal = () => setTimeModal(false);
 
-    const [timeInfo, setTimeInfo] = useState({id: undefined, time: undefined});
-
-    useEffect(() => {
-        /* console.log("props.allTests", props.userTests.inGroup);
-        console.log("props.groupTests", props.userTests.notInGroup); */
-    }, [])
+    const [timeInfo, setTimeInfo] = useState({id: undefined, time: undefined, autoCheck: undefined});
 
     const addNewTests = (id) => {
         let temp = [...addSelect];
@@ -41,7 +36,6 @@ function AddOrDeleteTest(props) {
 
     const delSelectedTests = (id) => {
         let temp = [...delSelect];
-        /* console.log('len', temp.length); */
 
         if (temp.indexOf(id) === -1) temp.push(id);
         else temp.splice(temp.indexOf(id), 1);
@@ -50,25 +44,12 @@ function AddOrDeleteTest(props) {
     }
 
     useEffect(() => {
-        /* console.log('!', props.userTests); */
         setTests(props.userTests);
     }, [props.userTests])
 
     useEffect(() => {
         setAddSelect([]);
     }, [showModal])
-
-    useEffect(() => {
-        /* console.log('New tests:', addSelect); */
-    }, [addSelect])
-
-    useEffect(() => {
-        /* console.log('Del tests:', delSelect); */
-    }, [delSelect])
-
-    useEffect(() => {
-        /* console.log('timeId', timeInfo); */
-    }, [timeInfo])
 
     return (
         <div className="card mb-4">
@@ -92,9 +73,11 @@ function AddOrDeleteTest(props) {
                     <table className="table">
                         <thead>
                             <tr>
+                                <th>Edit</th>
                                 <th>Name</th>
                                 <th>Tags</th>
                                 <th>Time</th>
+                                <th>Auto Check</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -103,9 +86,11 @@ function AddOrDeleteTest(props) {
                             {
                                 tests.inGroup.map((test, index) => (
                                     <tr key={test.id}>
+                                        <th><button className="btn btn-primary" onClick={() => showTimeModal(test.id, test.time, test.autoCheck)}>Edit</button></th>
                                         <th>{test.name}</th>
                                         <th>{test.tags}</th>
-                                        <th><button className="btn btn-primary" onClick={() => showTimeModal(test.id, test.time)}>{test.time} m</button></th>
+                                        <th>{test.time}</th>
+                                        { test.autoCheck ? <th>&#10004;</th> : <th>&#10006;</th> }
                                         <th><input type="checkbox" onClick={() => delSelectedTests(test.id)}></input></th>
                                     </tr>
                                 ))
