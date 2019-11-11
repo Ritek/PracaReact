@@ -9,8 +9,8 @@ function SubquestionTrueFalse(props) {
             </th>
             <th>
                 <select onChange={(e) => props.changeTrueFalseLogic(e, props.index)} value={props.logic}>
-                    <option value="True" >True</option>
-                    <option value="False">False</option>
+                    <option value="true" >True</option>
+                    <option value="false">False</option>
                 </select>
             </th>
             <th>

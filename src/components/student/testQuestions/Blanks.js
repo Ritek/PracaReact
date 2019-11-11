@@ -14,6 +14,17 @@ function Blanks(props) {
     setSentences(state.sentences);
   }, []);
 
+  const updateBlank = (index, value) => {
+    console.log('updateBlank', index, value);
+    let temp = state.answer;
+    temp[index] = value;
+    setState({...state, answer: temp});
+  }
+
+  useEffect(() => {
+    props.updateTest(state, props.questionNum);
+  }, [state])
+
   const dragStart = (e, value) => {
     const target = e.target;
 
@@ -33,7 +44,7 @@ function Blanks(props) {
       <div className="mb-3">
         {
           sentences.map((line, lineIndex) => (
-            <BlanksLine key={lineIndex} line={line} />
+            <BlanksLine key={lineIndex} line={line} updateBlank={updateBlank}/>
           ))
         }
       </div>

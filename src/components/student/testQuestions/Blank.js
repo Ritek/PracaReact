@@ -2,13 +2,15 @@ import React, {useState} from 'react'
 
 function Blank(props) {
 
-    const [value, setValue] = useState({empty: true, display: "       "});
+    const [value, setValue] = useState({id: parseInt(props.index), empty: true, display: "       "});
 
     const drop = (e) => {
         e.preventDefault();
         const card = e.dataTransfer.getData('val');
         console.log("card:", card);
-        setValue({empty: false, display: card});
+        console.log(value.id);
+        setValue({...value, empty: false, display: card});
+        props.updateBlank(value.id, card);
     }
 
     const dragOver = (e) => {

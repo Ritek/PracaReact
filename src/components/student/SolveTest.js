@@ -8,6 +8,8 @@ import Choices from './testQuestions/Choices'
 import TrueFalse from './testQuestions/Subquestions'
 import Blanks from './testQuestions/Blanks'
 
+import Timer from './Timer'
+
 function SolveTest({match}) {
     const [test, setTest] = useState({time: undefined});
 
@@ -28,7 +30,7 @@ function SolveTest({match}) {
     }
 
     const sendSolved = () => {
-        Axios.post('/api/tests/savesolved', {test: test, name: 'cos'}).then(res => {
+        Axios.post('/api/tests/savesolved', {test: test}).then(res => {
             console.log(res.body);
         }).catch(error => {
             console.log(error);
@@ -37,6 +39,7 @@ function SolveTest({match}) {
 
     const prepareTimout = () => {
         console.log('prepare timout ====>');
+
         let timer = setTimeout(() => {
             sendSolved();
             alert('Times up!');
@@ -52,7 +55,7 @@ function SolveTest({match}) {
     }, []);
 
     useEffect(() => {
-        if (test.time !== undefined) prepareTimout();
+        //if (test.time !== undefined) prepareTimout();
     }, [test.time])
 
     useEffect(() => {
@@ -61,6 +64,12 @@ function SolveTest({match}) {
 
     return (
         <div>
+            <div className="mb-4">
+                {test.time !== undefined &&
+                    <Timer time={test.time}/>
+                }
+            </div>
+            
             { test.questions !== undefined &&
                 test.questions.map((question, index) => (
                     <div key={index} className="text-left" style={{marginBottom: "70px"}}>
