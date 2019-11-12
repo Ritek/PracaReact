@@ -13,11 +13,11 @@ const useQuestions = (object, exNum, handleChange) => {
     const addTrueFalse = () => {
         if (state.subquestions === undefined) {
             let temp = [];
-            temp.push(["", "True"]);
+            temp.push(["", "true"]);
             setState({...state, subquestions: temp});
         } else {
             let temp = state.subquestions;
-            temp.push(["", "True"]);
+            temp.push(["", "true"]);
             setState({...state, subquestions: temp});
         }
     }
@@ -48,21 +48,26 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const addChoice = () => {
+        console.log('addChoice')
         let temp;
         if (state.choices === undefined) temp = [];
         else temp = state.choices;
         temp.push("");
-        setState({...state, choices: temp});
+        if (state.answer === undefined) setState({...state, choices: temp, answer: ""});
+        else setState({...state, choices: temp});
     }
 
-    const setChoiceText = (event, index) => {
+    const setChoiceText = (event, index, letter) => {
         let temp = state.choices;
         temp[index] = event.target.value;
-        setState({...state, choices: temp});
+        if (state.answer[0] === letter) setState({...state, choices: temp, answer: [letter, event.target.value]});
+        else setState({...state, choices: temp});
     }
 
-    const setChoicesAnswer = (index, letter) => {
-        setState({...state, answer: [letter, state.choices[index]]});
+    const setChoicesAnswer = (index, letter, value) => {
+        console.log(index, letter);
+        //let temp = state.subquestions[index];
+        setState({...state, answer: [letter, value]});
     }
 
     const delChoice = (index) => {
@@ -95,7 +100,7 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const setPoints = (newValue) => {
-        setState({...state, points: newValue});
+        setState({...state, points: parseInt(newValue)});
     }
 
     useEffect(() => {

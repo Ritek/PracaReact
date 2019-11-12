@@ -29,7 +29,7 @@ import TestList from './components/teacher/teachersTest/TestList';
 import StudentDashboard from './components/protected/StudentDashboard'
 
 import JoinGroup from './components/student/JoinGroup';
-import SolveTest from './components/student/SolveTest';
+import SolveTest from './components/solveTest/SolveTest';
 import AssignedTests from './components/student/AssignedTests';
 
 function App() {

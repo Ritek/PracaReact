@@ -8,13 +8,18 @@ function Choice(props) {
             </th>
 
             <td>
-                <input name="choice" type="radio" value={String.fromCharCode(props.index + 65)} checked={String.fromCharCode(props.index + 65) === props.checked ? "True" : "False"}
-                    onChange={(e) => props.setChoicesAnswer(props.index, e.target.value)} 
+                {/* <input type="checkbox" value={String.fromCharCode(props.index + 65)} 
+                    onChange={(e) => props.setChoicesAnswer(props.index, e.target.value)}
+                    checked={props.checked === String.fromCharCode(props.index + 65) && props.checked !== undefined ? true : false}
+                /> */}
+                <input type="checkbox" value={String.fromCharCode(props.index + 65)} 
+                    onChange={(e) => props.setChoicesAnswer(props.index, e.target.value, props.value)}
+                    checked={props.checked[0] === String.fromCharCode(props.index + 65) && props.checked !== undefined ? true : false}
                 />
             </td>
 
             <td>
-                <textarea onChange={(e) => props.setChoiceText(e, props.index)} value={props.value}></textarea>
+                <textarea onChange={(e) => props.setChoiceText(e, props.index, String.fromCharCode(props.index + 65))} value={props.value}></textarea>
             </td>
 
             <td>

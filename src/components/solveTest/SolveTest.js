@@ -8,7 +8,7 @@ import Choices from './testQuestions/Choices'
 import TrueFalse from './testQuestions/Subquestions'
 import Blanks from './testQuestions/Blanks'
 
-import Timer from './Timer'
+import Timer from '../student/Timer'
 
 function SolveTest({match}) {
     const [test, setTest] = useState({time: undefined});
@@ -55,7 +55,7 @@ function SolveTest({match}) {
     }, []);
 
     useEffect(() => {
-        //if (test.time !== undefined) prepareTimout();
+        if (test.time !== undefined) prepareTimout();
     }, [test.time])
 
     useEffect(() => {
@@ -69,7 +69,7 @@ function SolveTest({match}) {
                     <Timer time={test.time}/>
                 }
             </div>
-            
+
             { test.questions !== undefined &&
                 test.questions.map((question, index) => (
                     <div key={index} className="text-left" style={{marginBottom: "70px"}}>
