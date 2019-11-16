@@ -6,8 +6,11 @@ function Blanks(props) {
         <div className="card">
             <div className="card-body">
                 {
-                    props.question.sentencesArr.map((line, idx) => (
-                        <BlankLines key={idx} line={line}/>
+                    props.question.answer.map((line, idx) => (
+                        <div>
+                            <BlankLines key={idx} line={line}/>
+                            <div style={{clear: 'both'}} />
+                        </div>
                     ))
                 }
             </div>
