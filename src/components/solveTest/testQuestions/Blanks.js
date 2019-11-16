@@ -4,15 +4,6 @@ import BlanksLine from "./BlanksLine";
 
 function Blanks(props) {
   const [state, setState] = useState(props.question);
-  const [sentences, setSentences] = useState([]);
-
-  //useEffect(() => {}, [state]);
-
-  useEffect(() => {
-    //console.log('sen:', state.sentences);
-    //let temp = state.sentences.split("\n");
-    setSentences(state.sentences);
-  }, []);
 
   const updateBlank = (index, value) => {
     console.log('updateBlank', index, value);
@@ -43,7 +34,7 @@ function Blanks(props) {
     <div style={{ fontSize: "20px" }}>
       <div className="mb-3">
         {
-          sentences.map((line, lineIndex) => (
+          state.sentencesArr.map((line, lineIndex) => (
             <BlanksLine key={lineIndex} line={line} updateBlank={updateBlank}/>
           ))
         }

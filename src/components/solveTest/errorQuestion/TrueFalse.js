@@ -1,0 +1,31 @@
+import React from 'react'
+
+function TrueFalse(props) {
+    return (
+        <div className="card">
+            <div className="card-body">
+                <table className="table">
+                    <thead style={{visibility: 'none'}}>
+                        <tr>
+                            <th style={{width: '90%'}}></th>
+                            <th style={{width: '10%'}}></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {
+                            props.question.subquestions.map((sub, index) => (
+                                <tr key={index} className={sub[2] === "incorect" ? 'alert alert-danger' : 'alert alert-success'}>
+                                    <td>{sub[0]}</td>
+                                    <td>{sub[1]}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
+export default TrueFalse

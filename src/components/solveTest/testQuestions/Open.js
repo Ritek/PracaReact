@@ -4,11 +4,11 @@ import './style.css'
 function Open(props) {
     const [state, setState] = useState(props.question);
 
-    const handleTextChange = (event) => {
+    const handleTextChange = (event, value) => {
         event.target.style.height = 'inherit';
         event.target.style.height = `${event.target.scrollHeight}px`;
 
-        setState({...state, [event.target.name]: event.target.value});
+        setState({...state, answer: value});
     }
 
     useEffect(() => {
@@ -18,7 +18,7 @@ function Open(props) {
     return (
         <div>
             <textarea className="textarea" style={{width: '100%'}} name="answer" value={state.answer}
-                onChange={(e) => handleTextChange(e)}
+                onChange={(e) => handleTextChange(e, e.target.value)}
             />
         </div>
     )

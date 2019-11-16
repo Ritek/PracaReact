@@ -10,6 +10,15 @@ const useQuestions = (object, exNum, handleChange) => {
         setState({...state, [event.target.name]: event.target.value});
     } 
 
+    const handleRegularChange = (event) => {
+        event.target.style.height = 'inherit';
+        event.target.style.height = `${event.target.scrollHeight}px`
+
+        let temp = event.target.value.split('\n');
+
+        setState({...state, [event.target.name]: event.target.value, regArray: temp});
+    }
+
     const addTrueFalse = () => {
         if (state.subquestions === undefined) {
             let temp = [];
@@ -82,13 +91,13 @@ const useQuestions = (object, exNum, handleChange) => {
         event.target.style.height = `${event.target.scrollHeight}px`
 
         let tempText = event.target.value;
-        //const sentences = tempText.split("\n");
+        let sentencesArr = tempText.split("\n");
 
         //let tempArray = tempText.match(/\[(.*?)\]/g);
         let tempArray = tempText.match(/(?<=\[)(.*?)(?=\])/g);
 
         //setState({...state, sentences: sentences, blanks: tempArray});
-        setState({...state, sentences: event.target.value, blanks: tempArray});
+        setState({...state, sentences: event.target.value, blanks: tempArray, sentencesArr: sentencesArr});
     }
 
     const blanksLines = () => {
@@ -109,6 +118,7 @@ const useQuestions = (object, exNum, handleChange) => {
 
     return {
         handleTextChange,
+        handleRegularChange,
 
         changeTrueFalseText,
         changeTrueFalseLogic,

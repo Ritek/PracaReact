@@ -31,6 +31,8 @@ import StudentDashboard from './components/protected/StudentDashboard'
 import JoinGroup from './components/student/JoinGroup';
 import SolveTest from './components/solveTest/SolveTest';
 import AssignedTests from './components/student/AssignedTests';
+import CheckGraded from './components/solveTest/CheckGraded';
+import CheckErrors from './components/solveTest/CheckErrors';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,6 +83,8 @@ function App() {
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
             <ProtectedRoute path="/user/solvetest" exact component={AssignedTests} />
             <ProtectedRoute path="/user/solvetest/:id" component={SolveTest} />
+            <ProtectedRoute path="/user/checkgraded" exact component={CheckGraded} />
+            <ProtectedRoute path="/user/checkgraded/:id" component={CheckErrors} />
             
           </Switch>
         </div>

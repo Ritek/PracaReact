@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Axios from 'axios'
 
 import './testQuestions/style.css'
@@ -13,10 +13,15 @@ import Timer from '../student/Timer'
 function SolveTest({match}) {
     const [test, setTest] = useState({time: undefined});
 
+    const testRef = useRef(undefined);
+    testRef.current = undefined;
+
     const updateTest = (newQuestion, index) => {
         //console.log('update Test');
-        let copy = [...test.questions];
+
+        let copy = Array.from(test.questions);
         copy[index] = newQuestion;
+        
         setTest({...test, questions: copy});
     }
 
@@ -30,24 +35,12 @@ function SolveTest({match}) {
     }
 
     const sendSolved = () => {
-        Axios.post('/api/tests/savesolved', {test: test}).then(res => {
+        //console.log("!!!!!", testRef.current);
+        Axios.post('/api/tests/savesolved', {test: testRef.current}).then(res => {
             console.log(res.body);
         }).catch(error => {
             console.log(error);
         });
-    }
-
-    const prepareTimout = () => {
-        console.log('prepare timout ====>');
-
-        let timer = setTimeout(() => {
-            sendSolved();
-            alert('Times up!');
-        }, [test.time * 60000]);
-
-        return () => {
-            clearTimeout(timer);
-        }
     }
 
     useEffect(() => {
@@ -55,11 +48,23 @@ function SolveTest({match}) {
     }, []);
 
     useEffect(() => {
-        if (test.time !== undefined) prepareTimout();
+        if (test.time !== undefined) {
+            console.log('prepare timout ====>');
+
+            let timer = setTimeout(() => {
+                sendSolved();
+                alert('Times up!');
+            }, [test.time * 60000]);
+    
+            return () => {
+                clearTimeout(timer);
+            }
+        }
     }, [test.time])
 
     useEffect(() => {
-        console.log("test", test);
+        console.log("test >", test);
+        testRef.current = test;
     }, [test.questions])
 
     return (
