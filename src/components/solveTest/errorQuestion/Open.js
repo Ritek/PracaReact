@@ -1,11 +1,10 @@
 import React from 'react'
+import ShowPoints from './ShowPoints'
 
 function Open(props) {
     return (
-        <div className="card mb-4">
-            <div className="card-header">
-                <p>{} / {props.question.points} p</p>
-            </div>
+        <div className="card mb-5">
+            <ShowPoints points={props.question.points}/>
 
             <div className="card-body text-left">
                 {

@@ -1,9 +1,12 @@
 import React from 'react'
+import ShowPoints from './ShowPoints'
 
 function Choices(props) {
     return (
-        <div className="card" >
-            <div className={props.question.correct === true ? 'alert alert-success card-body' : 'alert alert-danger card-body'}>
+        <div className="card mb-5" >
+            <ShowPoints points={props.question.points}/>
+
+            <div className={props.question.correctAns === true ? 'alert alert-success card-body' : 'alert alert-danger card-body'}>
                 <table className="table-borderless">
                     <thead>
                         <tr>
