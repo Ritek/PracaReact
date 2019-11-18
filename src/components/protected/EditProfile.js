@@ -7,13 +7,16 @@ import ChangePassword from './ChangePassword';
 import './userDetails.css'
 
 function EditProfile() {
-    const [user, setUser] = useState({login: "", email: ""});
+    const [user, setUser] = useState({login: undefined, email: undefined, avatar: undefined});
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
+        console.log(user);
+    }, [user])
 
-        Axios.post('/api/userinfo/getdetails', {msg: 'hi'}, {headers: {authToken: token}}).then(res => {
-            setUser({login: res.data.login, email: res.data.email});
+    useEffect(() => {
+        console.log('getdetails');
+        Axios.post('/api/userinfo/getdetails').then(res => {
+            setUser({login: res.data.login, email: res.data.email, avatar: `static${res.data.imgPath}`});
         }).catch(error => {
             console.log(error);
         }); 
@@ -22,8 +25,9 @@ function EditProfile() {
 
     return (
         <div>
-            <UserDetails login={user.login} email={user.email}/>
-            <ChangePassword />
+            {user.login !== undefined &&
+                <UserDetails user={user}/>
+            }
         </div>
     )
 }
