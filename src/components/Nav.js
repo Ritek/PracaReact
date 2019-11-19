@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import '../App.css';
 
 import decode from 'jwt-decode';
@@ -7,17 +7,22 @@ import {Link} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
+import {AuthContext} from './AuthContext'
+
 function NavBar(props) { 
     const [login, setLogin] = props.value;
     let user = {};
+    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+
+    useEffect(() => {
+        console.log('state:', isLoggedIn);
+    }, [isLoggedIn])
 
     try {
         user = decode(sessionStorage.getItem('token'));
     } catch(error) {
-
+        console.log(error);
     }
-    
-    //const {id} = decode(sessionStorage.getItem('token'));
 
     let loginButton;
     let dashboard;
@@ -30,9 +35,9 @@ function NavBar(props) {
     }
 
     const handleLogOut = () => {
-        setLogin(false);
+        //setLogin(false);
+        setIsLoggedIn(false);
         sessionStorage.removeItem('token');
-        sessionStorage.removeItem('refreshToken');
     }
 
     if (login === false) {

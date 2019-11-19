@@ -1,4 +1,4 @@
-import React, {useState, useEffect}  from 'react';
+import React, {useState, useEffect, useContext}  from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -34,35 +34,43 @@ import AssignedTests from './components/student/AssignedTests';
 import CheckGraded from './components/solveTest/CheckGraded';
 import CheckErrors from './components/solveTest/CheckErrors';
 
+
+import {AuthContext} from './components/AuthContext'
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const changeLoginState = (newState) => {
-    console.log('New state!!!');
-    setIsLoggedIn(newState);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   }
 
   useEffect(() => {
-    if (checkToken()) changeLoginState(true);
-    else changeLoginState(false);
-    //console.log("in app:", checkToken());
+    if (checkToken()) handleLogin();
+    else handleLogout();
   }, []);
 
   return (
     <Router>
       <div className="App" style={{marginBottom: '100px'}}>
-        <NavBar value={[isLoggedIn, setIsLoggedIn]}/>
+        <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
+          <NavBar value={[isLoggedIn, setIsLoggedIn]}/>
+        </AuthContext.Provider>
         <div className="container text-break">
+          <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>  
           <Switch>
-          <Route path="/" exact component={Home}/>
-            <Route path="/about" render={props => <About {...props} value={isLoggedIn} />} />
+            <Route path="/" exact component={Home}/>
+            <Route path="/about" component={About} />
 
             <Route path="/register" component={Register}/>
-            <Route path="/login" render={props => <Login {...props} onChange={setIsLoggedIn} />} />
+            <Route path="/login" component={Login} />
 
             {/* protected routes */}
-            <ProtectedRoute path="/user" exact component={UserDashboard} value={isLoggedIn} /> 
-            <ProtectedRoute path="/edituser" exact component={EditProfie} />
+            <ProtectedRoute path="/user" exact component={UserDashboard} /> 
+            <ProtectedRoute path="/edituser" exact component={EditProfie}/>
 
             {/* teacher routes */}
 
@@ -87,6 +95,7 @@ function App() {
             <ProtectedRoute path="/user/checkgraded/:id" component={CheckErrors} />
             
           </Switch>
+          </AuthContext.Provider>
         </div>
       </div>
     </Router>

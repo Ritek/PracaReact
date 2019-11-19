@@ -36,7 +36,7 @@ function About() {
           <form method="post" action="/submit-form" id="#">
             <div className="form-group files">
               <label>Upload Your File </label>
-              <input type="file" className="form-control" multiple="" onChange={(e) => onChangeHandler(e)}/>
+              <input type="file" className="form-control" onChange={(e) => onChangeHandler(e)}/>
             </div>
           </form>
       </div>

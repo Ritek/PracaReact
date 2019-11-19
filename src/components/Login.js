@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import '../App.css';
 import {Link, Redirect} from 'react-router-dom';
 import Axios from 'axios';
 
-function Login(props) {
+import { AuthContext } from './AuthContext'
+
+function Login() {
 
     const cardStyle = {
         marginLeft: 'auto',
@@ -18,6 +20,8 @@ function Login(props) {
     });
 
     const [serverError, setServerError] = useState({msg: ""});
+
+    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
 
     const clearInputs = () => {
         setInput({...input, password: ""});
@@ -42,8 +46,7 @@ function Login(props) {
             console.log("seted");
 
             setServerError({msg: "ok"});
-
-            props.onChange(true);
+            setIsLoggedIn(true);
         }).catch(error => {
             setServerError({msg: "Could not log in. Wrong email or password"});
             clearInputs();

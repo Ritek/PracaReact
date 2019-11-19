@@ -13,14 +13,6 @@ function UserDashboard() {
 
     return (
         <div>
-            {/* <p>Your dashbord</p>
-            <Link to='/user/creategroup'>Create group</Link><br />
-            <Link to='/user/menagegroups'>Menage groups</Link><br />
-            <Link to='/user/createtest'>Create test</Link><br />
-            <Link to='/user/testlist'>Your tests</Link><br />
-
-            <Link to='/user/joingroup'>Join group</Link><br />
-            <Link to='/user/solvetest'>Solve test</Link><br /> */}
             {role === 'student' &&
                 <Redirect to="/user/studentdashboard" />
             }
@@ -28,8 +20,6 @@ function UserDashboard() {
             {role === 'teacher' &&
                 <Redirect to="/user/teacherdashboard" />
             }
-
-            Role: {role}.
         </div>
     )
 }
