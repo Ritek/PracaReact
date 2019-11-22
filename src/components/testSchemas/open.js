@@ -5,14 +5,18 @@ import QuestionTop from './questionParts/QuestionTop'
 import QuestionBot from './questionParts/QuestionBot'
 import useQuestions from '../../hooks/useQuestions';
 
+import AddPicture from './AddPicture';
+
 function Open(props) {
 
-    const {handleTextChange, setPoints, state, handleRegularChange} = useQuestions(props.object, props.exNum, props.handleChange);
+    const {handleTextChange, setPoints, state, handleRegularChange, setPicture, deletePicture} = useQuestions(props.object, props.exNum, props.handleChange);
 
     return (
         <div className="card card-bot">
             <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>
             
+            <AddPicture setPicture={setPicture} deletePicture={deletePicture}/>
+
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 
                 placeholder="You can enter instructions here" value={state.instruction}/>

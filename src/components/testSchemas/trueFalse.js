@@ -5,7 +5,7 @@ import QuestionTop from './questionParts/QuestionTop'
 import QuestionBot from './questionParts/QuestionBot'
 import './style.css'
 
-import SubquestionTrueFalse from '../testSchemas/questionParts/SubquestionTrueFalse';
+import SubquestionTrueFalse from './questionParts/SubquestionTrueFalse';
 
 function TrueFalse(props) {
 

@@ -108,6 +108,17 @@ const useQuestions = (object, exNum, handleChange) => {
         }
     }
 
+    const setPicture = (picture) => {
+        if (picture.image !== undefined) setState({...state, picture: picture});
+    }
+
+    const deletePicture = () => {
+        let temp = state;
+        delete temp.picture;
+        console.log('temp:', temp);
+        setState(temp);
+    }
+
     const setPoints = (newValue) => {
         setState({...state, points: parseInt(newValue)});
     }
@@ -132,6 +143,9 @@ const useQuestions = (object, exNum, handleChange) => {
 
         makeBlanks,
         blanksLines,
+
+        setPicture,
+        deletePicture,
 
         setPoints,
         state,
