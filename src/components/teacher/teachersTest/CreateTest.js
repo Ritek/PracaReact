@@ -82,6 +82,24 @@ function CreateTest({match}) {
         const {id} = decode(sessionStorage.getItem('token'));
         let url = "";
         let msg = "Test successfuly saved!";
+
+        let fd = new FormData;
+        
+        let picArr = [];
+        test.questions.forEach( question => picArr.push(question.picture) )
+        console.log('picArr:', picArr);
+
+        for (let i=0;i<picArr.length;i++) fd.append('pictures', picArr[i]);
+        fd.append('test', JSON.stringify(test));
+
+        for (let i=0;i<picArr.length;i++) {
+            if (picArr[i] !== undefined) picArr[i] = [i, picArr[i].name];
+            else picArr[i] = [i, 'undefined']
+        }
+
+        fd.append('picArr', JSON.stringify(picArr));
+
+        console.log('picArr:', picArr);
         
         if (match.params.id === undefined && test.author === undefined) {
             console.log('New Test');
@@ -97,7 +115,7 @@ function CreateTest({match}) {
             msg = "Test successfuly updated!";
         }
         
-        Axios.post(url, {id: id, test: test}).then(res => {
+        Axios.post(url, fd).then(res => {
             console.log('server response:', res);
             setTest({...test, author: id});
             setShowToast({show: true, msg: msg});
