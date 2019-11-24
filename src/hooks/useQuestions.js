@@ -111,7 +111,7 @@ const useQuestions = (object, exNum, handleChange) => {
     // for pictures
 
     const setPicture = (picture) => {
-        if (picture.image !== undefined) setState({...state, picture: picture.image, pictureSize: picture.size});
+        if (picture.image !== undefined) setState({...state, picture: picture.image, pictureSize: picture.size, image64: picture.image64});
         else {
             let temp = state;
             delete temp.picture;
