@@ -120,6 +120,15 @@ const useQuestions = (object, exNum, handleChange) => {
         }
     }
 
+    const delPicture = () => {
+        console.log('delPicture');
+        let temp = state;
+        delete temp.picture;
+        delete temp.pictureSize;
+        delete temp.image64;
+        setState(temp);
+    }
+
     // ================================
 
     const setPoints = (newValue) => {
@@ -148,6 +157,8 @@ const useQuestions = (object, exNum, handleChange) => {
         blanksLines,
 
         setPicture,
+        delPicture,
+
         setPoints,
         state,
     }

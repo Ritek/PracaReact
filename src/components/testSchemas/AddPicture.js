@@ -17,9 +17,13 @@ function AddQuestion(props) {
     }) 
 
     const addPicture = async (event) => {
-        let temp = event.target.files[0];
-        let x = await toBase64(event.target.files[0])
-        setPicture({...picture, image: temp, image64: x});
+        if (event.target.files[0] !== undefined) {
+            let temp = event.target.files[0];
+            let x = await toBase64(event.target.files[0])
+            setPicture({...picture, image: temp, image64: x});
+        } else {
+            setPicture({...picture, picture: undefined});
+        }
     }
 
     const resize = (size) => {
@@ -27,7 +31,8 @@ function AddQuestion(props) {
     }
 
     const delPicture = () => {
-        setPicture({...picture, image: undefined});
+        setPicture({image: undefined, size: 80, image64: undefined});
+        props.delPicture();
     }
 
     useEffect(() => {
@@ -55,12 +60,7 @@ function AddQuestion(props) {
                         <img className="img-fluid" 
                             width={picture.size+'%'} 
                             style={{border: '1px dashed blue', maxWidth: '800px', }}
-                            //src={picture.name !== undefined ? URL.createObjectURL(picture.image) : "/"+picture.image}
                             src={picture.image.toString().includes('/') ? ("/"+picture.image) : URL.createObjectURL(picture.image)}
-                            //src={props.state.image64 !== undefined ? props.state.picture : '...'}
-
-                            //src={URL.createObjectURL(props.state.picture)}
-                            //src={URL.createObjectURL(image.current)}
                         />
                         :
                         <p className="btn btn-primary">Add Picture</p>
