@@ -124,10 +124,14 @@ const useQuestions = (object, exNum, handleChange) => {
         console.log('delPicture');
         let temp = state;
         delete temp.picture;
-        delete temp.pictureSize;
         delete temp.image64;
-        setState(temp);
+        delete temp.pictureSize;
+        setState({...state, temp});
     }
+
+    useEffect(() => {
+        console.log('state changed!!!');
+    }, [state])
 
     // ================================
 
