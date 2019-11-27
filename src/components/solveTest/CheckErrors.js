@@ -12,6 +12,7 @@ function CheckErrors({match}) {
 
     const [test, setTest] = useState(undefined);
     const [canEdit, setCanEdit] = useState(false);
+    const [response, setResponse] = useState({msg: undefined});
     
     useEffect(() => {
         //console.log(match.params.id);
@@ -27,17 +28,33 @@ function CheckErrors({match}) {
         })
     }, [])
 
-    const changePoints = (exNumber, points) => {
+    const changePoints = (exNumber, points, max) => {
+        console.log(points);
         if (canEdit) {
-            console.log('can edit');
             let temp = JSON.stringify(test);
             temp = JSON.parse(temp);
-            if (points <= temp.questions[exNumber].points) {
-                temp.questions[exNumber].correct = points;
-            }
+
+            let cos = parseInt(points) || 0;
+            if (cos <= max) temp.questions[exNumber].correct = cos;
+            else temp.questions[exNumber].correct = max;
             setTest(temp)
         } else console.log('cant edit');
     }
+
+    const saveChanges = () => {
+        console.log('save changes');
+
+        Axios.post('/api/tests/savegraded', {test: test}).then(res => {
+            console.log("res:", res.data);
+            setResponse({msg: res.data.msg});
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
+    useEffect(() => {
+        console.log(response);
+    }, [response])
 
     useEffect(() => {
         console.log(test);
@@ -45,10 +62,14 @@ function CheckErrors({match}) {
 
     return (
         <div>
+            {response.msg !== undefined &&
+                <p className="alert alert-primary">{response.msg}</p>
+            }
+
             {test !== undefined && id === test.author && 
                 <div className="jumbotron mb-5">
                     <h3 className="mb-3">Save and mark as graded</h3>
-                    <button className="btn btn-primary">Save Changes</button>
+                    <button className="btn btn-primary" onClick={() => saveChanges()}>Save Changes</button>
                 </div>
             }
 
