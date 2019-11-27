@@ -25,6 +25,9 @@ import EditGroup from './components/teacher/groups/EditGroup';
 import CreateTest from './components/teacher/teachersTest/CreateTest';
 import TestList from './components/teacher/teachersTest/TestList';
 
+import SeeSolved from './components/teacher/solvedTests/SeeSolved';
+import GradeTest from './components/teacher/solvedTests/GradeTest';
+
 // student
 import StudentDashboard from './components/protected/StudentDashboard'
 
@@ -73,7 +76,6 @@ function App() {
             <ProtectedRoute path="/edituser" exact component={EditProfie}/>
 
             {/* teacher routes */}
-
             {/* <ProtectedRoute path="/user/creategroup" exact component={(props) => <CreateGroup {...props}  value={isLoggedIn} /> } /> */}
             <ProtectedRoute path="/user/teacherdashboard" exact component={TeacherDashboard} />
 
@@ -83,6 +85,9 @@ function App() {
             <ProtectedRoute path="/user/createtest" exact component={CreateTest} />
             <ProtectedRoute path="/user/edittest/:id" component={CreateTest} />
             <ProtectedRoute path="/user/testlist" component={TestList} />
+
+            <ProtectedRoute path="/user/allsolvedtests" exact component={SeeSolved} />
+            {/* <ProtectedRoute path="/user/allsolvedtests/:id" component={GradeTest} /> */}
 
             
             {/* student routes */}

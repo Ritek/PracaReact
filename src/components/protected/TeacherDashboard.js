@@ -25,6 +25,9 @@ function TeacherDashboard() {
 
                 <Link className="col-sm" style={tile} to='/user/createtest'>Create test</Link><br />
                 <Link className="col-sm" style={tile} to='/user/testlist'>Your tests</Link><br />
+
+                <div className="w-100" />
+                <Link className="col-sm" style={tile} to='/user/allsolvedtests'>Solved Tests</Link>
             </div>
         </div>
     )

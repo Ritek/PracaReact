@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 import './testQuestions/style.css'
 
@@ -12,6 +13,7 @@ import Timer from '../student/Timer'
 
 function SolveTest({match}) {
     const [test, setTest] = useState({time: undefined});
+    const [redirect, setRedirect] = useState(false);
 
     const testRef = useRef(undefined);
     testRef.current = undefined;
@@ -41,6 +43,9 @@ function SolveTest({match}) {
         }).catch(error => {
             console.log(error);
         });
+
+        console.log('Attemp uploaded');
+        setRedirect(true);
     }
 
     useEffect(() => {
@@ -53,7 +58,6 @@ function SolveTest({match}) {
 
             let timer = setTimeout(() => {
                 sendSolved();
-                alert('Times up!');
             }, [test.time * 60000]);
     
             return () => {
@@ -69,10 +73,16 @@ function SolveTest({match}) {
 
     return (
         <div>
+            {redirect === true &&
+                <Redirect to='/user/studentdashboard' />
+            }
+
             <div className="mb-4">
                 {test.time !== undefined &&
                     <Timer time={test.time}/>
                 }
+
+                <button className="btn btn-primary" onClick={() => sendSolved()}>Save and exit</button>
             </div>
 
             { test.questions !== undefined &&
