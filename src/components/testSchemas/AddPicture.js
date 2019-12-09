@@ -47,28 +47,31 @@ function AddQuestion(props) {
     return (
         <div className="mb-4 mt-4">
 
-            <div /* style={{border: '1px solid black'}} */ className="mb-4">
+            <div className="mb-4">
                 <input 
                     id={`fi-${props.state.id}`} 
                     type="file" style={{display: 'none'}} 
                     onChange={(e) => addPicture(e)}
                 />
 
-            <div htmlFor={`fi-${props.state.id}`} className="picture-div" style={{position: 'relative'}}>
-                <label htmlFor={`fi-${props.state.id}`}>
-                    {picture.image !== undefined ?
-                        <img className="img-fluid" 
-                            width={picture.size+'%'} 
-                            style={{border: '1px dashed blue', maxWidth: '800px', }}
-                            src={picture.image.toString().includes('/') ? ("/"+picture.image) : URL.createObjectURL(picture.image)}
-                        />
-                        :
-                        <p className="btn btn-primary">Add Picture</p>
-                    }
-                </label>
+            <div className="picture-div" style={{position: 'relative'}}>
+                <div style={{margin: 'auto', maxWidth: '800px', maxHeight: '700px', }}>
+                    <label htmlFor={`fi-${props.state.id}`} id={`li-${props.state.id}`}>
+                        {picture.image !== undefined ?
+                            <img className="img-fluid" 
+                                width={picture.size+'%'} 
+                                style={{border: '1px dashed blue', maxWidth: '800px', }}
+                                src={picture.image.toString().includes('/') ? ("/"+picture.image) : URL.createObjectURL(picture.image)}
+                            />
+                            :
+                            <p className="btn btn-primary">Add Picture</p>
+                        }
+                    </label>
+                </div>
+                
                 {picture.image !== undefined &&
                     <div>
-                        <p className="close" style={{fontSize: '20px'}} onClick={() => delPicture()}>&times;</p>
+                        <p className="close" style={{fontSize: '30px'}} onClick={() => delPicture()}>&times;</p>
                         <input type="range" min="40" max="80" id="rangeVert" 
                             value={picture.size !== undefined ? picture.size : 80} 
                             className="slider text-left" 

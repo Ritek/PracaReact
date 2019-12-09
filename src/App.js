@@ -43,27 +43,12 @@ import {AuthContext} from './components/AuthContext'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  }
-
-  useEffect(() => {
-    if (checkToken()) handleLogin();
-    else handleLogout();
-  }, []);
-
   return (
+    <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
     <Router>
       <div className="App" style={{marginBottom: '100px'}}>
-        <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
           <NavBar value={[isLoggedIn, setIsLoggedIn]}/>
-        </AuthContext.Provider>
-        <div className="container text-break">
-          <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>  
+        <div className="container text-break">  
           <Switch>
             <Route path="/" exact component={Home}/>
             <Route path="/about" component={About} />
@@ -100,10 +85,10 @@ function App() {
             <ProtectedRoute path="/user/checkgraded/:id" component={CheckErrors} />
             
           </Switch>
-          </AuthContext.Provider>
         </div>
       </div>
     </Router>
+    </AuthContext.Provider>
   );
 }
 

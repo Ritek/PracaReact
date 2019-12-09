@@ -3,13 +3,14 @@ import {Link, Redirect} from 'react-router-dom';
 import decode from 'jwt-decode';
 
 function UserDashboard() {
-    const {role} = decode(sessionStorage.getItem('token'));
-
-    const colStyle = {
-        height: '200px',
-        backgroundColor: 'blue',
-        padding: '5px',
+    let role;
+    try {
+        let cos = decode(sessionStorage.getItem('token'));
+        role = cos.role;
+    } catch(error) {
+        console.log(error);
     }
+    
 
     return (
         <div>

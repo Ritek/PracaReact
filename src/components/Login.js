@@ -38,7 +38,7 @@ function Login() {
         event.preventDefault();
         //console.log(input);
 
-        Axios.post('api/user/login', input, {withCredentials: true}).then(res => {
+        Axios.post('/api/user/login', input, {withCredentials: true}).then(res => {
             console.log(res.data);
             console.log(res.headers);
 
