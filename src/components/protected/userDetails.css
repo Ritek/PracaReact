@@ -6,3 +6,44 @@
 .cardMargin {
     margin-bottom: 7%;
 }
+
+
+.tile {
+    position: relative;
+
+    min-width: 300px;
+    min-height: 100px;
+
+    background-color: #037ffc;
+    height: 25vh;
+
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.box {
+    color: white;
+    font-size: 50px;
+
+    margin: auto;
+    top: 50%;
+}
+
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.99);
+    }
+    100% {
+        transform: scale(1);
+      }
+}
+
+.tile:hover {
+    text-decoration: none;
+    -webkit-animation: pulse 1s infinite;
+    animation: pulse 1s infinite;
+}
