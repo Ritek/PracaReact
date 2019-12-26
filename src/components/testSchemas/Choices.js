@@ -5,16 +5,19 @@ import QuestionTop from './questionParts/QuestionTop'
 import QuestionBot from './questionParts/QuestionBot'
 import SingleChoice from './questionParts/Choice'
 
-//import {Draggable} from 'react-beautiful-dnd'
 import useQuestions from '../../hooks/useQuestions';
+
+import AddPicture from './AddPicture';
 
 function Choices(props) {
 
-    const {handleTextChange, setPoints, state, addChoice, delChoice, setChoiceText, setChoicesAnswer} = useQuestions(props.object, props.exNum, props.handleChange);
+    const {handleTextChange, setPoints, state, addChoice, delChoice, setChoiceText, setChoicesAnswer, setPicture, delPicture} = useQuestions(props.object, props.exNum, props.handleChange);
 
     return (
         <div className="card card-bot">
             <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>
+
+            <AddPicture setPicture={setPicture} delPicture={delPicture} state={state} />
 
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 

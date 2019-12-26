@@ -45,9 +45,9 @@ function AddQuestion(props) {
     }, [picture])
 
     return (
-        <div className="mb-4 mt-4">
+        <div className="mb-1 mt-4">
 
-            <div className="mb-4">
+            <div className="mb-1">
                 <input 
                     id={`fi-${props.state.id}`} 
                     type="file" style={{display: 'none'}} 

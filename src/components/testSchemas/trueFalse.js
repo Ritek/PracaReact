@@ -7,13 +7,17 @@ import './style.css'
 
 import SubquestionTrueFalse from './questionParts/SubquestionTrueFalse';
 
+import AddPicture from './AddPicture';
+
 function TrueFalse(props) {
 
-    const {handleTextChange, addTrueFalse, changeTrueFalseText, changeTrueFalseLogic, delSubquestion, setPoints, state} = useQuestions(props.object, props.exNum, props.handleChange);
+    const {handleTextChange, addTrueFalse, changeTrueFalseText, changeTrueFalseLogic, delSubquestion, setPoints, state, setPicture, delPicture} = useQuestions(props.object, props.exNum, props.handleChange);
 
     return (
         <div className="card card-bot">
             <QuestionTop exNum={props.exNum} handleDelete={props.handleDelete} setPoints={setPoints} points={state.points}/>
+            
+            <AddPicture setPicture={setPicture} delPicture={delPicture} state={state} />
             
             <div className="input-group">
                 <textarea className="instruction" name="instruction" onChange={(e) => handleTextChange(e)} 

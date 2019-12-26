@@ -15,14 +15,14 @@ function StudentDashboard() {
 
             <Link className="col-sm tile" to='/user/solvetest'>
                 <div className="box">
-                    <i className="fas fa-user-plus"></i>
+                    <i className="fas fa-file-contract"></i>
                     <p className="link">Solve test</p>
                 </div>
             </Link>
 
             <Link className="col-sm tile" to='/user/checkgraded'>
                 <div className="box">
-                    <i className="fas fa-user-plus"></i>
+                    <i className="far fa-check-square"></i>
                     <p className="link">Check Graded</p>
                 </div>
             </Link>

@@ -13,8 +13,6 @@ function EditGroup({match}) {
     const [group, setGroup] = useState({});
     const [userTests, setUserTests] = useState({inGroup: undefined, notInGroup: undefined});
 
-    const [timeoutActive, setActiveTimeout] = useState(undefined);
-
     const {filterForbidden} = useCheckForbidden();
 
     const deleteMembers = (students) => {
@@ -75,13 +73,6 @@ function EditGroup({match}) {
         
         setUserTests({...userTests, inGroup: temp});
     }
-
-
-    useEffect(() => {
-        if (timeoutActive === true) {
-            clearTimeout()
-        }
-    }, [timeoutActive])
 
     useEffect(() => {
         //console.log('match:', match.params.id);

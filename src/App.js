@@ -26,7 +26,6 @@ import CreateTest from './components/teacher/teachersTest/CreateTest';
 import TestList from './components/teacher/teachersTest/TestList';
 
 import SeeSolved from './components/teacher/solvedTests/SeeSolved';
-import GradeTest from './components/teacher/solvedTests/GradeTest';
 
 // student
 import StudentDashboard from './components/protected/StudentDashboard'
@@ -42,6 +41,10 @@ import {AuthContext} from './components/AuthContext'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) setIsLoggedIn(true);
+  }, [])
 
   return (
     <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>

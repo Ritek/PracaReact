@@ -9,6 +9,8 @@ import Nav from 'react-bootstrap/Nav'
 
 import {AuthContext} from './AuthContext'
 
+import {ReactComponent as Logo} from '../justTest.svg'
+
 function NavBar(props) { 
     const [login, setLogin] = props.value;
     let user = {};
@@ -62,7 +64,7 @@ function NavBar(props) {
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href={home}>React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href={home}><Logo><path style={{fill: 'white'}}></path></Logo></Navbar.Brand>
 
             {user.login !== undefined &&
                 <Navbar.Text className="mr-auto">

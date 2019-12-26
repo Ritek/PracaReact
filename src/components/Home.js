@@ -1,58 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import '../App.css';
-import Axios from 'axios'
+import React from 'react';
+import './Home.css'
+import {ReactComponent as Logo} from '../justTest.svg'
+import {Link} from 'react-router-dom'
 
-function About() {
-
-  const [state, setState] = useState({file: undefined});
-  const [path, setPath] = useState({url: undefined});
-
-  const onChangeHandler = (event) => {
-    setState({file: event.target.files[0]});
-  }
-
-  const upload = () => {
-    console.log('upload');
-    const data = new FormData();
-    data.append('image', state.file);
-
-    Axios.post('api/post/image', data).then(res => {
-      console.log(res.data);
-      setPath({url: `static${res.data.path}`});
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
-/*   useEffect(() => {
-    console.log("state", state.file);
-  }, [state]) */
+function Home() {
 
   return (
     <div>
-      <h1 className="mb-5">Home</h1>
-      
-      <div className="mb-5">
-          <form method="post" action="/submit-form" id="#">
-            <div className="form-group files">
-              <label>Upload Your File </label>
-              <input type="file" className="form-control" onChange={(e) => onChangeHandler(e)}/>
-            </div>
-          </form>
+      <div className="home"></div>
+      <div className="info">
+        <Logo className="logo" style={{color: "white"}}/>
+        <div className="text">
+          <h2>Welcome to JustTest</h2>
+          <p>If this is your first visit, click <Link to='/about'>here</Link> to read more about our great tool.</p>
+          <p>Intrested? Click <Link to='/register'>here</Link> and check out how WE can help YOU.</p>
+        </div>
       </div>
-
-      <div>
-        <button className="btn btn-primary" onClick={() => upload()}>Upload</button>
-      </div>
-
-      <div>
-        {path.url !== undefined &&
-          <img src={path.url} className="img-fluid"/>
-        }
-      </div>
-
 	  </div>
   );
 }
 
-export default About;
+export default Home;

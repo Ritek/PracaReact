@@ -64,15 +64,6 @@ function CreateTest({match}) {
         console.log('handle reorder');
     }
 
-    const getInitial = () => {
-        setTest({name: "init name", tags: ["tag1", "tag2"], access: "", questions: [
-            {id: "0", points: 1, type: "open", instruction: "init instruction", answer: "answer init"},
-            {answer: "BBB", choices: ["AAA", "BBB"], id: "1", instruction: "Choices init", points: 3, type: "choices"},
-            {id: "2", type: "truefalse",  instruction: "Ex1", points: 1, subquestions: [["sub 1", "True"], ["sub 2", "False"], ["sub 3", "True"]]},
-            {blanks: ["are", "becouse", "dnd"], id: "3", instruction: "blanks instr", points: 2, sentences: ["blanks [are] dope [becouse] of [dnd]\n"], type: "blanks"}
-        ]})
-    }
-
     const changeDetails = (name, tags, access) => {
         setTest({...test, name: name, tags: tags, access: access});
     }
@@ -117,7 +108,7 @@ function CreateTest({match}) {
         console.log("new state", test);
     }, [test])
 
-    useEffect(() => {
+    const getTest = () => {
         const {id} = decode(sessionStorage.getItem('token'));
         if ( match.params.id !== undefined ) {
             console.log('id', match.params.id);
@@ -128,6 +119,10 @@ function CreateTest({match}) {
                 console.log(error);
             });
         }
+    }
+
+    useEffect(() => {
+        getTest();
     }, [])
 
     return (
@@ -173,8 +168,6 @@ function CreateTest({match}) {
             }
             </div>
             <button className="btn btn-primary" onClick={handleModalShow}>Add question</button>
-            <br />
-            <button onClick={() => getInitial()}>Get initial</button>
         </div>
     )
 }

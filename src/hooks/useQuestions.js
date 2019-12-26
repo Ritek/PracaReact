@@ -87,6 +87,7 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const makeBlanks = (event) => {
+        console.log('makeBlaks');
         event.target.style.height = 'inherit';
         event.target.style.height = `${event.target.scrollHeight}px`
 
@@ -101,6 +102,7 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     const blanksLines = () => {
+        console.log('blankLines');
         if (typeof(state.sentences) === 'string') {
             let arr = state.sentences.split('\n');
             console.log('arr.lengh =', arr.length);
@@ -131,6 +133,7 @@ const useQuestions = (object, exNum, handleChange) => {
 
     useEffect(() => {
         console.log('state changed!!!');
+        //console.log(state);
     }, [state])
 
     // ================================

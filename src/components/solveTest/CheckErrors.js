@@ -75,6 +75,16 @@ function CheckErrors({match}) {
 
             <div>
                 {test !== undefined &&
+                    <div className="card mb-5">
+                        <div className="card-body" style={{fontSize: '24px'}}>
+                            Points scored: {test.allGotPoints}<br/>
+                            Max score: {test.allPossiblePoints}<br/>
+                            Percentage: {(test.allGotPoints/test.allPossiblePoints).toFixed(2)}%<br/>
+                        </div>
+                    </div>
+                }
+
+                {test !== undefined &&
                     test.questions.map((question, index) => {
                         if (question.type === "open") {
                             return <Open key={index} question={question} changePoints={changePoints} exNum={index} canEdit={canEdit}/>
