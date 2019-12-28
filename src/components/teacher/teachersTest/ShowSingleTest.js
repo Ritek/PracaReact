@@ -18,6 +18,7 @@ function ShowSingleTest(props) {
             </div>
 
             <div className="card-footer text-right">
+                <Link to={`/user/solvetest/${props.test._id}`} className="btn btn-primary mr-2">Preview</Link>
                 <Link to={`/user/edittest/${props.test._id}`} className="btn btn-primary mr-2">Edit</Link>
                 <button className="btn btn-danger" onClick={() => props.deleteTest(props.test._id)}>Delete</button>
             </div>

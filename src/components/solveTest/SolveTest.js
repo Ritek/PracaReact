@@ -9,14 +9,22 @@ import Choices from './testQuestions/Choices'
 import TrueFalse from './testQuestions/Subquestions'
 import Blanks from './testQuestions/Blanks'
 
-import Timer from '../student/Timer'
+import Timer from './testQuestions/Timer'
+import decode from 'jwt-decode';
 
 function SolveTest({match}) {
     const [test, setTest] = useState({time: undefined});
     const [redirect, setRedirect] = useState(false);
+    const [isTeacher, setIsTeacher] = useState(false);
+    const [delay, setDelay] = useState(1000);
+
+    const [timer, setTimer] = useState(undefined);
 
     const testRef = useRef(undefined);
     testRef.current = undefined;
+
+    const timerRef = useRef(undefined);
+    timerRef.current = undefined;
 
     const updateTest = (newQuestion, index) => {
         //console.log('update Test');
@@ -30,22 +38,36 @@ function SolveTest({match}) {
     const getTest = () => {
         Axios.post('/api/tests/solvetest', {testId: match.params.id}).then(res => {
             console.log("res:", res.data);
-            setTest(res.data);
+
+            if (!sessionStorage.getItem('testToken')) {
+                sessionStorage.setItem('testToken', res.data.testToken);
+            }
+
+            setTest(res.data.test);
+
         }).catch(error => {
             console.log(error);
         })
     }
 
-    const sendSolved = () => {
-        //console.log("!!!!!", testRef.current);
-        Axios.post('/api/tests/savesolved', {test: testRef.current}).then(res => {
-            console.log(res.body);
-        }).catch(error => {
-            console.log(error);
-        });
+    const sendSolved = (move) => {
+        if (!isTeacher) {
+            Axios.post('/api/tests/savesolved', {test: testRef.current}).then(res => {
+                console.log(res.body);
+            }).catch(error => {
+                console.log(error);
+            });
 
-        console.log('Attemp uploaded');
-        setRedirect(true);
+            console.log('Attemp uploaded');
+            setRedirect(true);
+        }
+        sessionStorage.removeItem('testToken');
+        sessionStorage.removeItem('timer');
+    }
+
+    const stopTimer = () => {
+        if (delay === 1000) setDelay(0);
+        else setDelay(1000);
     }
 
     useEffect(() => {
@@ -53,36 +75,79 @@ function SolveTest({match}) {
     }, []);
 
     useEffect(() => {
-        if (test.time !== undefined) {
+        if (sessionStorage.getItem('timer')) {
+            let temp = (sessionStorage.getItem('timer')) / 60000;
+            setTimer(temp);
+        }else if (test.time !== undefined) {
+            setTimer(test.time);
+        }
+    }, [test.time])
+
+    useEffect(() => {
+        let token = decode(sessionStorage.getItem('token'));
+        if (test.author !== undefined && test.author === token.id) {
+            setIsTeacher(true);
+        }
+    }, [test.author])
+
+    useEffect(() => {
+        if (test.time !== undefined && isTeacher === false) {
             console.log('prepare timout ====>');
 
             let timer = setTimeout(() => {
                 sendSolved();
             }, [test.time * 60000]);
+            timerRef.current = timer;
     
             return () => {
                 clearTimeout(timer);
             }
         }
-    }, [test.time])
+    }, [test.time, isTeacher])
 
     useEffect(() => {
         console.log("test >", test);
         testRef.current = test;
     }, [test.questions])
 
+    useEffect(() => {
+        console.log("window name", window.name);
+    }, [window.name])
+
     return (
         <div>
-            {redirect === true &&
+            <div>
+                <button className="btn btn-success print-button" 
+                    style={{position: 'fixed', right: '20px', bottom: '20px'}}
+                    onClick={() => window.print()}
+                    >Print
+                </button>
+            </div>
+
+            {redirect === true && isTeacher === false &&
                 <Redirect to='/user/studentdashboard' />
             }
 
-            <div className="mb-4">
-                {test.time !== undefined &&
-                    <Timer time={test.time}/>
+            {redirect === true && isTeacher === true &&
+                <Redirect to='/user/teacherdashboard' />
+            }
+
+            <div className="mb-4 timer-div">
+                {timer !== undefined &&
+                    <Timer time={timer} delay={delay} sendSolved={sendSolved}/>
                 }
 
-                <button className="btn btn-primary" onClick={() => sendSolved()}>Save and exit</button>
+                <button className="btn btn-danger" onClick={() => sendSolved(true)}>Save and exit</button>
+
+                {isTeacher === true &&
+                    <button className="btn btn-primary ml-2" onClick={() => stopTimer()}>Stop Timer</button>
+                }
+            </div>
+
+            <div style={{marginTop: '50px', marginBottom: '40px'}}>
+                {test.name !== undefined &&
+                    <h1>{test.name}</h1>
+                }
             </div>
 
             { test.questions !== undefined &&

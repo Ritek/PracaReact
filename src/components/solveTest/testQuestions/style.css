@@ -29,3 +29,17 @@ textarea {
     height: 25px;
     width: 25px;
 }
+
+@media print {
+    div {
+        page-break-inside: avoid;
+    }
+
+    .print-button {
+        display: none !important;
+    }
+
+    .timer-div {
+        display: none !important;
+    }
+}
