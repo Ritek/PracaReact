@@ -30,7 +30,7 @@ function UserDetails(props) {
     }, [])
 
     return (
-        <div className="card" style={{maxWidth: '50%', margin: 'auto'}}>
+        <div className="card" style={{width: '80%', margin: 'auto'}}>
             <h2 className="card-header">Your profile</h2>
             <div className="card-body labelStyle">
 
@@ -76,9 +76,12 @@ function UserDetails(props) {
                     />
                 </div>
 
-                {/* <button className="btn btn-danger">Change Details</button> */}
-
-                <button className="btn btn-danger" onClick={() => props.updateChanges()}>Save Changes</button>
+                <div className="form-group formGroup text-center">
+                    <button className="btn btn-danger"
+                        style={{marginTop: '10px'}} 
+                        onClick={() => props.updateChanges()}>Save Changes
+                    </button>
+                </div>
             </div>
             <div className="card-footer">Worning! Changing detials will couse a logout!</div>
         </div>

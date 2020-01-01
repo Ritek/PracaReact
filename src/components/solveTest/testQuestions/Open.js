@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './style.css'
+import ShowImage from './ShowImage';
 
 function Open(props) {
     const [state, setState] = useState(props.question);
@@ -17,6 +18,10 @@ function Open(props) {
 
     return (
         <div>
+            {state.picture !== undefined &&
+                <ShowImage image={state.picture} size={state.pictureSize}/>
+            }
+            
             <textarea className="textarea" style={{width: '100%'}} name="answer" value={state.answer}
                 onChange={(e) => handleTextChange(e, e.target.value)}
             />

@@ -16,12 +16,12 @@ function ModalTest(props) {
     return (
         <Modal show={props.showModal} onHide={handleModalClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Header</Modal.Title>
+                <Modal.Title>Add question</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <h3>Choose a type of question to add</h3>
-                <div className="row">
+                <div className="row" style={{padding: '10px'}}>
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("open")}>Open</button>
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("truefalse")}>True or false</button>
                     <button className="btn btn-primary col-sm-6 mb-2" onClick={() => handleModalClose("blanks")}>Blanks</button>
@@ -30,7 +30,7 @@ function ModalTest(props) {
             </Modal.Body>
 
             <Modal.Footer>
-                <p>A footer</p>
+                <p>Click on blue button to add question.</p>
             </Modal.Footer>
         </Modal>
     )

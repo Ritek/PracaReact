@@ -28,7 +28,7 @@ function ChangePassword() {
                     />
                 </div>
 
-                <button className="btn btn-danger submitButton">Change passowrd</button>
+                <button className="btn btn-danger submitButton">Change password</button>
             </div>
             <div className="card-footer">Worning! Changing password will couse a logout!</div>
         </form>

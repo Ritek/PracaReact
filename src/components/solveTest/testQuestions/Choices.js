@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import ShowImage from './ShowImage';
 
 function Choices(props) {
 
@@ -14,26 +15,32 @@ function Choices(props) {
     }, [state.answer])
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th style={{width: '10%'}}></th>
-                    <th style={{width: '90%'}}></th>
-                </tr>
-            </thead>
-            <tbody>
-            {state.choices !== undefined &&
-                state.choices.map((choice, index) => (
-                    <tr key={index}>
-                        <td><input type="radio" className="checkmark" name="choice" value={choice} 
-                            onClick={(e) => changeChoice(e.target.value)}/>
-                        </td>
-                        <td style={{paddingLeft: '10px', paddingBottom: '8px'}}>{choice}</td>
-                    </tr>
-                ))
+        <div>
+            {state.picture !== undefined &&
+                <ShowImage image={state.picture} size={state.pictureSize}/>
             }
-            </tbody>
-        </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style={{width: '10%'}}></th>
+                        <th style={{width: '90%'}}></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {state.choices !== undefined &&
+                    state.choices.map((choice, index) => (
+                        <tr key={index}>
+                            <td><input type="radio" className="checkmark" name="choice" value={choice} 
+                                onClick={(e) => changeChoice(e.target.value)}/>
+                            </td>
+                            <td style={{paddingLeft: '10px', paddingBottom: '8px'}}>{choice}</td>
+                        </tr>
+                    ))
+                }
+                </tbody>
+            </table>
+        </div>
     )
 }
 

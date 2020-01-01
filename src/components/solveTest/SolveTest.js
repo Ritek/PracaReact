@@ -50,7 +50,7 @@ function SolveTest({match}) {
         })
     }
 
-    const sendSolved = (move) => {
+    const sendSolved = () => {
         if (!isTeacher) {
             Axios.post('/api/tests/savesolved', {test: testRef.current}).then(res => {
                 console.log(res.body);
@@ -133,8 +133,8 @@ function SolveTest({match}) {
             }
 
             <div className="mb-4 timer-div">
-                {timer !== undefined &&
-                    <Timer time={timer} delay={delay} sendSolved={sendSolved}/>
+                {timer !== undefined && isTeacher !== undefined &&
+                    <Timer time={timer} delay={delay} sendSolved={sendSolved} isTeacher={isTeacher}/>
                 }
 
                 <button className="btn btn-danger" onClick={() => sendSolved(true)}>Save and exit</button>

@@ -5,7 +5,7 @@ function AddTestsModal(props) {
     return (
         <Modal show={props.showModal} onHide={props.handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Select props.tests to add</Modal.Title>
+                <Modal.Title>Select tests to add</Modal.Title>
             </Modal.Header>
 
             <Modal.Body style={{maxHeight: 'calc(100vh - 210px)', overflowY: 'auto'}}>
@@ -37,7 +37,7 @@ function AddTestsModal(props) {
                 {props.tests !== undefined &&
                     props.tests.notInGroup !== undefined && props.tests.notInGroup.length === 0 &&
                     <div className="jumbotron">
-                        <h3>All your props.tests are already assigned to this group.</h3>
+                        <h3>All your tests are already assigned to this group.</h3>
                     </div>
                 }
             </Modal.Body>

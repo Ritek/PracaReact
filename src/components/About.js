@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 function About() {
   return (
     <div className="about">
-      <h1>About Us</h1>
+      <h1>About us</h1>
 
       <div style={{marginBottom: '50px'}}>
         <p>JustTest is a simple but powerfull tool for creating tests and quizes.</p>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import BlanksLine from "./BlanksLine";
+import ShowImage from './ShowImage';
 
 function Blanks(props) {
   const [state, setState] = useState(props.question);
@@ -15,6 +16,10 @@ function Blanks(props) {
   useEffect(() => {
     props.updateTest(state, props.questionNum);
   }, [state])
+
+  useEffect(() => {
+    console.log("Image", state.picture);
+  }, [state.picture])
 
   const dragStart = (e, value) => {
     const target = e.target;
@@ -32,6 +37,10 @@ function Blanks(props) {
 
   return (
     <div style={{ fontSize: "20px" }}>
+      {state.picture !== undefined &&
+        <ShowImage image={state.picture} size={state.pictureSize}/>
+      }
+
       <div className="mb-3">
         {
           state.sentencesArr.map((line, lineIndex) => (
@@ -41,7 +50,7 @@ function Blanks(props) {
       </div>
 
       <div>
-        {state.blanks !== undefined &&
+        {state.blanks !== undefined && state.blanks !== null &&
           state.blanks.map((blank, index) => (
             <p
               key={index}

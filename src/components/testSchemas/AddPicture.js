@@ -57,11 +57,11 @@ function AddQuestion(props) {
             <div className="picture-div" style={{position: 'relative'}}>
                 <div style={{margin: 'auto', maxWidth: '800px', maxHeight: '700px', }}>
                     <label htmlFor={`fi-${props.state.id}`} id={`li-${props.state.id}`}>
-                        {picture.image !== undefined ?
+                        {picture.image64 !== undefined ?
                             <img className="img-fluid" 
                                 width={picture.size+'%'} 
                                 style={{border: '1px dashed blue', maxWidth: '800px', }}
-                                src={picture.image.toString().includes('/') ? ("/"+picture.image) : URL.createObjectURL(picture.image)}
+                                src={`data:image/png;base64,${picture.image64}`}
                             />
                             :
                             <p className="btn btn-primary">Add Picture</p>
@@ -69,7 +69,7 @@ function AddQuestion(props) {
                     </label>
                 </div>
                 
-                {picture.image !== undefined &&
+                {picture.image64 !== undefined &&
                     <div>
                         <p className="close" style={{fontSize: '30px'}} onClick={() => delPicture()}>&times;</p>
                         <input type="range" min="40" max="80" id="rangeVert" 
