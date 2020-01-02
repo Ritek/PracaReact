@@ -66,6 +66,7 @@ function TestList() {
 
     const deleteTest = (id) => {
         console.log("id:", id);
+        
         for (let i=0;i<list.userTests.length;i++) {
             if (list.userTests[i]._id === id) {
                 setSelected({id: id, array: "users", index: i});
@@ -76,6 +77,7 @@ function TestList() {
                 setSelected({id: id, array: "others", index: i});
             }
         }
+        
         handleModalShow();
     }
 

@@ -36,11 +36,6 @@ function AddQuestion(props) {
     }
 
     useEffect(() => {
-        console.log('type:', typeof(picture.image));
-        //console.log("initial:", picture);
-    }, [])
-
-    useEffect(() => {
         props.setPicture(picture);
     }, [picture])
 
@@ -61,7 +56,7 @@ function AddQuestion(props) {
                             <img className="img-fluid" 
                                 width={picture.size+'%'} 
                                 style={{border: '1px dashed blue', maxWidth: '800px', }}
-                                src={`data:image/png;base64,${picture.image64}`}
+                                src={picture.image !== undefined ? URL.createObjectURL(picture.image) : (`data:image/png;base64,${picture.image64}`)}
                             />
                             :
                             <p className="btn btn-primary">Add Picture</p>

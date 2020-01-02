@@ -10,7 +10,7 @@ function ShowImage(props) {
 
     return (
         <div style={{border: 'solid 1px black'}}>
-            <img src={"/"+props.image} width={`${props.size-10}%`} style={picStyle}/>
+            <img src={`data:image/png;base64,${props.image}`} width={`${props.size-10}%`} style={picStyle}/>
         </div>
     )
 }

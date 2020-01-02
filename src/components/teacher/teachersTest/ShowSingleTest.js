@@ -7,7 +7,7 @@ function ShowSingleTest(props) {
             <div className="card-body"> 
                 <h3 className="text-left">Name: {props.test.name}</h3>
                 <div className="mb-4">
-                    {
+                    {props.test.tags.length > 0 &&
                         props.test.tags.map((tag, index2) => (
                             <div key={index2} className="badge badge-primary m-1" style={{cursor: 'pointer'}} value={tag} 
                                 onClick={() => props.searchTag({tag})}><h4>{tag}</h4>

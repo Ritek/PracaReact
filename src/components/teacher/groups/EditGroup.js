@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
-import decode from 'jwt-decode'
 
 import AddOrDeleteMembers from './AddOrDeleteMembers'
-
-import ChangeGroupDetails from './ChangeGroupDetails'
 import AddOrDeleteTest from './AddOrDeleteTest'
 
+import ChangeGroupDetails from './ChangeGroupDetails'
 import useCheckForbidden from '../../../hooks/validateCaracters'
 
 function EditGroup({match}) {
@@ -20,8 +18,7 @@ function EditGroup({match}) {
         setGroup({...group, members: students});
     }
 
-    const fetchData = (groupId) => {
-        console.log("groupId:", groupId);
+    const fetchData = () => {
         Axios.post('/api/groups/getgroup', {groupId: match.params.id}).then(res => {
             console.log('getGroup', res.data);
             setGroup(res.data.group);

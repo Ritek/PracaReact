@@ -25,7 +25,7 @@ function AddTestsModal(props) {
                                 props.tests.notInGroup.map((test, index) => (
                                     <tr key={index}>
                                         <td>{test.name}</td>
-                                        <td>{test.tags.join()}</td>
+                                        <td>{test.tags.length > 0 && test.tags.join()}</td>
                                         <td><input type="checkbox" onClick={() => props.addNewTests(test._id)}/></td>
                                     </tr>
                                 ))

@@ -128,7 +128,7 @@ const useQuestions = (object, exNum, handleChange) => {
         delete temp.picture;
         delete temp.image64;
         delete temp.pictureSize;
-        setState({...state, temp});
+        setState(temp);
     }
 
     useEffect(() => {
