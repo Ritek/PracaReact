@@ -4,13 +4,20 @@ import placeholder from '../../placeholder.png'
 function UserDetails(props) {
 
     const [image, setImage] = useState(undefined);
-    useEffect(() => {
+
+/*     useEffect(() => {
         if (props.user.avatarPrev !== undefined) setImage(props.user.avatarPrev);
         else {
             if (props.user.avatar !== undefined && props.user.avatar !== 'staticnull') setImage(props.user.avatar);
             else setImage(placeholder)
         }
-    }, [props.user.avatar, props.user.avatarPrev])
+    }, [props.user.avatar, props.user.avatarPrev]) */
+
+    useEffect(() => {
+        if (props.user.avatarPrev !== undefined) setImage(props.user.avatarPrev);
+        else if (props.user.avatarPrev === undefined && props.user.avatar === undefined) setImage(placeholder);
+        else setImage(`data:image/png;base64,${props.user.avatar}`);
+    }, [props.user.avatar, props.user.avatarPrev]) 
 
     const imageStyle = {
         maxWidth: '200px', 

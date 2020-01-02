@@ -19,7 +19,7 @@ function EditProfile(props) {
     const getUserDetails = () => {
         console.log('getdetails');
         Axios.post('/api/userinfo/getdetails').then(res => {
-            setUser({...user, login: res.data.login, email: res.data.email, avatar: `static${res.data.imgPath}`});
+            setUser({...user, login: res.data.login, email: res.data.email, avatar: res.data.imgPath});
         }).catch(error => {
             console.log(error);
         });
