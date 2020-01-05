@@ -52,10 +52,20 @@ function SolveTest({match}) {
 
     const sendSolved = () => {
         if (!isTeacher) {
-            Axios.post('/api/tests/savesolved', {test: testRef.current}).then(res => {
+            let test = testRef.current;
+            for (let i=0;i<test.questions.length;i++) {
+                if (test.questions[i].picture !== undefined) {
+                    test.questions[i].picture = "";
+                    test.questions[i].image64 = "";
+                }
+            }
+
+            console.log("XXX", test);
+
+            Axios.post('/api/tests/savesolved', {test: test}).then(res => {
                 console.log(res.body);
             }).catch(error => {
-                console.log(error);
+                //console.log(error);
             });
 
             console.log('Attemp uploaded');
@@ -116,13 +126,13 @@ function SolveTest({match}) {
 
     return (
         <div>
-            <div>
+            {isTeacher === true &&
                 <button className="btn btn-success print-button" 
                     style={{position: 'fixed', right: '20px', bottom: '20px'}}
                     onClick={() => window.print()}
                     >Print
                 </button>
-            </div>
+            }
 
             {redirect === true && isTeacher === false &&
                 <Redirect to='/user/studentdashboard' />

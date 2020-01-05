@@ -12,7 +12,7 @@ function Choices(props) {
                 canEdit={props.canEdit}
             />
 
-            <div className={props.question.correctAns === true ? 'alert alert-success card-body' : 'alert alert-danger card-body'}>
+            <div className={props.question.correct === props.question.points ? 'alert alert-success card-body' : 'alert alert-danger card-body'}>
                 <table className="table-borderless">
                     <thead>
                         <tr>

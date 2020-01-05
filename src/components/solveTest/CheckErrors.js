@@ -79,7 +79,7 @@ function CheckErrors({match}) {
                         <div className="card-body" style={{fontSize: '24px'}}>
                             Points scored: {test.allGotPoints}<br/>
                             Max score: {test.allPossiblePoints}<br/>
-                            Percentage: {(test.allGotPoints/test.allPossiblePoints).toFixed(2)}%<br/>
+                            Percentage: {((test.allGotPoints/test.allPossiblePoints)*100).toFixed(2)}%<br/>
                         </div>
                     </div>
                 }
