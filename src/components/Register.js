@@ -27,8 +27,6 @@ function Register() {
         console.log(values);
         let newUser = {
             login: values.login,
-            name: values.name,
-            surname: values.surname,
             email: values.email,
             password: values.password,
         };
@@ -58,28 +56,12 @@ function Register() {
                 <p className="font-italic">You do not have to provide login now. You will be able o change it later.</p>
 
                 <div className="input-group">
-                    <input ref={focusInput} type="text" id="login" name="login" className={'form-control'}
+                    <input ref={focusInput} type="text" id="login" name="login"
                         value={values.login} onChange={e => handleChange(e)} placeholder="Login"
-                    /> 
-                </div>
-
-                <div className="input-group">
-                    <input type="text" name="name" 
-                        value={values.name} onChange={e => handleChange(e)} placeholder="Name" required
-                        className={ errors.name ? 'form-control is-invalid' : 'form-control'}
+                        className={ errors.login ? 'form-control is-invalid' : 'form-control'}
                     /> 
                     <div className="invalid-feedback">
-                        {errors.name}
-                    </div>
-                </div>
-
-                <div className="input-group">
-                    <input type="text" name="surname" 
-                        value={values.surname} onChange={e => handleChange(e)} placeholder="Surname" required
-                        className={ errors.surname ? 'form-control is-invalid' : 'form-control'}
-                    /> 
-                    <div className="invalid-feedback">
-                        {errors.surname}
+                        {errors.login}
                     </div>
                 </div>
 

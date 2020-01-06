@@ -1,5 +1,16 @@
 export default function validateLogin(values) {
     let errors = {};
+    const forbidden = ['*', '/', '\\', '{', '}', ';', "'", "\"", "<", ">", "$", 
+                            ":", "?", "-", "+", "=", "(", ")", "%"];
+
+    const checkChars = (str) => {
+        if (forbidden.some(function(v) { return values.login.indexOf(v) >= 0})) return true;
+        else return false;
+    }
+
+    if (values.loginTouched) {
+        if (checkChars(values.login)) errors.login = "Only letters and numbers allowed!";
+    }
 
     if (values.emailTouched) {
         if (!values.email) {

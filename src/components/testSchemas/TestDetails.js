@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Modal from 'react-bootstrap/Modal'
+//import useCheckForbidden from '../../hooks/validateCaracters'
 
 function TestDetails(props) {
 
@@ -9,9 +10,18 @@ function TestDetails(props) {
         access: props.access || "",
     });
 
+    const [errors, setErrors] = useState(false);
+
     const setName = (event) => {
         setDetails({...details, name: event.target.value});
     }
+
+    useEffect(() => {
+    }, [details.name])
+
+    useEffect(() => {
+        console.log(errors);
+    }, [errors])
 
     const setTags = (event) => {
         let temp = event.target.value.split(',');
@@ -49,19 +59,28 @@ function TestDetails(props) {
             <Modal.Body>
                 
                 <label htmlFor="name">Name:</label>
-                <input type="text" className="form-control mb-2" id="name" name="name" 
+                {/* <input type="text" className="form-control mb-2" id="name" name="name" 
                     value={details.name} onChange={(e) => setName(e)}
-                />
+                /> */}
 
+                <div className="input-group">
+                    <input type="text" id="name" name="name"
+                        value={details.name} onChange={(e) => setName(e)} placeholder="Test name"
+                        className={ errors ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        Only letters and numbers allowed!
+                    </div>
+                </div>
 
                 <label htmlFor="tags">Tags:</label>
-                <input type="text" className="form-control mb-2" id="tags" name="tags" 
+                <input type="text" className="form-control mb-2" id="tags" name="tags" placeholder="e.g. tag1,tag2"
                     value={details.tags} onChange={(e) => setTags(e)}
                 />
 
 
                 <label htmlFor="access">Users who have access to this test:</label>
-                <input type="text" className="form-control mb-4" id="access" name="access" 
+                <input type="text" className="form-control mb-4" id="access" name="access" placeholder="<user email>"
                     value = {details.access !== null ? details.access : ""} onChange={(e) => setAccess(e)}
                 />
 

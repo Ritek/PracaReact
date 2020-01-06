@@ -36,7 +36,12 @@ const useForm = (callback, validate) => {
     }
 
     const clearForm = () => {
-        setValues({...values, login: "", email: "", name: "", surname: "", nameTouched: false, surnameTouched: false, emailTouched: false, password: "", passwordTouched: false, password2: ""});
+        setValues({...values, 
+            login: "", loginTouched: false,  
+            email: "", emailTouched: false, 
+            password: "", passwordTouched: false, 
+            password2: ""
+        });
     }
 
     const handleChange = (event) => {
