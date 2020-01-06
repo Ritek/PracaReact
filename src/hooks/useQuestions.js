@@ -132,7 +132,7 @@ const useQuestions = (object, exNum, handleChange) => {
     }
 
     useEffect(() => {
-        console.log('state changed!!!');
+        //console.log('state changed!!!');
         //console.log(state);
     }, [state])
 

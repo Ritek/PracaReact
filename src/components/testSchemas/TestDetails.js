@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Modal from 'react-bootstrap/Modal'
-//import useCheckForbidden from '../../hooks/validateCaracters'
+import useCheckForbidden from '../../hooks/validateCaracters'
 
 function TestDetails(props) {
 
@@ -10,20 +10,17 @@ function TestDetails(props) {
         access: props.access || "",
     });
 
-    const [errors, setErrors] = useState(false);
+    const [errors, setErrors] = useState({nameError: false, tagsError: false});
+    const {checkString} = useCheckForbidden();
 
     const setName = (event) => {
         setDetails({...details, name: event.target.value});
     }
 
-    useEffect(() => {
-    }, [details.name])
-
-    useEffect(() => {
-        console.log(errors);
-    }, [errors])
-
     const setTags = (event) => {
+        if (checkString(event.target.value)) setErrors({...errors, tagsError: true});
+        else (setErrors({...errors, tagsError: false}));
+
         let temp = event.target.value.split(',');
         let temp2 = [];
         for (let i=0;i<temp.length;i++) {
@@ -31,6 +28,14 @@ function TestDetails(props) {
         }
         setDetails({...details, tags: temp2});
     }
+
+    useEffect(() => {
+        setErrors({...errors, nameError: checkString(details.name)});
+    }, [details.name])
+
+    useEffect(() => {
+        console.log(errors);
+    }, [errors])
 
     const setAccess = (event) => {
         setDetails({...details, access: event.target.value});
@@ -59,14 +64,10 @@ function TestDetails(props) {
             <Modal.Body>
                 
                 <label htmlFor="name">Name:</label>
-                {/* <input type="text" className="form-control mb-2" id="name" name="name" 
-                    value={details.name} onChange={(e) => setName(e)}
-                /> */}
-
                 <div className="input-group">
                     <input type="text" id="name" name="name"
                         value={details.name} onChange={(e) => setName(e)} placeholder="Test name"
-                        className={ errors ? 'form-control is-invalid' : 'form-control'}
+                        className={ errors.nameError ? 'form-control is-invalid' : 'form-control'}
                     /> 
                     <div className="invalid-feedback">
                         Only letters and numbers allowed!
@@ -74,20 +75,30 @@ function TestDetails(props) {
                 </div>
 
                 <label htmlFor="tags">Tags:</label>
-                <input type="text" className="form-control mb-2" id="tags" name="tags" placeholder="e.g. tag1,tag2"
-                    value={details.tags} onChange={(e) => setTags(e)}
-                />
+                <div className="input-group">
+                    <input type="text" id="tags" name="tags"
+                        value={details.tags} onChange={(e) => setTags(e)} placeholder="e.g. tag1,tag2"
+                        className={ errors.tagsError ? 'form-control is-invalid' : 'form-control'}
+                    /> 
+                    <div className="invalid-feedback">
+                        Only letters and numbers allowed!
+                    </div>
+                </div>
 
 
                 <label htmlFor="access">Users who have access to this test:</label>
-                <input type="text" className="form-control mb-4" id="access" name="access" placeholder="<user email>"
+                <input type="text" className="form-control mb-4" id="access" name="access" placeholder="user email"
                     value = {details.access !== null ? details.access : ""} onChange={(e) => setAccess(e)}
                 />
 
             </Modal.Body>
 
             <Modal.Footer>
-                <button className="btn btn-primary mb-4" onClick={() =>(handleModalClose(), props.saveTest())}>Save</button>
+                <button className="btn btn-primary mb-4" 
+                    onClick={() =>(handleModalClose(), props.saveTest())}
+                    disabled={errors.nameError || errors.tagsError || details.name.length === 0}
+                    >Save
+                </button>
             </Modal.Footer>
         </Modal>
     )

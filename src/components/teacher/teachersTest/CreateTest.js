@@ -45,7 +45,7 @@ function CreateTest({match}) {
         else arr.splice(index, 1);
         setTest({...test, questions: arr});
 
-        console.log('handle delete');
+        //console.log('handle delete');
     }
 
     const handleReorder = (direction, oldPos) => {
@@ -61,7 +61,7 @@ function CreateTest({match}) {
         [copyArr[oldPos], copyArr[newPos]] = [copyArr[newPos], copyArr[oldPos]];
         setTest({...test, questions: copyArr});
 
-        console.log('handle reorder');
+        //console.log('handle reorder');
     }
 
     const changeDetails = (name, tags, access) => {
@@ -69,7 +69,7 @@ function CreateTest({match}) {
     }
 
     const saveTest = () => {
-        console.log('Saving test');
+        //console.log('Saving test');
         const {id} = decode(sessionStorage.getItem('token'));
         let url = "";
         let msg = "Test successfuly saved!";
@@ -78,21 +78,21 @@ function CreateTest({match}) {
         fd.append('test', JSON.stringify(test));
         
         if (match.params.id === undefined && test.author === undefined) {
-            console.log('New Test');
+            //console.log('New Test');
             url = '/api/tests/createtest';
         }
         else if (test.author !== id) {
-            console.log('New Test');
+            //console.log('New Test');
             url = '/api/tests/createtest';
         }
         else {
-            console.log('Update Test');
+            //console.log('Update Test');
             url = '/api/tests/edittest';
             msg = "Test successfuly updated!";
         }
         
         Axios.post(url, fd).then(res => {
-            console.log('server response:', res);
+            //console.log('server response:', res);
             setTest({...test, author: id});
             setShowToast({show: true, msg: msg});
         }).catch(error => {
@@ -101,7 +101,7 @@ function CreateTest({match}) {
     }
 
     useEffect(() => {
-        console.log(">", showToast);
+        //console.log(">", showToast);
     }, [showToast])
 
     useEffect(() => {
@@ -111,7 +111,7 @@ function CreateTest({match}) {
     const getTest = () => {
         const {id} = decode(sessionStorage.getItem('token'));
         if ( match.params.id !== undefined ) {
-            console.log('id', match.params.id);
+            //console.log('id', match.params.id);
             Axios.post('/api/tests/gettest', {testId: match.params.id, userId: id}).then(res => {
                 console.log("data", res.data);
                 setTest(res.data);

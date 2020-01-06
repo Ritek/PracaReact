@@ -4,7 +4,6 @@ import decode from 'jwt-decode';
 import useCheckForbidden from '../../../hooks/validateCaracters'
 
 import {Redirect} from 'react-router-dom'
-import Toast from 'react-bootstrap/Toast'
 
 function CreateGroup() {
     const focusInput = useRef(null);
@@ -97,7 +96,7 @@ function CreateGroup() {
                             className={ errors.passwordError ? 'form-control is-invalid' : 'form-control'}
                         /> 
                         <div className="invalid-feedback">
-                            Name should only contain letters and numbers! 
+                            Password should only contain letters and numbers! 
                         </div>
                     </div>
 

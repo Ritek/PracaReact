@@ -1,8 +1,8 @@
 function useCheckForbidden() {
+    const forbidden = ['*', '/', '\\', '{', '}', ';', "'", "\"", "<", ">", "$", 
+                        ":", "?", "-", "+", "=", "(", ")"];
 
     const filterForbidden = (state) => {
-        const forbidden = ['*', '/', '\\', '{', '}', ';', "'", "\"", "<", ">", "$", 
-                            ":", "?", "-", "+", "=", "(", ")"];
 
         let obj = {};
 
@@ -16,8 +16,14 @@ function useCheckForbidden() {
         return obj;
     }
 
+    const checkString = (state) => {
+        if (forbidden.some(function(v) { return state.indexOf(v) >= 0})) return true;
+        else return false;
+    }
+
     return {
         filterForbidden,
+        checkString,
     }
 }
 
