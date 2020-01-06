@@ -1,7 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import decode from 'jwt-decode'
 
 function ShowSingleTest(props) {
+    const userId = decode(sessionStorage.getItem('token')).id;
+
     return (
         <div className="card mb-5">
             <div className="card-body"> 
@@ -18,9 +21,15 @@ function ShowSingleTest(props) {
             </div>
 
             <div className="card-footer text-right">
-                <Link to={`/user/solvetest/${props.test._id}`} className="btn btn-primary mr-2">Preview</Link>
+                {props.test.author === userId &&
+                    <Link to={`/user/solvetest/${props.test._id}`} className="btn btn-primary mr-2">Preview</Link>
+                }
+
                 <Link to={`/user/edittest/${props.test._id}`} className="btn btn-primary mr-2">Edit</Link>
-                <button className="btn btn-danger" onClick={() => props.deleteTest(props.test._id)}>Delete</button>
+
+                {props.test.author === userId &&
+                    <button className="btn btn-danger" onClick={() => props.deleteTest(props.test._id)}>Delete</button>
+                }
             </div>
         </div>
     )

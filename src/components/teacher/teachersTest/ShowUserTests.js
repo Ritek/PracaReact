@@ -33,7 +33,7 @@ function ShowUserTests(props) {
                 temp = temp2;
             }
 
-            if (props.search.tags.length !== 0) {
+            if (props.search.tags !== "") {
                 let temp2 = [];
                 for (let i=0;i<temp.length;i++) if (checkTags(initial[i])) temp2.push(temp[i]);
                 temp = temp2;

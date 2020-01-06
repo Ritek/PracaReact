@@ -157,7 +157,7 @@ function TestList() {
 
             <h3 className="text-left">Other users tests</h3>
             {list.othersTests !== undefined && list.othersTests.length !== 0 ?
-                <ShowTests initial={list.othersTests} search={search.content} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
+                <ShowTests initial={list.othersTests} search={search} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
                     <h2 className="display-4">You haven't been granted acces to other users tests</h2>

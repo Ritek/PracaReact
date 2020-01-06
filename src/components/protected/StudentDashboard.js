@@ -20,6 +20,8 @@ function StudentDashboard() {
                 </div>
             </Link>
 
+            <div className="w-100" />
+
             <Link className="col-sm tile" to='/user/checkgraded'>
                 <div className="box">
                     <i className="far fa-check-square"></i>

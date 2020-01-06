@@ -66,7 +66,7 @@ function CheckErrors({match}) {
                 <p className="alert alert-primary">{response.msg}</p>
             }
 
-            {test !== undefined && id === test.author && 
+            {test !== undefined && id === test.author && test.status !== "graded" &&
                 <div className="jumbotron mb-5">
                     <h3 className="mb-3">Save and mark as graded</h3>
                     <button className="btn btn-primary" onClick={() => saveChanges()}>Save Changes</button>

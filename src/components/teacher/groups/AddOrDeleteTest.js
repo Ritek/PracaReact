@@ -88,7 +88,13 @@ function AddOrDeleteTest(props) {
                                     <tr key={test.id}>
                                         <th><button className="btn btn-primary" onClick={() => showTimeModal(test.id, test.time, test.autoCheck)}>Edit</button></th>
                                         <th>{test.name}</th>
-                                        <th>{test.tags}</th>
+
+                                        {test.tags.length > 0 ?
+                                            <th>{test.tags.join(', ')}</th>
+                                            :
+                                            <th>{test.tags}</th>
+                                        }
+                                        
                                         <th>{test.time}</th>
                                         { test.autoCheck ? <th>&#10004;</th> : <th>&#10006;</th> }
                                         <th><input type="checkbox" onClick={() => delSelectedTests(test.id)}></input></th>
