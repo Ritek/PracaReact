@@ -21,7 +21,11 @@ function Register() {
         focusInput.current.focus();
     }, []);
 
-    const { values, handleChange, handleSubmit, errors, handleServerError, serverError, clearForm, blockSubmit } = useForm(submit, validate);
+    useEffect(() => {
+        console.log();
+    }, [])
+
+    const { values, handleChange, handleChangeType, handleSubmit, errors, handleServerError, serverError, clearForm, blockSubmit } = useForm(submit, validate);
 
     function submit() {
         console.log(values);
@@ -29,6 +33,7 @@ function Register() {
             login: values.login,
             email: values.email,
             password: values.password,
+            type: values.type,
         };
 
         Axios.post('api/user/register', newUser).then(res => {
@@ -96,27 +101,24 @@ function Register() {
                 </div>
 
                 <div className="input-group">
+                    <div className="input-group-prepand">
+                        <label className="input-group-text" htmlFor="isTeacher">Account type</label>
+                    </div>
+                    <select 
+                        name="isTeacher"
+                        onChange={(e) => handleChangeType(e.target.value)} 
+                        className="custom-select" id="isTeacher"
+                    >
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+
+                <div className="input-group">
                     <button type="submit" className="btn btn-primary"
                         onClick={e => handleSubmit(e)} style={{margin: 'auto'}}>Create account
                     </button>
                 </div>
-                {/* <input ref={focusInput} type="text" className={"form-control"} placeholder="Enter your login" name="login" value={values.login} onChange={e => handleChange(e)}></input><br />
-                <br />
-
-                <input type="text" className={errors.email ? "form-control is-invalid": "form-control"} placeholder="Enter your email" name="email" value={values.email} onChange={e => handleChange(e)}></input><br />
-                {errors.email && <p className='text-danger'>{errors.email}</p>}
-                <br />
-
-                <input type="text" className={errors.password ? "form-control is-invalid": "form-control"} placeholder="Enter your password" name="password" value={values.password} onChange={e => handleChange(e)}></input><br />
-                {errors.password && <p className='text-danger'>{errors.password}</p>}
-                <br />
-
-                <input type="text" className={errors.password2 ? "form-control is-invalid": "form-control"} placeholder="Repeat the password" name="password2" value={values.password2} onChange={e => handleChange(e)}></input><br />
-                {errors.password2 && <p className='text-danger'>{errors.password2}</p>}
-                <br />
-
-                <button type="submit" className="btn btn-primary" onClick={e => handleSubmit(e)}>Register</button>
-                <br /> */}
             </form>
             <div className="card-footer text-muted">
                 <Link to='/login'><p>Already have an account? Log in here >></p></Link>

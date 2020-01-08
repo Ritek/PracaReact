@@ -4,12 +4,6 @@ const useForm = (callback, validate) => {
     const [values, setValues] = useState({
         login: "",
 
-        name: "",
-        nameTouched: false,
-
-        surname: "",
-        surnameTouched: false,
-
         email: "",
         emailTouched: false,
 
@@ -18,6 +12,8 @@ const useForm = (callback, validate) => {
 
         password2: "",
         password2Touched: false,
+
+        type: "student",
     });
 
     const [errors, setErrors] = useState({});
@@ -50,6 +46,10 @@ const useForm = (callback, validate) => {
         setIsSubmiting(false);
     }
 
+    const handleChangeType = (value) => {
+        setValues({...values, type: value});
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (values.emailTouched === false || values.passwordTouched === false) {
@@ -76,6 +76,7 @@ const useForm = (callback, validate) => {
     return {
         values,
         handleChange,
+        handleChangeType,
         handleSubmit,
         errors,
 
