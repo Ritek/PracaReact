@@ -13,32 +13,20 @@ function Blank(props) {
         props.updateBlank(value.id, card);
     }
 
+    const touchDrop = () => {
+        if (props.sel !== "") {
+            setValue({...value, empty: false, display: props.sel});
+        }
+    }
+
     const dragOver = (e) => {
         e.preventDefault();
     }
 
     if (value.empty === true) return(
-        <p style={{borderStyle: 'dotted', float: 'left', minWidth: '50px'}} className="ml-2" onDrop={drop} onDragOver={dragOver}>{value.display}</p>
+        <p style={{borderStyle: 'dotted', float: 'left', minWidth: '50px'}} className="ml-2" onDrop={drop} onDragOver={dragOver} onTouchEnd={() => touchDrop()}>{value.display}</p>
     )
     else return(<p className="badge badge-primary ml-2" style={{display: 'inline-block', float: 'left'}} onDrop={drop} onDragOver={dragOver}>{value.display}</p>)
 }
 
 export default Blank
-
-
-/*
-    return (
-        <div style={{display: 'inline-block'}}>
-            {value.empty === true ?
-                <p style={{borderStyle: 'dotted'}} onDrop={drop} onDragOver={dragOver}>
-                    {value.display}
-                </p>
-                :
-                <p className="badge badge-primary" onDrop={drop} onDragOver={dragOver}>
-                    {value.display}
-                </p>
-            }
-            
-        </div>
-    )
-*/

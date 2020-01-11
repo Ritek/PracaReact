@@ -8,7 +8,7 @@ function BlanksLine(props) {
     <div className="row ml-0">
       {words !== undefined &&
         words.map((word, i) => {
-          if (word.includes("[")) return <Blank key={i} index={word.substring(1,word.length-1)} updateBlank={props.updateBlank}/>;
+          if (word.includes("[")) return <Blank key={i} index={word.substring(1,word.length-1)} updateBlank={props.updateBlank} sel={props.sel}/>;
           else
             return (
               <p key={i} style={{ float: "left" }} className="ml-2">

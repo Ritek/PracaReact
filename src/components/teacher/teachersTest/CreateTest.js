@@ -68,6 +68,10 @@ function CreateTest({match}) {
         setTest({...test, name: name, tags: tags, access: access});
     }
 
+    const clearTest = () => {
+        setTest({name: "", tags: "",access: [], questions: []});
+    }
+
     const saveTest = () => {
         //console.log('Saving test');
         const {id} = decode(sessionStorage.getItem('token'));
@@ -95,17 +99,30 @@ function CreateTest({match}) {
             //console.log('server response:', res);
             setTest({...test, author: id});
             setShowToast({show: true, msg: msg});
+
+            sessionStorage.removeItem('test');
         }).catch(error => {
             console.log(error);
         })
     }
 
     useEffect(() => {
-        //console.log(">", showToast);
-    }, [showToast])
+        let test = sessionStorage.getItem('test');
+        if (test) setTest(JSON.parse(test));
+    }, [])
 
     useEffect(() => {
         console.log("new state", test);
+        //let temp = test;
+        let temp = JSON.parse(JSON.stringify(test));
+        for (let i=0;i<temp.questions.length;i++) {
+            if (temp.questions[i].image64 !== undefined) {
+                delete temp.questions[i].image64;
+                delete temp.questions[i].picture;
+                delete temp.questions[i].pictureSize;
+            }
+        }
+        sessionStorage.setItem('test', JSON.stringify(temp));
     }, [test])
 
     const getTest = () => {
@@ -144,8 +161,16 @@ function CreateTest({match}) {
                 </Toast.Body>
             </Toast>
 
-            <div className="card mb-5">
+            <div className="card mb-4">
                 <button className="btn btn-primary" onClick={() => setShowSave(true)}>Save</button>
+            </div>
+
+            <div className="text-right mb-5">
+                {test.questions.length > 0 && 
+                    <button className="btn btn-danger" style={{width: '100px'}}
+                        onClick={() => clearTest()}
+                    >Clear test</button>
+                }
             </div>
 
 

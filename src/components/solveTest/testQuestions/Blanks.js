@@ -5,6 +5,7 @@ import ShowImage from './ShowImage';
 
 function Blanks(props) {
   const [state, setState] = useState(props.question);
+  const [sel, setSel] = useState("");
 
   const updateBlank = (index, value) => {
     console.log('updateBlank', index, value);
@@ -41,10 +42,14 @@ function Blanks(props) {
         <ShowImage image={state.picture} size={state.pictureSize}/>
       }
 
+      {
+
+      }
+
       <div className="mb-3">
         {
           state.sentencesArr.map((line, lineIndex) => (
-            <BlanksLine key={lineIndex} line={line} updateBlank={updateBlank}/>
+            <BlanksLine key={lineIndex} line={line} updateBlank={updateBlank} sel={sel}/>
           ))
         }
       </div>
@@ -59,6 +64,7 @@ function Blanks(props) {
               style={{ fontSize: "20px" }}
               draggable="true"
               onDragStart={e => dragStart(e, { blank })}
+              onTouchEnd={e => setSel(blank)}
             >
               {blank}
             </p>
