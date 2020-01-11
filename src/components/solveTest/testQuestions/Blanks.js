@@ -5,6 +5,7 @@ import ShowImage from './ShowImage';
 
 function Blanks(props) {
   const [state, setState] = useState(props.question);
+  const [isMobile, setIsMobile] = useState(false);
   const [sel, setSel] = useState("");
 
   const updateBlank = (index, value) => {
@@ -21,6 +22,11 @@ function Blanks(props) {
   useEffect(() => {
     console.log("Image", state.picture);
   }, [state.picture])
+
+  useEffect(() => {
+    let temp = window.orientation > -1;
+    setIsMobile(temp);
+  }, [])
 
   const dragStart = (e, value) => {
     const target = e.target;
@@ -42,8 +48,8 @@ function Blanks(props) {
         <ShowImage image={state.picture} size={state.pictureSize}/>
       }
 
-      {
-
+      {isMobile &&
+        <p className="alert alert-success mb-4">On mobile tap blank and then place to insert!</p>
       }
 
       <div className="mb-3">

@@ -26,7 +26,7 @@ function Blank(props) {
     if (value.empty === true) return(
         <p style={{borderStyle: 'dotted', float: 'left', minWidth: '50px'}} className="ml-2" onDrop={drop} onDragOver={dragOver} onTouchEnd={() => touchDrop()}>{value.display}</p>
     )
-    else return(<p className="badge badge-primary ml-2" style={{display: 'inline-block', float: 'left'}} onDrop={drop} onDragOver={dragOver}>{value.display}</p>)
+    else return(<p className="badge badge-primary ml-2" style={{display: 'inline-block', float: 'left'}} onDrop={drop} onDragOver={dragOver} onTouchEnd={() => touchDrop()}>{value.display}</p>)
 }
 
 export default Blank

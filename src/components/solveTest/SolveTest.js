@@ -163,7 +163,7 @@ function SolveTest({match}) {
             { test.questions !== undefined &&
                 test.questions.map((question, index) => (
                     <div key={index} className="text-left" style={{marginBottom: "70px"}}>
-                        <h4>{question.points}p</h4>
+                        <h4>{question.points || 0}p</h4>
                         <h5 className="mb-4">{question.instruction}</h5>
 
                         {question.type === "open" &&
