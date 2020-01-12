@@ -80,7 +80,6 @@ function App() {
             
             {/* student routes */}
             <ProtectedRoute path="/user/studentdashboard" exact component={StudentDashboard} />
-
             <ProtectedRoute path="/user/joingroup" exact component={JoinGroup} />
             <ProtectedRoute path="/user/solvetest" exact component={AssignedTests} />
             <ProtectedRoute path="/user/solvetest/:id" component={SolveTest} />

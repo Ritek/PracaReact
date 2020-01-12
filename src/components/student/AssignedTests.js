@@ -18,7 +18,7 @@ function AssignedTests() {
 
     return (
         <div>
-            {list !== undefined && list.length !== 0 &&
+            {list !== undefined && list.length !== 0 ?
                 list.map((group, index) => (
                     <div key={index} className="card" style={{marginBottom: '70px'}}>
                         <div className="card-header"><h3>Tests from - {group[0].groupName}</h3></div>
@@ -46,6 +46,11 @@ function AssignedTests() {
                         </div>
                     </div>
                 ))
+                :
+                <div className="jumbotron">
+                    <h1>No test to solve!</h1>
+                    <h3>Looks like you have not been been assigned any test.</h3>
+                </div>
             }
         </div>
     )

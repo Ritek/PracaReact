@@ -9,7 +9,7 @@ function Home() {
     <div>
       <div className="home"></div>
       <div className="info">
-        <Logo className="logo" style={{color: "white"}}/>
+        <Logo className="logo" style={{width: '40vw'}}/>
         <div className="text">
           <h2>Welcome to JustTest</h2>
           <p>If this is your first visit, click <Link to='/about'>here</Link> to read more about our great tool.</p>

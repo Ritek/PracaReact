@@ -9,17 +9,13 @@ function UserDetails(props) {
         if (props.user.avatarPrev !== undefined) setImage(props.user.avatarPrev);
         else if (props.user.avatarPrev === undefined && props.user.avatar === undefined) setImage(placeholder);
         else setImage(`data:image/png;base64,${props.user.avatar}`);
-    }, [props.user.avatar, props.user.avatarPrev]) 
+    }, [props.user.avatar, props.user.avatarPrev]);
 
     const imageStyle = {
         maxWidth: '200px', 
         maxHeight: '200px', 
         cursor: 'pointer',
     }
-
-    useEffect(() => {
-        console.log('render');
-    }, [])
 
     return (
         <div className="card" style={{width: '80%', margin: 'auto'}}>
@@ -38,23 +34,32 @@ function UserDetails(props) {
 
                 <div className="form-group formGroup">
                     <label htmlFor="login">Login:</label>
-                    <input type="login" className="form-control" id="login" name="login" 
+                    <input type="login" id="login" name="login" 
+                        className={props.userErrors.loginError ? 'form-control is-invalid mb-2' : 'form-control'}
                         value={props.user.login}
                         onChange={e => props.handleUserChange(e)} 
                     />
+                    <div className="invalid-feedback">
+                        {props.userErrors.loginMsg}
+                    </div>
                 </div>
 
                 <div className="form-group formGroup">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" className="form-control" id="email" name="email" 
+                    <input type="email" id="email" name="email" 
+                        className={props.userErrors.emailError ? 'form-control is-invalid mb-2' : 'form-control'}
                         value={props.user.email}
                         onChange={e => props.handleUserChange(e)} 
                     />
+                    <div className="invalid-feedback">
+                        {props.userErrors.emailMsg}
+                    </div>
                 </div>
 
                 <div className="form-group formGroup">
                     <label htmlFor="oldPassword">Old password:</label>
-                    <input type="text" className="form-control" id="oldPassword" name="oldPassword" 
+                    <input type="text" id="oldPassword" name="oldPassword" 
+                        className='form-control'
                         value={props.user.oldPassword}
                         onChange={e => props.handleUserChange(e)} 
                     />
@@ -62,14 +67,19 @@ function UserDetails(props) {
 
                 <div className="form-group formGroup">
                     <label htmlFor="newPassword">New password:</label>
-                    <input type="text" className="form-control" id="newPassword" name="newPassword" 
+                    <input type="text" id="newPassword" name="newPassword" 
+                        className={props.blockSub.msg !== "" ? 'form-control is-invalid mb-2' : 'form-control'}
                         value={props.user.newPassword}
                         onChange={e => props.handleUserChange(e)} 
                     />
+                    <div className="invalid-feedback">
+                        {props.blockSub.msg}
+                    </div>
                 </div>
 
                 <div className="form-group formGroup text-center">
                     <button className="btn btn-danger"
+                        disabled={props.blockSub.block || props.userErrors.loginError || props.userErrors.emailError}
                         style={{marginTop: '10px'}} 
                         onClick={() => props.updateChanges()}>Save Changes
                     </button>

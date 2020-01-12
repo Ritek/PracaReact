@@ -33,29 +33,29 @@ function CheckGraded() {
 
             <div>
                 <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Test name</th>
-                                <th>Group name</th>
-                                <th>Time</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {tests !== undefined &&
-                                tests.map((test, idx) => (
-                                    test.name.includes(filter) &&
-                                    <tr key={idx}>
-                                        <td>{test.name}</td>
-                                        <td>{test.groupName}</td>
-                                        <td>{test.time}m</td>
-                                        <td><Link className="btn btn-primary" to={'/user/checkgraded/'+test._id}>Check</Link></td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
+                    <thead>
+                        <tr>
+                            <th>Test name</th>
+                            <th>Group name</th>
+                            <th>Time</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {tests !== undefined &&
+                            tests.map((test, idx) => (
+                                test.name.includes(filter) &&
+                                <tr key={idx}>
+                                    <td>{test.name}</td>
+                                    <td>{test.groupName}</td>
+                                    <td>{test.time}m</td>
+                                    <td><Link className="btn btn-primary" to={'/user/checkgraded/'+test._id}>Check</Link></td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     )
