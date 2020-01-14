@@ -30,7 +30,7 @@ function Open(props) {
 
             <div className="input-group">
                 <textarea className="regularExpression" name="regularExpression" onChange={(e) => handleRegularChange(e)} rows="4"
-                placeholder={"Enter regular expressions if you plan to use experimental automatic check. \r\nRemember every caracter matters during grading. Eg.\r\nsearched term\r\nand one more"} value={state.regularExpression}
+                placeholder={"Enter regular expressions if you plan to use experimental automatic check. \r\nRemember every character matters during grading, eg.\r\nsearched term\r\nand one more"} value={state.regularExpression}
                 />
             </div>
 

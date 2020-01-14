@@ -33,7 +33,7 @@ function ChangeTimeModal(props) {
 
             <Modal.Body className="input-group">
                 <div className="input-group">
-                    Enter time students will have to solve the test. (In minutes)
+                    Enter amount of time students will have to complete the test. (In minutes)
                 </div>
 
 

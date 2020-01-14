@@ -46,7 +46,7 @@ function Choices(props) {
                     </tbody>
                 </table>
 
-                <button className="btn btn-primary" onClick={() => addChoice()}>Add Choice</button>
+                <button className="btn btn-primary" onClick={() => addChoice()}>Add choice</button>
             </div>
 
             <QuestionBot moveQuestion={props.handleReorder} index={props.exNum}></QuestionBot>

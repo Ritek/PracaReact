@@ -76,7 +76,7 @@ function Login() {
                 <br />
             </form>
             <div className="card-footer text-muted">
-                <Link to='/register'><p>You don't have an account? Sign up now and try out >></p></Link>
+                <Link to='/register'><p>If you don't have an account? Sign up now and try out >></p></Link>
             </div>
         </div>
     </div>

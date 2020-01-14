@@ -151,7 +151,7 @@ function TestList() {
                 <ShowTests initial={list.userTests} search={search} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
-                    <h2 className="display-4">You have no tests in collection</h2>
+                    <h2 className="display-4">You have no tests in your collection</h2>
                 </div> 
             }
 
@@ -160,7 +160,7 @@ function TestList() {
                 <ShowTests initial={list.othersTests} search={search} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
-                    <h2 className="display-4">You haven't been granted acces to other users tests</h2>
+                    <h2 className="display-4">You haven't been granted access to other users tests</h2>
                 </div> 
             }
         </div>

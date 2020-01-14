@@ -47,7 +47,7 @@ function SeeSolved() {
 
             <div className="mb-5"></div>
 
-            <h3 className="text-left">Tests awaiting check</h3>
+            <h3 className="text-left">Tests awaiting grade</h3>
             {
                 awaitTests !== undefined && 
                 <ShowSolved solvedTests={awaitTests} makeRedirect={makeRedirect}/>
