@@ -59,7 +59,7 @@ function AddQuestion(props) {
                                 src={picture.image !== undefined ? URL.createObjectURL(picture.image) : (`data:image/png;base64,${picture.image64}`)}
                             />
                             :
-                            <p className="btn btn-primary">Add Picture</p>
+                            <p className="btn btn-primary">Add picture</p>
                         }
                     </label>
                 </div>

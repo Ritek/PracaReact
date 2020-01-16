@@ -9,7 +9,7 @@ function AssignedTests() {
 
     useEffect(() => {
         Axios.post('/api/tests/studenttests').then(res => {
-            console.log(res.data);
+            console.log('assigned', res.data);
             setList(res.data);
         }).catch(error => {
             console.log(error);

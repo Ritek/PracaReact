@@ -24,7 +24,7 @@ function TrueFalse(props) {
                     <tbody>
                         {
                             props.question.subquestions.map((sub, index) => (
-                                <tr key={index} className={sub[2] === "incorect" ? 'alert alert-danger' : 'alert alert-success'}>
+                                <tr key={index} className={sub[2] === "correct" ? 'alert alert-success': 'alert alert-danger'}>
                                     <td>{sub[0]}</td>
                                     <td>{sub[1]}</td>
                                 </tr>

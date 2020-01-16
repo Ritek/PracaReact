@@ -85,7 +85,7 @@ function UserDetails(props) {
                     </button>
                 </div>
             </div>
-            <div className="card-footer">Worning! Changing detials will couse a logout!</div>
+            <div className="card-footer">Warning! Changing details will cause a logout!</div>
         </div>
     )
 }

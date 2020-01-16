@@ -58,7 +58,7 @@ function Register() {
                 <h1>Registration</h1>
             </div>
             <form className="form card-body">
-                <p className="font-italic">You do not have to provide login now. You will be able o change it later.</p>
+                <p className="font-italic">You do not have to provide a login now. You will be able to change it later.</p>
 
                 <div className="input-group">
                     <input ref={focusInput} type="text" id="login" name="login"

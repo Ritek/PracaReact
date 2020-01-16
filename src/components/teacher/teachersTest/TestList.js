@@ -17,7 +17,10 @@ function TestList() {
     const [selected, setSelected] = useState({id: "", array: "", index: ""});
 
     const [showModal, setShowModal] = useState(false);
-    const handleModalClose = () => setShowModal(false);
+    const handleModalClose = (callback) => {
+        setShowModal(false);
+        if (callback) callback();
+    }
     const handleModalShow = () => setShowModal(true)
 
     useEffect(() => {
@@ -41,8 +44,8 @@ function TestList() {
     }, [search.tagsContent])
 
     useEffect(() => {
-        console.log(search.tags);
-    }, [search.tags])
+        console.log('list', list);
+    }, [list])
 
     const handleTags = (value) => {
         console.log(search.tags);
@@ -72,11 +75,6 @@ function TestList() {
                 setSelected({id: id, array: "users", index: i});
             }
         }
-        for (let i=0;i<list.othersTests;i++) {
-            if (list.userTests[i]._id === id) {
-                setSelected({id: id, array: "others", index: i});
-            }
-        }
         
         handleModalShow();
     }
@@ -86,21 +84,7 @@ function TestList() {
 
         Axios.post('/api/tests/deletetest', {userId: id, testId: selected.id}).then(res => {
             console.log(res);
-
-            if (selected.array === "users") {
-                let temp = [...list.userTests];
-                temp.splice(selected.index, 1);
-                setList({...list, userTests: temp});
-            }
-
-            if (selected.array === "others") {
-                let temp = [...list.othersTests];
-                temp.splice(selected.index, 1);
-                setList({...list, othersTests: temp});
-            }
-
-            handleModalClose();
-
+            window.location.reload();
         }).catch(error => {
             console.log(error);
         });
@@ -115,7 +99,7 @@ function TestList() {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <h3>By clicking YES the test will be permanently deleted and become imossible to recover.</h3>          
+                    <h3>By clicking YES the test will be permanently deleted and become impossible to recover.</h3>          
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -151,7 +135,7 @@ function TestList() {
                 <ShowTests initial={list.userTests} search={search} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
-                    <h2 className="display-4">You have no tests in collection</h2>
+                    <h2 className="display-4">You have no tests in your collection</h2>
                 </div> 
             }
 
@@ -160,7 +144,7 @@ function TestList() {
                 <ShowTests initial={list.othersTests} search={search} handleTags={handleTags} deleteTest={deleteTest} userId={id}/>
                 :
                 <div className="jumbotron">
-                    <h2 className="display-4">You haven't been granted acces to other users tests</h2>
+                    <h2 className="display-4">You haven't been granted access to other users tests</h2>
                 </div> 
             }
         </div>

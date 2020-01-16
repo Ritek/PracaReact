@@ -94,7 +94,8 @@ function SolveTest({match}) {
     }, [test.time])
 
     useEffect(() => {
-        let token = decode(sessionStorage.getItem('token'));
+        let token;
+        if (sessionStorage.getItem('token')) token = decode(sessionStorage.getItem('token'));
         if (test.author !== undefined && test.author === token.id) {
             setIsTeacher(true);
         }
@@ -119,10 +120,6 @@ function SolveTest({match}) {
         console.log("test >", test);
         testRef.current = test;
     }, [test.questions])
-
-    useEffect(() => {
-        console.log("window name", window.name);
-    }, [window.name])
 
     return (
         <div>

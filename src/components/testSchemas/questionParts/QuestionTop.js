@@ -14,7 +14,7 @@ function QuestionTop(props) {
                     <p className="col-sm-1 close-btn" style={{right: "20px", position: "absolute"}} onClick={() => props.handleDelete(props.exNum)}>&times;</p>
                 </div>
                 <div className="row">
-                    <h3 className="col-sm-6 text-left">Exercise nr. {props.exNum+1}</h3>
+                    <h3 className="col-sm-6 text-left">Question {props.exNum+1}</h3>
                 </div> 
             </span>
         </div>

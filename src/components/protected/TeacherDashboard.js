@@ -16,7 +16,7 @@ function TeacherDashboard() {
                 <Link className="col-sm tile" to='/user/menagegroups'>
                     <div className="box">
                         <i className="fas fa-user-cog"></i>
-                        <p className="link">Menage groups</p>
+                        <p className="link">Manage groups</p>
                     </div>
                 </Link>
 

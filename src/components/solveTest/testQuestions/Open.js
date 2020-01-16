@@ -23,6 +23,7 @@ function Open(props) {
             }
             
             <textarea className="textarea" style={{width: '100%'}} name="answer" value={state.answer}
+                placeholder='Type your answer here'
                 onChange={(e) => handleTextChange(e, e.target.value)}
             />
         </div>
