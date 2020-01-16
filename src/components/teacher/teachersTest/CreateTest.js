@@ -99,17 +99,10 @@ function CreateTest({match}) {
             //console.log('server response:', res);
             setTest({...test, author: id});
             setShowToast({show: true, msg: msg});
-
-            sessionStorage.removeItem('test');
         }).catch(error => {
             console.log(error);
         })
     }
-
-    useEffect(() => {
-        let test = sessionStorage.getItem('test');
-        if (test) setTest(JSON.parse(test));
-    }, [])
 
     useEffect(() => {
         console.log("new state", test);
@@ -122,7 +115,6 @@ function CreateTest({match}) {
                 delete temp.questions[i].pictureSize;
             }
         }
-        sessionStorage.setItem('test', JSON.stringify(temp));
     }, [test])
 
     const getTest = () => {
